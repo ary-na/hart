@@ -1,2 +1,2 @@
 export * from "./ContactMe";
-export * from "./UserLogin";
+export * from "./User";

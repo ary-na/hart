@@ -2,6 +2,7 @@
   "name": "harts",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,19 +10,29 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.946.0",
     "@hookform/resolvers": "^5.2.2",
+    "bcrypt": "^6.0.0",
     "clsx": "^2.1.1",
-    "mongoose": "^9.0.0",
+    "dotenv": "^17.2.3",
+    "jsonwebtoken": "^9.0.3",
+    "jwt-decode": "^4.0.0",
+    "mongoose": "^9.0.1",
     "next": "^16.0.7",
+    "next-auth": "^4.24.13",
     "next-themes": "^0.4.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-hook-form": "^7.68.0",
     "tailwind-merge": "^3.4.0",
+    "uuid": "^13.0.0",
     "zod": "^4.1.13"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/next-auth": "^3.13.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

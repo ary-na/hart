@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@harts/lib/utils";
 import { FormField, SubmitButton } from "@harts/lib/ui";
 import { contactMeSchema, ContactMeInput } from "@harts/lib/schemas";
-import { error } from "console";
 
 export default function ContactMeForm() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -37,10 +36,7 @@ export default function ContactMeForm() {
     if (data.file?.[0]) formData.append("file", data.file[0]);
 
     try {
-      const [res] = await Promise.all([
-        fetch("/api/contact", { method: "POST", body: formData }),
-        new Promise((r) => setTimeout(r, 2000)), // min 2s loading
-      ]);
+      const res = await fetch("/api/contact", { method: "POST", body: formData });
 
       if (res.ok) {
         alert("Message sent successfully!");

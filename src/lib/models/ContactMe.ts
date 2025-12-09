@@ -1,4 +1,7 @@
+// lib/models/ContactMe.ts
+
 import { Schema, models, model } from "mongoose";
+import { de } from "zod/locales";
 
 const ContactMeSchema = new Schema(
   {
@@ -20,7 +23,7 @@ const ContactMeSchema = new Schema(
       required: true,
     },
 
-    file: {
+    fileName: {
       type: String,
       required: false,
     },
@@ -28,5 +31,4 @@ const ContactMeSchema = new Schema(
   { timestamps: true }
 );
 
-const ContactMe = models.ContactMe || model("ContactMe", ContactMeSchema);
-export default ContactMe;
+export const ContactMe = models.ContactMe || model("ContactMe", ContactMeSchema);
