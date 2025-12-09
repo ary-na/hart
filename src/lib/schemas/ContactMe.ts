@@ -27,8 +27,8 @@ export const contactMeSchema = z.object({
       (files) =>
         !files ||
         files.length === 0 ||
-        (files[0]?.size && files[0].size <= 10 * 1024 * 1024),
-      { message: "Image must be under 10 MB" }
+        (files[0]?.size && files[0].size <= 20 * 1024 * 1024),
+      { message: "Image must be under 20 MB" }
     ),
 });
 
