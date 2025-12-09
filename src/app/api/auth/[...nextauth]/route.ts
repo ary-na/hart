@@ -1,5 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import NextAuth from "next-auth";
+import NextAuth from "next-auth/next";
 
 import { connectToDatabase } from "@harts/lib/db/mongodb";
 import { User as UserModel } from "@harts/lib/models/User";
