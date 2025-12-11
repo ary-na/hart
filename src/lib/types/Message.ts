@@ -4,7 +4,7 @@ export interface Message {
   name: string;
   email: string;
   enquiry: string;
-  fileName?: string;
+  imageUrl?: string;
   createdAt: string;
   updatedAt: string;
 }
