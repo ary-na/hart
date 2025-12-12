@@ -1,7 +1,13 @@
 // src/components/NavBar.tsx
 
+"use client";
+
 // Next.js import
 import Link from "next/link";
+
+// NextAuth session import
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 // UI imports
 import { Logo } from "@hart/lib/ui";
@@ -11,6 +17,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
+  const { status } = useSession();
+  const isLoggedIn = status === "authenticated";
+  const isLoading = status === "loading";
+  const isUnauthenticated = status === "unauthenticated";
+
+  const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    signOut({ callbackUrl: "/login" });
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-start">
@@ -76,7 +92,7 @@ const NavBar = () => {
       <div className="navbar-center">
         <Link href="/">
           <Logo
-            className="cursor-pointer"
+            className="cursor-pointer hover:text-accent"
             width={144}
             height={64}
             alt="Logo"
@@ -119,33 +135,48 @@ const NavBar = () => {
             </div>
           </div>
         </div>
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar flex items-center justify-center h-10 w-10"
-          >
-            <FontAwesomeIcon icon={faUser} width="20" />
-          </div>
 
-          <ul
-            tabIndex={-1}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+        {isLoading && <span className="loading loading-ring loading-md"></span>}
+        {isUnauthenticated && (
+          <Link href="/login" className="btn btn-ghost">
+            Login
+          </Link>
+        )}
+        {isLoggedIn && (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar flex items-center justify-center h-10 w-10"
+            >
+              <FontAwesomeIcon icon={faUser} width="20" />
+            </div>
+
+            <ul
+              tabIndex={-1}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile (coming soon)
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <Link href="/admin">Admin Dashboard</Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  onClick={handleLogout}
+                  className="cursor-pointer"
+                >
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

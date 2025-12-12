@@ -80,7 +80,7 @@ export default function ContactMeForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid gap-8 rounded-xl border md:p-10 p-6 container mx-auto max-w-xl"
+      className="grid gap-8"
       noValidate
     >
       <div className="grid gap-6 md:grid-cols-2">

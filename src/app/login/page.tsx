@@ -19,8 +19,11 @@ const LoginPage = async () => {
   if (session?.user.role === "admin") redirect("/admin");
 
   return (
-    <section>
-      <h1 className="hart-h1">Admin Login</h1>
+    <section className="p-8">
+      <h1 className="hart-h1">Login</h1>
+      <p className="mb-8">
+        User login functionality coming soon.
+      </p>
       <LoginForm />
     </section>
   );

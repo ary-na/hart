@@ -58,7 +58,7 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid gap-4 rounded-xl border md:p-10 p-6"
+      className="grid gap-4"
       noValidate
     >
       <FormField label="Username" error={errors.username?.message}>

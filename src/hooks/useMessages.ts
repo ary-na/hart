@@ -6,6 +6,7 @@ import { useState, useCallback } from "react";
 // Type imports
 import { Message } from "@hart/lib/types";
 
+
 const useMessages = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
@@ -20,7 +21,10 @@ const useMessages = () => {
       setError(null);
 
       try {
-        const res = await fetch(`/api/admin/messages?skip=${append ? skip : 0}&limit=${limit}`);
+        // Calculate the correct skip value locally:
+        const currentSkip = append ? skip : 0;
+
+        const res = await fetch(`/api/admin/messages?skip=${currentSkip}&limit=${limit}`);
 
         if (!res.ok) {
           const text = await res.text().catch(() => "");
@@ -39,7 +43,8 @@ const useMessages = () => {
         setLoading(false);
       }
     },
-    [skip]
+    // Remove skip from dependencies, because we're reading skip from state inside the function:
+    []
   );
 
   return { messages, loading, error, fetchMessages };
