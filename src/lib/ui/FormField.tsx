@@ -1,7 +1,7 @@
 // src/lib/ui/FormField.tsx
 
 // Import the FormFieldProps type from the types directory
-import { FormFieldProps } from "../types";
+import { FormFieldProps } from "@hart/lib/types";
 
 export const FormField = ({ label, error, children }: FormFieldProps) => {
   return (

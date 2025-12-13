@@ -1,7 +1,7 @@
 // src/lib/ui/Logo.tsx
 
 // Import the SvgIconProps type from the types directory
-import { SvgIconProps } from "../types/SvgIcon";
+import { SvgIconProps } from "@hart/lib/types";
 
 export function Logo({
   alt,

@@ -80,10 +80,10 @@ export default function ContactMeForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid gap-8"
+      className="grid gap-4"
       noValidate
     >
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         <FormField label="Name" error={errors.name?.message}>
           <input
             {...register("name")}

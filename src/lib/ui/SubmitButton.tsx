@@ -4,7 +4,7 @@
 import { cn } from "@hart/lib/utils";
 
 // Import the SubmitButtonProps type from the types directory
-import { SubmitButtonProps } from "../types";
+import { SubmitButtonProps } from "@hart/lib/types";
 
 export function SubmitButton({
   text = "Send Message",

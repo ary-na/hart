@@ -8,3 +8,8 @@ export interface Message {
   createdAt: string;
   updatedAt: string;
 }
+
+export type MessagesFetchOptions = {
+  append?: boolean;
+  limit?: number;
+};

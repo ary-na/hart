@@ -4,17 +4,13 @@
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
-// UI imports
-import ScrollProgressBar from "@hart/lib/ui/ScrollProgressBar";
-
 const RootShell = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <NavBar />
-      <ScrollProgressBar />
-      <main>{children}</main>
+      <main className="grow container max-w-3xl mx-auto">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 

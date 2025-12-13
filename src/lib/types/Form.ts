@@ -4,3 +4,10 @@ export type FormFieldProps = {
   error?: string;
   children: React.ReactNode;
 };
+
+export type SubmitButtonProps = {
+  text?: string;
+  loadingText?: string;
+  isLoading: boolean;
+  className?: string;
+};

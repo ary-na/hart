@@ -37,6 +37,7 @@ export const authOptions = {
         return {
           id: user._id.toString(),
           username: user.username,
+          email: user.email,
           role: user.role,
         };
       },
@@ -55,6 +56,7 @@ export const authOptions = {
       if (user) {
         token.id = user.id;
         token.username = user.username;
+        token.email = user.email;
         token.role = user.role;
       }
       return token;
@@ -64,6 +66,7 @@ export const authOptions = {
       if (token) {
         session.user.id = token.id as string;
         session.user.username = token.username as string;
+        session.user.email = token.email as string
         session.user.role = token.role as "admin" | "user";
       }
       return session;

@@ -1,5 +1,4 @@
 // src/lib/types/index.ts
-export * from "./FormField";
-export * from "./SubmitButton";
+export * from "./Form";
 export * from "./SvgIcon";
 export * from "./Message";

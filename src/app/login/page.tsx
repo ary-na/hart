@@ -20,7 +20,7 @@ const LoginPage = async () => {
 
   return (
     <section className="p-8">
-      <h1 className="hart-h1">Login</h1>
+      <h1>Login</h1>
       <p className="mb-8">
         User login functionality coming soon.
       </p>

@@ -1,10 +1,10 @@
 // src/app/shop/page.tsx
-const Shop = () => {
+const Cart = () => {
   return (
     <section className="p-8">
-      <h1>Shop</h1>
+      <h1>Cart</h1>
     </section>
   );
 };
 
-export default Shop;
+export default Cart;

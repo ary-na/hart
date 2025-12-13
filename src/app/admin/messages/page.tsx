@@ -1,14 +1,20 @@
+// src/app/admin/messages/page.tsx
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useMessages from "@hart/hooks/useMessages";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function AdminMessagesPage() {
   const { messages, loading, fetchMessages, error } = useMessages();
+  const didInitialLoad = useRef(false);
 
+  // ✅ Initial fetch (runs once, even in Strict Mode)
   useEffect(() => {
+    if (didInitialLoad.current) return;
+    didInitialLoad.current = true;
+
     fetchMessages({ append: false });
   }, [fetchMessages]);
 
@@ -16,7 +22,6 @@ export default function AdminMessagesPage() {
     await fetchMessages({ append: true });
   };
 
-  // Delete handler function
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this message?")) return;
 
@@ -24,11 +29,13 @@ export default function AdminMessagesPage() {
       const res = await fetch(`/api/admin/messages/${id}`, {
         method: "DELETE",
       });
+
       if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText || "Failed to delete");
+        const text = await res.text().catch(() => "");
+        throw new Error(text || "Failed to delete message");
       }
-      // Reload messages list after deletion
+
+      // Reload from scratch after delete
       await fetchMessages({ append: false });
     } catch (err) {
       alert(`Delete failed: ${(err as Error).message}`);
@@ -37,52 +44,23 @@ export default function AdminMessagesPage() {
 
   return (
     <section className="container mx-auto max-w-3xl py-10">
-      <h1 className="text-3xl font-bold mb-6">📨 Messages</h1>
-      <div className="breadcrumbs text-sm">
+      <h1 className="text-3xl font-bold mb-6">Messages</h1>
+
+      <div className="breadcrumbs text-sm mb-6">
         <ul>
           <li>
-            <Link href="/admin">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="h-4 w-4 stroke-current"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                ></path>
-              </svg>
-              Dashboard
-            </Link>
+            <Link href="/admin">Dashboard</Link>
           </li>
           <li>
-            <Link href="/admin/messages">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="h-4 w-4 stroke-current"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                ></path>
-              </svg>
-              Messages
-            </Link>
+            <Link href="/admin/messages">Messages</Link>
           </li>
         </ul>
       </div>
 
-      {error && <p className="text-red-600 mt-4">{error.message}</p>}
-      {loading && <p className="mt-4">Loading messages...</p>}
+      {error && <p className="text-red-600 mb-4">{error.message}</p>}
+      {loading && <p className="mb-4">Loading messages...</p>}
 
-      <div className="mt-6 space-y-4">
+      <div className="space-y-4">
         {messages.length === 0 && !loading && (
           <p className="text-gray-500">No messages found.</p>
         )}
@@ -106,10 +84,10 @@ export default function AdminMessagesPage() {
                 width={400}
                 height={300}
                 className="mt-4 rounded"
+                unoptimized
               />
             )}
 
-            {/* Delete button */}
             <button
               className="btn btn-danger mt-4"
               onClick={() => handleDelete(msg._id)}
