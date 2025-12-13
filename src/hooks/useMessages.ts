@@ -59,7 +59,7 @@ const deleteMessage = useCallback(
     setDeletingIds((prev) => new Set(prev).add(messageId));
 
     try {
-      const res = await fetch(`/api/admin/messages/${messageId}`, {
+      const res = await fetch(`/api/admin/messages/delete/${messageId}`, {
         method: "DELETE",
       });
 
