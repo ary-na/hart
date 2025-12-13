@@ -18,11 +18,6 @@ const Profile = async () => {
     <section className="p-8">
       <h1>{session.user.username}&apos;s Profile</h1>
     <div className="space-y-4 border rounded-lg p-6">
-        {user.id && (
-          <p>
-            <strong>User ID:</strong> {user.id}
-          </p>
-        )}
 
         {user.username && (
           <p>
