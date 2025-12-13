@@ -1,36 +1,83 @@
 // src/app/privacy/page.tsx
+
+// Next.js imports
+import Link from "next/link";
+
 const Privacy = () => {
   return (
-    <article>
-      <header className= "bg-amber-400">
-        <div className="container mx-auto max-w-3xl py-20 px-8 lg:px-0">
-        <h1>Privacy & Data Policy 🔐</h1>
-        <p className="italic text-sm">Last updated: December 2025</p>
-        </div>
+    <article className="p-8">
+      <header>
+        <h1>Privacy & Data Policy</h1>
+        <p className="italic text-sm mb-8">Last updated: December 2025</p>
       </header>
-    <div className="container mx-auto max-w-3xl py-10 px-8 lg:px-0">
+
       <section>
-        <h2>1. Introduction 📖</h2>
+        <h2>Summary</h2>
         <p>
-          Welcome to <strong>Harts</strong> (the “Site”, “we”, “us”, or “our”).
-          This Privacy & Data Policy explains how we collect, use, disclose, and
-          protect information when you visit or use our website
-          (hidart.vercel.app) or any related services. By using our Site, you
-          agree to the collection and use of information in accordance with this
-          policy.
+          At <strong>Hart</strong>, we respect your privacy and are committed to
+          protecting your personal data. Here’s what you need to know:
         </p>
-        <p className="font-bold text-info">
-          If you do not agree with this policy, please do not use the Site.
+        <ul>
+          <li>
+            We collect only the data necessary to provide and improve our
+            services.
+          </li>
+          <li>
+            Your data is stored securely and never sold or traded to third
+            parties.
+          </li>
+          <li>
+            You have rights to access, correct, or delete your personal
+            information.
+          </li>
+          <li>
+            We use cookies to enhance your experience, which you can disable in
+            your browser.
+          </li>
+          <li>
+            Your data may be transferred internationally, but we maintain strong
+            safeguards.
+          </li>
+          <li>
+            If you have questions or want to exercise your rights, you can
+            contact us anytime.
+          </li>
+        </ul>
+        <p className="mt-4 italic text-sm">
+          For full details, please read the complete Privacy & Data Policy
+          below.
         </p>
       </section>
 
       <section>
-        <h2>2. What Data We Collect 🗃️</h2>
+        <h2>1. Introduction</h2>
+        <p>
+          Welcome to <strong>Hart</strong> (the “Site”, “we”, “us”, or “our”).
+          This Privacy & Data Policy explains how we collect, use, disclose, and
+          protect information when you visit or use our website (
+          <Link
+            href="https://hildart.vercel.app"
+            className="link"
+            aria-label="Visit the Hart official website at hildart.vercel.app"
+          >
+            hildart.vercel.app
+          </Link>
+          ) or any related services. By using our Site, you agree to the
+          collection and use of information in accordance with this policy.
+        </p>
+        <p className="font-bold italic text-error mt-4">
+          If you do not agree with this policy, please refrain from using the
+          Site.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. What Data We Collect</h2>
 
         <section>
-          <h3>2.1 Data You Provide 📝</h3>
+          <h3>2.1 Data You Provide</h3>
           <p>
-            When you use Harts (e.g., sign up, log in, purchase, contact us), we
+            When you use Hart (e.g., sign up, log in, purchase, contact us), we
             may collect:
           </p>
           <ul>
@@ -61,7 +108,7 @@ const Privacy = () => {
         </section>
 
         <section>
-          <h3>2.2 Automatically Collected Data 🤖</h3>
+          <h3>2.2 Automatically Collected Data</h3>
           <p>When you visit the Site, we may automatically collect:</p>
           <ul>
             <li>
@@ -86,7 +133,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>3. Why We Collect the Data 📌</h2>
+        <h2>3. Why We Collect the Data</h2>
         <p>We use the collected data for:</p>
         <ul>
           <li>
@@ -125,7 +172,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>4. Legal &amp; Compliance Considerations ⚖️</h2>
+        <h2>4. Legal &amp; Compliance Considerations</h2>
         <p>
           Depending on your location or the location of the user, relevant
           data‑protection laws may apply (e.g. Privacy Act 1988 (Cth) &amp;
@@ -140,7 +187,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>5. Data Sharing and Disclosure 🤝</h2>
+        <h2>5. Data Sharing and Disclosure</h2>
         <p>We may share your data only in the following circumstances:</p>
         <ul>
           <li>
@@ -156,7 +203,7 @@ const Privacy = () => {
           </li>
           <li>
             In the case of a <strong>merger, acquisition, or sale</strong> of
-            Harts — user data may be transferred, but we will inform you and
+            Hart — user data may be transferred, but we will inform you and
             provide opt‑out if required.
           </li>
           <li>
@@ -171,7 +218,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>6. Cookies &amp; Tracking Technologies 🍪</h2>
+        <h2>6. Cookies &amp; Tracking Technologies</h2>
         <p>We use cookies and similar technologies for:</p>
         <ul>
           <li>Session management (keeping you logged in).</li>
@@ -186,7 +233,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>7. Data Storage &amp; Security 🛡️</h2>
+        <h2>7. Data Storage &amp; Security</h2>
         <ul>
           <li>
             We store your data securely using industry‑standard encryption and
@@ -210,7 +257,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>8. Data Retention &amp; Deletion ⏳</h2>
+        <h2>8. Data Retention &amp; Deletion</h2>
         <p>
           We keep your account and order data as long as you maintain your
           account.
@@ -226,7 +273,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>9. Your Rights ✋</h2>
+        <h2>9. Your Rights</h2>
         <p>Depending on your jurisdiction, you may have the right to:</p>
         <ul>
           <li>Access personal data we hold about you.</li>
@@ -243,8 +290,8 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>10. Age &amp; Children Policy 🚫</h2>
-        <p>Harts is intended for users 13 years old and above.</p>
+        <h2>10. Age &amp; Children Policy</h2>
+        <p>Hart is intended for users 13 years old and above.</p>
         <p>
           We do <strong>not knowingly</strong> collect personal data from
           children under 13.
@@ -253,7 +300,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>11. International Transfer of Data 🌍</h2>
+        <h2>11. International Transfer of Data</h2>
         <p>
           Your information may be stored and processed in servers located
           outside your country (e.g. hosted on Vercel, databases in US/Asia,
@@ -264,7 +311,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>12. Changes to This Policy 🔄</h2>
+        <h2>12. Changes to This Policy</h2>
         <p>
           We may update this Privacy Policy from time to time (for example, if
           we change data‑handling practices, or legal requirements change).
@@ -277,7 +324,7 @@ const Privacy = () => {
       </section>
 
       <section>
-        <h2>13. Contact Us ✉️</h2>
+        <h2>13. Contact Us</h2>
         <p>
           If you have questions, concerns, or want to exercise your data rights,
           contact us at:
@@ -285,16 +332,28 @@ const Privacy = () => {
         <ul>
           <li>
             <strong>Email:</strong>{" "}
-            <a
-              href="mailto:your-email@example.com"
-              className="underline text-blue-600 hover:text-blue-800"
+            <Link
+              href="mailto:admin@hart.com.au"
+              className="link"
+              rel="noopener noreferrer"
+              aria-label="Send an email to Hart support at admin@hart.com.au"
             >
-              admin@hart.com
-            </a>
+              admin@hart.com.au
+            </Link>
           </li>
         </ul>
+        <p>
+          Alternatively, use the{" "}
+          <Link
+            className="link"
+            href="/contact"
+            aria-label="Go to the contact form page to send a message"
+          >
+            contact
+          </Link>{" "}
+          form to contact us.
+        </p>
       </section>
-      </div>
     </article>
   );
 };

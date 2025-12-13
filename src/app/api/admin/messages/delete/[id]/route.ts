@@ -39,7 +39,7 @@ export async function DELETE(
       { status: 200 }
     );
   } catch (error) {
-    console.error("DELETE /api/admin/messages/[id] error:", error);
+    console.error("DELETE /api/admin/messages/delete/[id] error:", error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

@@ -5,11 +5,11 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Harts",
-    template: "%s | Harts",
+    default: "Hart",
+    template: "%s | Hart",
   },
   description: "",
-  metadataBase: new URL("https://harts.example.com"),
+  metadataBase: new URL("https://hildart.vercel.app"),
   openGraph: {
     images: "/og-image.jpg",
   },

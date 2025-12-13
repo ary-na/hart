@@ -8,3 +8,17 @@ export interface Message {
   createdAt: string;
   updatedAt: string;
 }
+
+export type MessagesFetchOptions = {
+  append?: boolean;
+  limit?: number;
+};
+
+export type UseMessagesReturn = {
+  messages: Message[];
+  loading: boolean;
+  error: Error | null;
+  deletingIds: Set<string>;
+  fetchMessages: (options?: MessagesFetchOptions) => Promise<void>;
+  deleteMessage: (messageId: string) => Promise<void>;
+};

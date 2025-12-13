@@ -22,7 +22,8 @@
     "paths": {
       "@hart/*": ["./src/*"],
       "@hart/server/*": ["./src/server/*"],
-      "@hart/components/*": ["./src/components/*"]
+      "@hart/components/*": ["./src/components/*"],
+      "@hart/lib/*": ["./src/lib/*"]
     }
   },
   "include": [

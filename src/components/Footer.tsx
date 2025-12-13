@@ -8,8 +8,8 @@ const Footer = () => {
   return (
     <footer className="footer footer-horizontal footer-center text-base-content rounded p-8">
       <Logo
-        width={268}
-        height={108}
+        width={144}
+        height={64}
         alt="Logo"
         className="hover:text-accent"
         title="This is Hilda Art's website logo."
@@ -31,7 +31,7 @@ const Footer = () => {
           Privacy Policy
         </Link>
       </nav>
-      <div className="grid grid-flow-row md:grid-flow-col gap-4 w-full border-accent border-t pt-8">
+      <div className="grid grid-flow-row md:grid-flow-col gap-4 w-full border-t border-base-content border-opacity-100 pt-8">
         <nav className="md:order-2 md:ms-auto">
           <div className="grid grid-flow-col gap-4">
             <Link

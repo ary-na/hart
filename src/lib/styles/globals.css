@@ -34,15 +34,14 @@ h3 {
   @apply text-2xl font-bold mb-2;
 }
 
-p {
-  @apply leading-8 text-justify;
-}
-
 article {
   section {
-      @apply mb-15;
+    @apply mb-15;
+  }
+  p {
+    @apply leading-8 text-justify;
   }
   ul {
-      @apply list-disc pl-10 leading-6;
+    @apply list-disc pl-10 leading-6;
   }
 }
