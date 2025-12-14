@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // Utility and schema imports
 import { cn } from "@hart/lib/utils";
 import { FormField, SubmitButton } from "@hart/lib/ui";
-import { contactMeSchema, ContactMeInput } from "@hart/lib/schemas";
+import { contactMeSchema, ContactMeInput } from "@hart/lib/validators";
 
 export default function ContactMeForm() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -78,11 +78,7 @@ export default function ContactMeForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="grid gap-4"
-      noValidate
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" noValidate>
       <div className="grid gap-4 md:grid-cols-2">
         <FormField label="Name" error={errors.name?.message}>
           <input

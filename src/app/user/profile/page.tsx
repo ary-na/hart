@@ -1,42 +1,34 @@
-// src/app/user/profile/page.tsx
-
-// Next.js imports
 import { redirect } from "next/navigation";
-
-// NextAuth imports
 import { getServerSession } from "next-auth/next";
-
-// Auth options import
 import { authOptions } from "@hart/server/auth/nAuth";
+import { ChangePasswordButton } from "@hart/lib/ui";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
-  const user = session.user;
 
   if (!session) redirect("/login");
+
+  const user = session.user;
+
   return (
     <section className="p-8">
-      <h1>{session.user.username}&apos;s Profile</h1>
-    <div className="space-y-4 border rounded-lg p-6">
+      <h1>{user.username}&apos;s Profile</h1>
 
-        {user.username && (
-          <p>
-            <strong>Username:</strong> {user.username}
-          </p>
-        )}
-
-        {user.email && (
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
-        )}
-
-        {user.role && (
+      <div className="space-y-4 border rounded-lg p-6">
+        <p>
+          <strong>Username:</strong> {user.username}
+        </p>
+        <p>
+          <strong>Email:</strong> {user.email}
+        </p>
+        {user.role == "admin" && (
           <p>
             <strong>Role:</strong> {user.role}
           </p>
         )}
       </div>
+
+      <ChangePasswordButton />
     </section>
   );
 };

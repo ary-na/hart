@@ -18,7 +18,7 @@ import { signIn } from "next-auth/react";
 // Utility and schema imports
 import { cn } from "@hart/lib/utils";
 import { FormField, SubmitButton } from "@hart/lib/ui";
-import { userLoginSchema, UserLoginInput } from "@hart/lib/schemas";
+import { userLoginSchema, UserLoginInput } from "@hart/lib/validators";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -56,11 +56,7 @@ export default function LoginForm() {
   });
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="grid gap-4"
-      noValidate
-    >
+    <form onSubmit={onSubmit} className="grid gap-4" noValidate>
       <FormField label="Username" error={errors.username?.message}>
         <input
           {...register("username")}
