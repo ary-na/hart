@@ -2,3 +2,4 @@
 export * from "./Form";
 export * from "./SvgIcon";
 export * from "./Message";
+export * from "./Profile";
