@@ -2,5 +2,5 @@
 export * from "./FormField";
 export * from "./SubmitButton";
 export * from "./Logo";
-export * from "./ModalClient";
-export * from "./Toast"
+export * from "./ChangePassModalClient";
+export * from "./Toast";
