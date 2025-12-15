@@ -3,14 +3,9 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "@hart/lib/utils";
-import { ModalToggleButtonProps } from "@hart/lib/types";
 import ChangePasswordModal from "@hart/components/ChangePasswordModal";
 
-const ModalClient = ({
-  className = "",
-  label = "",
-}: ModalToggleButtonProps) => {
+const ChangePassModalClient = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,9 +13,9 @@ const ModalClient = ({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className={cn("btn btn-outline", className)}
+        className="btn btn-outline"
       >
-        {label}
+        Update Password
       </button>
 
       <ChangePasswordModal open={open} onClose={() => setOpen(false)} />
@@ -28,4 +23,4 @@ const ModalClient = ({
   );
 };
 
-export default ModalClient;
+export default ChangePassModalClient;

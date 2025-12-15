@@ -9,13 +9,9 @@ import {
 import { ChangePasswordPayload } from "@hart/lib/types";
 import { useProfile } from "@hart/hooks/useProfile";
 import { Toast } from "@hart/lib/ui";
+import { ModalProps } from "@hart/lib/types";
 
-type Props = {
-  open: boolean;
-  onClose: () => void;
-};
-
-export default function ChangePasswordModal({ open, onClose }: Props) {
+export default function ChangePasswordModal({ open, onClose }: ModalProps) {
   const { changePassword, loading, error } = useProfile();
   const { showToast } = Toast();
 

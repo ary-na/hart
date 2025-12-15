@@ -4,7 +4,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@hart/server/auth/nAuth";
-import ModalToggleButton from "@hart/lib/ui/ModalClient";
+import ChangePassModalClient from "@hart/lib/ui/ChangePassModalClient";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
@@ -44,7 +44,7 @@ const Profile = async () => {
             </li>
           )}
         </ul>
-        <ModalToggleButton label="Update Password" />
+        <ChangePassModalClient />
       </div>
     </section>
   );
