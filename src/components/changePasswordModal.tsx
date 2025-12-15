@@ -1,70 +1,65 @@
 "use client";
 
-import { useState } from "react";
-import { changePasswordSchema } from "@hart/lib/validators";
-import { useChangePassword } from "@hart/hooks/useProfile";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  changePasswordSchema,
+  ChangePasswordInput,
+} from "@hart/lib/validators";
+import { ChangePasswordPayload } from "@hart/lib/types";
+import { useProfile } from "@hart/hooks/useProfile";
+import { Toast } from "@hart/lib/ui";
 
 type Props = {
+  open: boolean;
   onClose: () => void;
 };
 
-export default function ChangePasswordModal({ onClose }: Props) {
-  const { changePassword, loading, error } = useChangePassword();
+export default function ChangePasswordModal({ open, onClose }: Props) {
+  const { changePassword, loading, error } = useProfile();
+  const { showToast } = Toast();
 
-  const [form, setForm] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ChangePasswordInput>({
+    resolver: zodResolver(changePasswordSchema),
+    mode: "onBlur",
   });
 
-  const [formErrors, setFormErrors] = useState<
-    Record<string, string[]>
-  >({});
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // ✅ Zod validation
-    const result = changePasswordSchema.safeParse(form);
-
-    if (!result.success) {
-      setFormErrors(result.error.flatten().fieldErrors);
-      return;
-    }
-
-    setFormErrors({});
-
-    const success = await changePassword({
-      currentPassword: form.currentPassword,
-      newPassword: form.newPassword,
+  const onSubmit = async (data: ChangePasswordPayload) => {
+    const ok = await changePassword({
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword,
     });
 
-    if (success) {
+    if (ok) {
       onClose();
+      reset();
+      showToast("Password updated successfully", "success");
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md space-y-4">
-        <h2 className="text-xl font-semibold">Change Password</h2>
+    <dialog className="modal" open={open}>
+      <div className="modal-box">
+        <h3 className="font-bold text-lg mb-4">Change Password</h3>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <input
               type="password"
-              name="currentPassword"
               placeholder="Current password"
-              className="input input-bordered w-full"
-              onChange={handleChange}
+              className={`input input-bordered w-full ${
+                errors.currentPassword ? "input-error" : ""
+              }`}
+              {...register("currentPassword")}
             />
-            {formErrors.currentPassword && (
+            {errors.currentPassword && (
               <p className="text-red-500 text-sm">
-                {formErrors.currentPassword[0]}
+                {errors.currentPassword.message}
               </p>
             )}
           </div>
@@ -72,14 +67,15 @@ export default function ChangePasswordModal({ onClose }: Props) {
           <div>
             <input
               type="password"
-              name="newPassword"
               placeholder="New password"
-              className="input input-bordered w-full"
-              onChange={handleChange}
+              className={`input input-bordered w-full ${
+                errors.newPassword ? "input-error" : ""
+              }`}
+              {...register("newPassword")}
             />
-            {formErrors.newPassword && (
+            {errors.newPassword && (
               <p className="text-red-500 text-sm">
-                {formErrors.newPassword[0]}
+                {errors.newPassword.message}
               </p>
             )}
           </div>
@@ -87,28 +83,23 @@ export default function ChangePasswordModal({ onClose }: Props) {
           <div>
             <input
               type="password"
-              name="confirmPassword"
               placeholder="Confirm new password"
-              className="input input-bordered w-full"
-              onChange={handleChange}
+              className={`input input-bordered w-full ${
+                errors.confirmPassword ? "input-error" : ""
+              }`}
+              {...register("confirmPassword")}
             />
-            {formErrors.confirmPassword && (
+            {errors.confirmPassword && (
               <p className="text-red-500 text-sm">
-                {formErrors.confirmPassword[0]}
+                {errors.confirmPassword.message}
               </p>
             )}
           </div>
 
-          {error && (
-            <p className="text-red-500 text-sm">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <div className="flex justify-end gap-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-ghost"
-            >
+            <button type="button" onClick={onClose} className="btn btn-ghost">
               Cancel
             </button>
 
@@ -122,6 +113,6 @@ export default function ChangePasswordModal({ onClose }: Props) {
           </div>
         </form>
       </div>
-    </div>
+    </dialog>
   );
 }

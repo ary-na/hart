@@ -73,7 +73,7 @@ const Home = () => {
       </section>
 
       <section className="bg-cyan-500 my-8 p-20">
-  <div className="container max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
+        <div className="container max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
           <div className="card w-96 bg-base-100 shadow-sm">
             <div className="card-body">
               <span className="badge badge-xs badge-warning">Most Popular</span>

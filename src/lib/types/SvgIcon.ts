@@ -1,6 +1,5 @@
 // src/lib/types/SvgIcon.ts
 
-// Import SVGProps from React to extend the properties for SVG elements
 import { SVGProps } from "react";
 
 export interface SvgIconProps extends SVGProps<SVGSVGElement> {

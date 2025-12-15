@@ -1,7 +1,10 @@
+// src/app/user/profile/page.tsx
+
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@hart/server/auth/nAuth";
-import { ChangePasswordButton } from "@hart/lib/ui";
+import ModalToggleButton from "@hart/lib/ui/ModalClient";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
@@ -11,24 +14,38 @@ const Profile = async () => {
   const user = session.user;
 
   return (
-    <section className="p-8">
+    <section className="container max-w-4xl mx-auto p-8">
       <h1>{user.username}&apos;s Profile</h1>
-
-      <div className="space-y-4 border rounded-lg p-6">
-        <p>
-          <strong>Username:</strong> {user.username}
-        </p>
-        <p>
-          <strong>Email:</strong> {user.email}
-        </p>
-        {user.role == "admin" && (
-          <p>
-            <strong>Role:</strong> {user.role}
-          </p>
-        )}
+      <div className="breadcrumbs text-sm mb-2">
+        <ul>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          {user.role == "admin" && (
+            <li>
+              <Link href="/admin">Dashboard</Link>
+            </li>
+          )}
+          <li>Profile</li>
+        </ul>
       </div>
 
-      <ChangePasswordButton />
+      <div className="flex gap-2 flex-col justify-between sm:flex-row">
+        <ul className="space-y-4">
+          <li>
+            <strong>Username:</strong> {user.username}
+          </li>
+          <li>
+            <strong>Email:</strong> {user.email}
+          </li>
+          {user.role == "admin" && (
+            <li>
+              <strong>Role:</strong> {user.role}
+            </li>
+          )}
+        </ul>
+        <ModalToggleButton label="Update Password" />
+      </div>
     </section>
   );
 };
