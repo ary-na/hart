@@ -3,7 +3,7 @@
 "use client";
 
 import { useState } from "react";
-import ChangePasswordModal from "@hart/components/ChangePasswordModal";
+import ChangePasswordModal from "@hart/components/Modal";
 
 const ChangePassModalClient = () => {
   const [open, setOpen] = useState(false);
