@@ -52,7 +52,6 @@ export default function LoginForm() {
     }
 
     router.push("/admin");
-    router.refresh();
   });
 
   return (

@@ -11,4 +11,4 @@ export const changePasswordSchema = z
     path: ["confirmPassword"],
   });
 
-export type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;

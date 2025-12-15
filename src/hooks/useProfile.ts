@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ChangePasswordPayload } from "@hart/lib/types";
 
-export const useChangePassword = () => {
+export const useProfile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);

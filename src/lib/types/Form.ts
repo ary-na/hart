@@ -11,3 +11,8 @@ export type SubmitButtonProps = {
   isLoading: boolean;
   className?: string;
 };
+
+export type ModalToggleButtonProps = {
+  className?: string;
+  label?: string;
+};
