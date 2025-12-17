@@ -24,14 +24,14 @@ export const contactMeSchema = z.object({
         !files ||
         files.length === 0 ||
         (files[0]?.type && files[0].type.startsWith("image/")),
-      { message: "Only image files are allowed (jpg, png, gif, webp, etc.)" }
+      { message: "Only image files are allowed (jpg, png, gif, webp, etc.)." }
     )
     .refine(
       (files) =>
         !files ||
         files.length === 0 ||
         (files[0]?.size && files[0].size <= 20 * 1024 * 1024),
-      { message: "Image must be under 20 MB" }
+      { message: "Image must be under 20 MB." }
     ),
 });
 

@@ -1,24 +1,26 @@
 // src/app/admin/messages/page.tsx
+
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useMessages } from "@hart/hooks/useMessages";
 import Image from "next/image";
 import Link from "next/link";
+
+import { useMessages } from "@hart/hooks/useMessages";
+import { Breadcrumbs } from "@hart/lib/ui/Breadcrumbs";
 
 export default function AdminMessagesPage() {
   const {
     messages,
     loading,
     error,
-    deletingIds,     // ← New: tracks which messages are being deleted
+    deletingIds,
     fetchMessages,
-    deleteMessage,   // ← New: use the hook's delete function
+    deleteMessage,
   } = useMessages();
 
   const didInitialLoad = useRef(false);
 
-  // Initial fetch (runs once, even in Strict Mode)
   useEffect(() => {
     if (didInitialLoad.current) return;
     didInitialLoad.current = true;
@@ -29,29 +31,27 @@ export default function AdminMessagesPage() {
     await fetchMessages({ append: true });
   };
 
-  // New: Confirm + delete using the hook
   const handleDelete = (id: string) => {
     if (!confirm("Are you sure you want to delete this message?")) return;
     deleteMessage(id);
   };
 
   return (
-    <section className="container mx-auto max-w-3xl py-10">
-      <h1 className="text-3xl font-bold mb-6">Messages</h1>
+    <section className="container max-w-4xl mx-auto p-8">
+      <h1>Messages</h1>
 
-      <div className="breadcrumbs text-sm mb-6">
-        <ul>
-          <li>
-            <Link href="/admin">Dashboard</Link>
-          </li>
-          <li>
-            <Link href="/admin/messages">Messages</Link>
-          </li>
-        </ul>
-      </div>
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Dashboard", href: "/admin" },
+          { label: "Messages" },
+        ]}
+      />
 
       {error && <p className="text-red-600 mb-4">{error.message}</p>}
-      {loading && messages.length === 0 && <p className="mb-4">Loading messages...</p>}
+      {loading && messages.length === 0 && (
+        <p className="mb-4">Loading messages...</p>
+      )}
 
       <div className="space-y-4">
         {messages.length === 0 && !loading && (
@@ -84,7 +84,7 @@ export default function AdminMessagesPage() {
             <button
               className="btn btn-danger mt-4"
               onClick={() => handleDelete(msg._id)}
-              disabled={deletingIds.has(msg._id)}  // ← Disable while deleting
+              disabled={deletingIds.has(msg._id)} // ← Disable while deleting
             >
               {deletingIds.has(msg._id) ? "Deleting..." : "Delete"}
             </button>

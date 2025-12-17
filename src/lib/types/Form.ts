@@ -11,3 +11,10 @@ export type SubmitButtonProps = {
   isLoading: boolean;
   className?: string;
 };
+
+export type CancelButtonProps = {
+  onClick: () => void;
+  text?: string;
+  className?: string;
+  type?: "button" | "reset";
+};

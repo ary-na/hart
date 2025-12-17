@@ -2,25 +2,21 @@
 
 "use client";
 
-// Next.js import
 import Link from "next/link";
-
-// NextAuth session import
-import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// UI imports
 import { Logo } from "@hart/lib/ui";
 
-// Font Awesome imports
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-
 const NavBar = () => {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const isLoggedIn = status === "authenticated";
   const isLoading = status === "loading";
   const isUnauthenticated = status === "unauthenticated";
+
+  const role = session?.user?.role;
 
   const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -161,9 +157,11 @@ const NavBar = () => {
               <li>
                 <Link href="/user/profile">Profile</Link>
               </li>
-              <li>
-                <Link href="/admin">Admin Dashboard</Link>
-              </li>
+              {role === "admin" && (
+                <li>
+                  <Link href="/admin">Dashboard</Link>
+                </li>
+              )}
               <li>
                 <Link
                   href="#"

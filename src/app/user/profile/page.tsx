@@ -4,7 +4,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@hart/server/auth/nAuth";
-import ChangePassModalClient from "@hart/lib/ui/ChangePassModalClient";
+import UpdatePassModalClient from "@hart/lib/ui/UpdatePassModalClient";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
@@ -44,7 +44,7 @@ const Profile = async () => {
             </li>
           )}
         </ul>
-        <ChangePassModalClient />
+        <UpdatePassModalClient />
       </div>
     </section>
   );

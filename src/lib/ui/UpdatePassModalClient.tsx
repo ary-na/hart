@@ -3,9 +3,9 @@
 "use client";
 
 import { useState } from "react";
-import ChangePasswordModal from "@hart/components/ChangePasswordModal";
+import ChangePasswordModal from "@hart/components/UpdatePasswordModal";
 
-const ChangePassModalClient = () => {
+const UpdatePassModalClient = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,4 +23,4 @@ const ChangePassModalClient = () => {
   );
 };
 
-export default ChangePassModalClient;
+export default UpdatePassModalClient;
