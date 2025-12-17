@@ -2,24 +2,20 @@
 
 "use client";
 
-// React and library imports
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-
-// Next.js import
 import Image from "next/image";
-
-// Zod resolver import
+import { useState } from "react";
+import { cn } from "@hart/lib/utils";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// Utility and schema imports
-import { cn } from "@hart/lib/utils";
+import { Toast } from "@hart/lib/ui";
 import { FormField, SubmitButton } from "@hart/lib/ui";
 import { contactMeSchema, ContactMeInput } from "@hart/lib/validators";
 
 export default function ContactMeForm() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { showToast } = Toast();
 
   const {
     register,
@@ -48,16 +44,16 @@ export default function ContactMeForm() {
       });
 
       if (res.ok) {
-        alert("Message sent successfully!");
+        showToast("Message sent successfully.", "success");
         reset();
         if (previewUrl) URL.revokeObjectURL(previewUrl);
         setPreviewUrl(null);
       } else {
         const text = await res.text();
-        alert(text || "Something went wrong. Please try again.");
+        showToast(text, "error");
       }
     } catch {
-      alert("Network error — check your connection and try again.");
+      showToast("Failed to submit the  message.", "error");
     } finally {
       setIsLoading(false);
     }
