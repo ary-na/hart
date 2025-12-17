@@ -1,13 +1,13 @@
 // src/app/admin/page.tsx
 
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 
 import { authOptions } from "@hart/server/auth/nAuth";
-import AdminRecentContactMes from "@hart/components/RecentContactMes";
+import { Breadcrumbs } from "@hart/lib/ui/Breadcrumbs";
+import RecentMessages from "@hart/components/RecentMessages";
 
-export default async function AdminPage() {
+const Admin = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) redirect("/login");
@@ -20,16 +20,14 @@ export default async function AdminPage() {
       <h1>
         Welcome <span>{user.username}</span>!
       </h1>
-      <div className="breadcrumbs text-sm mb-2">
-        <ul>
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>Dashboard</li>
-        </ul>
-      </div>
 
-      <AdminRecentContactMes />
+      <Breadcrumbs
+        items={[{ label: "Home", href: "/" }, { label: "Dashboard" }]}
+      />
+
+      <RecentMessages />
     </section>
   );
-}
+};
+
+export default Admin;

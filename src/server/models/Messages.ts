@@ -1,9 +1,9 @@
-// src/server/models/ContactMe.ts
+// src/server/models/Messages.ts
 
 // Mongoose imports
 import { Schema, models, model } from "mongoose";
 
-const ContactMeSchema = new Schema(
+const MessagesSchema = new Schema(
   {
     name: {
       type: String,
@@ -31,5 +31,4 @@ const ContactMeSchema = new Schema(
   { timestamps: true }
 );
 
-export const ContactMe =
-  models.ContactMe || model("ContactMe", ContactMeSchema);
+export const Messages = models.Messages || model("Messages", MessagesSchema);

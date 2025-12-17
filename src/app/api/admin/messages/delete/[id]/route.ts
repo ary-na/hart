@@ -1,7 +1,7 @@
 // src/app/api/admin/messages/[id]/route.ts
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { ContactMe } from "@hart/server/models";
+import { Messages } from "@hart/server/models";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 import { authOptions } from "@hart/server/auth/nAuth";
 import { s3DeleteObject } from "@hart/server/upload/s3"; // You need to implement this
@@ -20,7 +20,7 @@ export async function DELETE(
 
     await connectToDatabase();
 
-    const message = await ContactMe.findById(params.id);
+    const message = await Messages.findById(params.id);
     if (!message) {
       return NextResponse.json(
         { message: "Message not found" },
@@ -32,7 +32,7 @@ export async function DELETE(
       await s3DeleteObject(message.fileName);
     }
 
-    await ContactMe.findByIdAndDelete(params.id);
+    await Messages.findByIdAndDelete(params.id);
 
     return NextResponse.json(
       { message: "Deleted successfully" },

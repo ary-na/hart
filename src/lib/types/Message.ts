@@ -20,5 +20,5 @@ export type UseMessagesReturn = {
   error: Error | null;
   deletingIds: Set<string>;
   fetchMessages: (options?: MessagesFetchOptions) => Promise<void>;
-  deleteMessage: (messageId: string) => Promise<void>;
+  deleteMessage: (messageId: string) => Promise<boolean>;
 };

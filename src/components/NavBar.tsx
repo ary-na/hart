@@ -136,7 +136,7 @@ const NavBar = () => {
 
         {isLoading && <span className="loading loading-ring loading-md"></span>}
         {isUnauthenticated && (
-          <Link href="/login" className="btn btn-ghost">
+          <Link href="/login" className="btn btn-ghost btn-xs">
             Login
           </Link>
         )}
@@ -154,14 +154,14 @@ const NavBar = () => {
               tabIndex={-1}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              <li>
-                <Link href="/user/profile">Profile</Link>
-              </li>
               {role === "admin" && (
                 <li>
                   <Link href="/admin">Dashboard</Link>
                 </li>
               )}
+              <li>
+                <Link href="/user/profile">Profile</Link>
+              </li>
               <li>
                 <Link
                   href="#"

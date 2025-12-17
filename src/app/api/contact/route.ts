@@ -4,7 +4,7 @@
 import { NextResponse } from "next/server";
 
 // Database and model imports
-import { ContactMe } from "@hart/server/models";
+import { Messages } from "@hart/server/models";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 
 // Utility and upload imports
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     }
 
     // Save to MongoDB with file key or undefined if no file
-    await ContactMe.create({
+    await Messages.create({
       name,
       email,
       enquiry,

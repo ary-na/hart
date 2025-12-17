@@ -12,9 +12,7 @@ export const Toast = () => {
   ) => {
     const toast = document.createElement("div");
 
-    toast.className = `
-      toast toast-bottom toast-top z-50
-    `;
+    toast.className = `toast toast-top toast-center md:toast-end z-50`;
     toast.innerHTML = `
       <div class="alert alert-${type}">
         <span>${message}</span>

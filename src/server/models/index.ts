@@ -1,3 +1,3 @@
 // src/server/models/index.ts
-export * from "./ContactMe";
+export * from "./Messages";
 export * from "./User";

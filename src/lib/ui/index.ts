@@ -4,4 +4,5 @@ export * from "./SubmitButton";
 export * from "./CancelButton"
 export * from "./Logo";
 export * from "./UpdatePassModalClient";
+export * from "./ConfirmModal"
 export * from "./Toast";

@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 
 // Database and model imports
-import { ContactMe } from "@hart/server/models";
+import { Messages } from "@hart/server/models";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 
 // Auth options import
@@ -33,7 +33,7 @@ export async function GET(request: Request) {
 
     await connectToDatabase();
 
-    const messages = await ContactMe.find()
+    const messages = await Messages.find()
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)

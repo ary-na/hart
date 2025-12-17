@@ -4,12 +4,11 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import { useMessages } from "@hart/hooks/useMessages";
 import { Breadcrumbs } from "@hart/lib/ui/Breadcrumbs";
 
-export default function AdminMessagesPage() {
+const Messages = () => {
   const {
     messages,
     loading,
@@ -84,7 +83,7 @@ export default function AdminMessagesPage() {
             <button
               className="btn btn-danger mt-4"
               onClick={() => handleDelete(msg._id)}
-              disabled={deletingIds.has(msg._id)} // ← Disable while deleting
+              disabled={deletingIds.has(msg._id)}
             >
               {deletingIds.has(msg._id) ? "Deleting..." : "Delete"}
             </button>
@@ -107,4 +106,6 @@ export default function AdminMessagesPage() {
       )}
     </section>
   );
-}
+};
+
+export default Messages;
