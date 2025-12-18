@@ -1,7 +1,9 @@
 /* src/lib/styles/variables-dark.css */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #00111c;
-    --foreground: #EDEDE9;
+    --background: var(--color-hart-dark-primary);
+    --foreground: var(--color-hart-light-primary);
+    --color-accent-content: var(--color-hart-light-secondary);
+    --color-accent: var(--color-hart-dark-accent);
   }
 }

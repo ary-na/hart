@@ -1,18 +1,21 @@
 // src/lib/config/fonts.ts
 
-// Next.js font imports
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const primary = Inter({
+  variable: "--font-primary",
   subsets: ["latin"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const secondary = Playfair_Display({
+  variable: "--font-secondary",
   subsets: ["latin"],
   display: "swap",
 });
 
-export const fontClassName = `${geistSans.variable} ${geistMono.variable} antialiased`;
+export const fontClassName = `
+  ${primary.variable}
+  ${secondary.variable}
+  antialiased
+`.trim();

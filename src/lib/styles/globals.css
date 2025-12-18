@@ -1,37 +1,32 @@
-/* src/lib/styles/globals.css */
-@import "tailwindcss";
-@plugin "daisyui";
-@import "./variables-light.css";
-@import "./variables-dark.css";
+/* src/lib/styles/globals.css  */
 
 html {
   scroll-behavior: smooth;
   background-color: var(--background);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-primary), Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold;
+  font-family: var(--font-secondary), serif;
 }
 
 h1 {
-  @apply text-4xl font-bold mb-4;
+  @apply text-6xl;
 }
 
 h2 {
-  @apply text-3xl font-bold mb-3;
-}
-
-h3 {
-  @apply text-2xl font-bold mb-2;
+  @apply text-5xl;
 }
 
 article {

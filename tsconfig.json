@@ -23,6 +23,7 @@
       "@hart/*": ["./src/*"],
       "@hart/server/*": ["./src/server/*"],
       "@hart/components/*": ["./src/components/*"],
+      "@hart/hooks/*": ["./src/hooks/*"],
       "@hart/lib/*": ["./src/lib/*"]
     }
   },

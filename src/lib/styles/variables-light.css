@@ -1,5 +1,9 @@
 /* src/lib/styles/variables-light.css */
-:root {
-  --background: #EDEDE9;
-  --foreground: #00111c;
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: var(--color-hart-light-primary);
+    --foreground: var(--color-hart-dark-primary);
+    --color-accent-content: var(--color-hart-dark-secondary);
+    --color-accent: var(--color-hart-light-accent);
+  }
 }

@@ -1,18 +1,11 @@
 // src/app/layout.tsx
 
-// Global styles
-import "@hart/lib/styles/globals.css";
-
-// Configuration imports
+import { cn } from "@hart/lib/utils";
+import "@hart/lib/styles/__root.css";
 import { metadata } from "@hart/lib/config/metadata";
+import RootShell from "@hart/components/RootShell";
 import { Providers } from "@hart/lib/config/providers";
 import { fontClassName } from "@hart/lib/config/fonts";
-
-// Component imports
-import RootShell from "@hart/components/RootShell";
-
-// Utility imports
-import { cn } from "@hart/lib/utils";
 
 export { metadata };
 
