@@ -1,6 +1,6 @@
 // src/lib/config/fonts.ts
 
-import { Playfair_Display, Inter } from "next/font/google";
+import { Glory, Inter } from "next/font/google";
 
 const primary = Inter({
   variable: "--font-primary",
@@ -8,7 +8,7 @@ const primary = Inter({
   display: "swap",
 });
 
-const secondary = Playfair_Display({
+const secondary = Glory({
   variable: "--font-secondary",
   subsets: ["latin"],
   display: "swap",

@@ -2,7 +2,7 @@
 const Shop = () => {
   return (
     <section className="p-8">
-      <h1>Shop</h1>
+      <h1>Gallery</h1>
     </section>
   );
 };

@@ -56,7 +56,7 @@ const NavBar = () => {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/shop">Shop</Link>
+              <Link href="/gallery">Gallery</Link>
             </li>
             <li>
               <Link href="/about">About</Link>
@@ -73,7 +73,7 @@ const NavBar = () => {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/shop">Shop</Link>
+              <Link href="/gallery">Gallery</Link>
             </li>
             <li>
               <Link href="/about">About</Link>
@@ -126,7 +126,7 @@ const NavBar = () => {
               <span className="text-lg font-bold">0 Items</span>
               <span className="text-info">Subtotal: $0</span>
               <div className="card-actions">
-                <Link href="/shop/cart" className="btn btn-primary btn-block">
+                <Link href="/gallery/cart" className="btn btn-primary btn-block">
                   View cart
                 </Link>
               </div>
