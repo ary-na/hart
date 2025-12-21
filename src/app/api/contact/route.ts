@@ -1,15 +1,10 @@
 // src/app/api/contact/route.ts
 
-// Next.js imports
 import { NextResponse } from "next/server";
 
-// Database and model imports
-import { Messages } from "@hart/server/models";
+import { Message } from "@hart/server/models";
 import { connectToDatabase } from "@hart/server/db/mongodb";
-
-// Utility and upload imports
-import { generateFileName } from "@hart/lib/utils";
-import { uploadFileToS3 } from "@hart/server/upload/s3";
+import { generateFileName, uploadFileToS3 } from "@hart/server/upload";
 
 export async function POST(req: Request) {
   try {
@@ -46,7 +41,7 @@ export async function POST(req: Request) {
       const buffer = Buffer.from(arrayBuffer);
 
       // Generate unique filename
-      const uniqueFileName = generateFileName(file.name);
+      const uniqueFileName = generateFileName(file.name, "portfolios");
 
       // Use file MIME type or fallback
       const contentType = file.type || "application/octet-stream";
@@ -56,7 +51,7 @@ export async function POST(req: Request) {
     }
 
     // Save to MongoDB with file key or undefined if no file
-    await Messages.create({
+    await Message.create({
       name,
       email,
       enquiry,

@@ -66,7 +66,7 @@ export const authOptions = {
       if (token) {
         session.user.id = token.id as string;
         session.user.username = token.username as string;
-        session.user.email = token.email as string
+        session.user.email = token.email as string;
         session.user.role = token.role as "admin" | "user";
       }
       return session;
@@ -76,5 +76,3 @@ export const authOptions = {
     signIn: "/login",
   },
 };
-
-export default authOptions;

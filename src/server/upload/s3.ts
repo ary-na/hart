@@ -21,11 +21,11 @@ const s3 = new S3Client({
   },
 });
 
-export async function uploadFileToS3(
+export const uploadFileToS3 = async (
   fileBuffer: Buffer,
   fileName: string,
   contentType: string
-): Promise<string> {
+): Promise<string> => {
   const params = {
     Bucket: BUCKET_NAME,
     Key: fileName,
@@ -38,12 +38,12 @@ export async function uploadFileToS3(
   await s3.send(command);
 
   return fileName;
-}
+};
 
-export async function getPresignedUrl(
+export const getPresignedUrl = async (
   key: string,
   expiresInSeconds = 3600
-): Promise<string> {
+): Promise<string> => {
   const command = new GetObjectCommand({
     Bucket: BUCKET_NAME,
     Key: key,
@@ -51,13 +51,13 @@ export async function getPresignedUrl(
 
   const url = await getSignedUrl(s3, command, { expiresIn: expiresInSeconds });
   return url;
-}
+};
 
-export async function s3DeleteObject(key: string) {
+export const s3DeleteObject = async (key: string) => {
   const command = new DeleteObjectCommand({
     Bucket: BUCKET_NAME,
     Key: key,
   });
 
   await s3.send(command);
-}
+};

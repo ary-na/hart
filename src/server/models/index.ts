@@ -1,3 +1,4 @@
 // src/server/models/index.ts
-export * from "./Messages";
+export * from "./Message";
 export * from "./User";
+export * from "./Drawing";

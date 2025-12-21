@@ -8,7 +8,7 @@ const Home = () => {
       {/* Hero section */}
       <section className="relative overflow-hidden text-center my-auto">
         <div aria-hidden className="absolute inset-0 bg-base-200" />
-        <div className="relative z-10 container mx-auto max-w-4xl px-6 py-32">
+        <div className="relative container mx-auto max-w-4xl px-6 py-32">
           <h1>ART made with LOVE</h1>
           <p className="italic">
             I create original artwork and custom commissions inspired by
@@ -79,7 +79,7 @@ const Home = () => {
 
       {/* Testimonials section */}
       <section className="p-10">
-        <div className="container max-w-4xl mx-auto p-10 text-accent-content">
+        <div className="container max-w-4xl mx-auto text-accent-content">
           <h2 className="mb-4">What People Say</h2>
           <p className="text-end">
             Testimonials coming soon — stay tuned to hear what clients love

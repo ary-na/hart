@@ -126,7 +126,10 @@ const NavBar = () => {
               <span className="text-lg font-bold">0 Items</span>
               <span className="text-info">Subtotal: $0</span>
               <div className="card-actions">
-                <Link href="/gallery/cart" className="btn btn-primary btn-block">
+                <Link
+                  href="/gallery/cart"
+                  className="btn btn-primary btn-block"
+                >
                   View cart
                 </Link>
               </div>

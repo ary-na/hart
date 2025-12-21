@@ -1,29 +1,19 @@
 // src/app/api/admin/messages/route.ts
 
-// Next.js imports
 import { NextResponse } from "next/server";
-
-// NextAuth imports
-import { getServerSession } from "next-auth/next";
-
-// Database and model imports
-import { Messages } from "@hart/server/models";
+import { Message } from "@hart/server/models";
+import { getCurrentUser } from "@hart/server/auth";
+import { getPresignedUrl } from "@hart/server/upload";
 import { connectToDatabase } from "@hart/server/db/mongodb";
-
-// Auth options import
-import { authOptions } from "@hart/server/auth/nAuth";
-
-// S3 utility import
-import { getPresignedUrl } from "@hart/server/upload/s3";
 
 export async function GET(request: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const user = await getCurrentUser();
 
-    if (!session || !session.user) {
+    if (!user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-    if (session.user.role !== "admin") {
+    if (user.role !== "admin") {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 
@@ -33,7 +23,7 @@ export async function GET(request: Request) {
 
     await connectToDatabase();
 
-    const messages = await Messages.find()
+    const messages = await Message.find()
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)

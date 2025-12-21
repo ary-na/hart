@@ -1,9 +1,8 @@
 // src/server/models/Messages.ts
 
-// Mongoose imports
 import { Schema, models, model } from "mongoose";
 
-const MessagesSchema = new Schema(
+const MessageSchema = new Schema(
   {
     name: {
       type: String,
@@ -21,6 +20,7 @@ const MessagesSchema = new Schema(
     enquiry: {
       type: String,
       required: true,
+      trim: true,
     },
 
     fileName: {
@@ -31,4 +31,4 @@ const MessagesSchema = new Schema(
   { timestamps: true }
 );
 
-export const Messages = models.Messages || model("Messages", MessagesSchema);
+export const Message = models.Message || model("Message", MessageSchema);
