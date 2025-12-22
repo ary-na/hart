@@ -4,6 +4,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import { Drawing, FetchOptions, UseDrawingsReturn } from "@hart/lib/types";
+import { CreateDrawingInput } from "@hart/lib/validators";
 
 const LIMIT = 5;
 
@@ -53,13 +54,7 @@ export const useDrawings = (): UseDrawingsReturn => {
   );
 
   const createDrawing = useCallback(
-    async (data: {
-      title: string;
-      description: string;
-      file: File | FileList;
-      price?: string;
-      tags?: string[];
-    }): Promise<Drawing | null> => {
+    async (data: CreateDrawingInput): Promise<Drawing | null> => {
       setCreating(true);
       setError(null);
 
@@ -71,7 +66,12 @@ export const useDrawings = (): UseDrawingsReturn => {
         formData.append("description", data.description.trim());
         formData.append("file", file);
         console.log(data.price);
-        if (data.price) formData.append("price", data.price);
+        const priceToAppend =
+          typeof data.price === "string" && data.price.trim() !== ""
+            ? data.price
+            : "0";
+        formData.append("price", priceToAppend);
+
         if (data.tags && data.tags.length > 0) {
           formData.append("tags", JSON.stringify(data.tags));
         }
