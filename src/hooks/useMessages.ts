@@ -2,11 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 
-import {
-  Message,
-  MessagesFetchOptions,
-  UseMessagesReturn,
-} from "@hart/lib/types";
+import { Message, FetchOptions, UseMessagesReturn } from "@hart/lib/types";
 
 const LIMIT = 5;
 
@@ -23,7 +19,7 @@ export const useMessages = (): UseMessagesReturn => {
     async ({
       append = false,
       limit = LIMIT,
-    }: MessagesFetchOptions = {}): Promise<void> => {
+    }: FetchOptions = {}): Promise<void> => {
       if (isFetchingRef.current) return;
       isFetchingRef.current = true;
       setLoading(true);
@@ -102,7 +98,7 @@ export const useMessages = (): UseMessagesReturn => {
           }
           // If no more messages left → do nothing (list stays <5, which is correct)
         }
-        return true
+        return true;
       } catch (err) {
         const e = err instanceof Error ? err : new Error("Unknown error");
         console.error("Delete failed:", e);
@@ -110,7 +106,7 @@ export const useMessages = (): UseMessagesReturn => {
 
         // Revert optimistic delete on real failure
         await fetchMessages({ append: false });
-        return false
+        return false;
       } finally {
         setDeletingIds((prev) => {
           const next = new Set(prev);

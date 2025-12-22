@@ -17,4 +17,5 @@ export type CancelButtonProps = {
   text?: string;
   className?: string;
   type?: "button" | "reset";
+  disabled?: boolean;
 };

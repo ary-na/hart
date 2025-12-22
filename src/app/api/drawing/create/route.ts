@@ -2,7 +2,7 @@
 
 import { NextResponse } from "next/server";
 
-import { Drawing } from "@hart/server/models/Drawing";
+import { Drawing } from "@hart/server/models";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 import { getCurrentUser } from "@hart/server/auth/getCurrentUser";
 import {
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     const priceStr = formData.get("price") as string | null;
     const tagsStr = formData.get("tags") as string | null;
 
-    // Required fields
+    // Validate required fields
     if (!title || !description || !file || file.size === 0) {
       return NextResponse.json(
         { message: "Title, description, and file are required" },
@@ -76,7 +76,6 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-
     if (file.size > 50 * 1024 * 1024) {
       return NextResponse.json(
         { message: "Image must be under 50 MB" },
@@ -84,7 +83,9 @@ export async function POST(req: Request) {
       );
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer());
+    // Convert file to Buffer for upload
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
     const originalFileName = generateFileName(file.name, "drawings");
     const fileName = await uploadFileToS3(buffer, originalFileName, file.type);

@@ -1,4 +1,7 @@
 // src/lib/types/Message.ts
+
+import { FetchOptions } from "./Hook";
+
 export interface Message {
   _id: string;
   name: string;
@@ -9,16 +12,11 @@ export interface Message {
   updatedAt: string;
 }
 
-export type MessagesFetchOptions = {
-  append?: boolean;
-  limit?: number;
-};
-
 export type UseMessagesReturn = {
   messages: Message[];
   loading: boolean;
   error: Error | null;
   deletingIds: Set<string>;
-  fetchMessages: (options?: MessagesFetchOptions) => Promise<void>;
+  fetchMessages: (options?: FetchOptions) => Promise<void>;
   deleteMessage: (messageId: string) => Promise<boolean>;
 };
