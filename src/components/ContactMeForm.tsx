@@ -100,7 +100,7 @@ export default function ContactMeForm() {
           {...register("enquiry")}
           rows={6}
           placeholder="Tell me about your project, timeline, budget..."
-          className={cn("textarea w-full", errors.enquiry && "input-error")}
+          className={cn("textarea w-full", errors.enquiry && "textarea-error")}
         />
         <p className="label opacity-80">
           The more details you give, the better I can help
