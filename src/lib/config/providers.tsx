@@ -1,8 +1,8 @@
-// src/lib/config/providers.tsx
 "use client";
 
 import { ThemeProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
+import DrawingsProvider from "@hart/context/DrawingsContext";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -13,7 +13,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         enableSystem
         disableTransitionOnChange
       >
-        {children}
+        <DrawingsProvider>{children}</DrawingsProvider>
       </ThemeProvider>
     </SessionProvider>
   );

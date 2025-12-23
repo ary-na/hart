@@ -2,7 +2,7 @@
 
 import { getCurrentUser } from "@hart/server/auth";
 import GalleryGrid from "@hart/components/GalleryGrid";
-import CreateDrawingModalClient from "@hart/lib/ui/CreateDrawingModalClient";
+import CreateDrawingModalClient from "@hart/lib/ui/CreateDrawingModalController";
 
 const Shop = async () => {
   const user = await getCurrentUser();

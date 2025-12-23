@@ -8,14 +8,14 @@ import { cn } from "@hart/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useDrawings } from "@hart/hooks";
+import { useDrawingsContext } from "@hart/hooks";
 import { ModalProps } from "@hart/lib/types";
 import { Toast, FormField, SubmitButton, CancelButton } from "@hart/lib/ui";
 import { createDrawingSchema, CreateDrawingInput } from "@hart/lib/validators";
 
 const CreateDrawingModal = ({ open, onClose }: ModalProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const { createDrawing, loading } = useDrawings();
+  const { createDrawing, loading } = useDrawingsContext();
   const { showToast } = Toast();
 
   const {

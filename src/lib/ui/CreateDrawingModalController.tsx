@@ -1,11 +1,11 @@
-// src/lib/ui/CreateDrawingModalClient.tsx
+// src/lib/ui/CreateDrawingModalController.tsx
 
 "use client";
 
 import { useState } from "react";
 import CreateDrawingModal from "@hart/components/CreateDrawingModal";
 
-const CreateDrawingModalClient = () => {
+const CreateDrawingModalController = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,4 +23,4 @@ const CreateDrawingModalClient = () => {
   );
 };
 
-export default CreateDrawingModalClient;
+export default CreateDrawingModalController;

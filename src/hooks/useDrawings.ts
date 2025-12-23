@@ -108,13 +108,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         const result = await res.json();
         const newDrawing: Drawing = result.drawing;
 
-        // Prepend new drawing (and avoid duplicate if somehow already exists)
-        setDrawings((prev) => {
-          if (prev.some((d) => d._id === newDrawing._id)) {
-            return prev;
-          }
-          return [newDrawing, ...prev];
-        });
+        await fetchDrawings({ append: false });
 
         return newDrawing;
       } catch (err) {
@@ -126,7 +120,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         setCreating(false);
       }
     },
-    []
+    [fetchDrawings]
   );
 
   const deleteDrawing = useCallback(

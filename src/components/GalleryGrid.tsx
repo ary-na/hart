@@ -1,21 +1,17 @@
-// src/components/GalleryGrid.tsx (or wherever you have it)
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { useDrawings } from "@hart/hooks";
+import { useEffect, useState } from "react";
+
+import { useDrawingsContext } from "@hart/hooks";
 import { Drawing } from "@hart/lib/types";
 
 export default function GalleryGrid() {
-  const { drawings, fetchDrawings, loading } = useDrawings();
-  const didInitialLoad = useRef(false);
+  const { drawings, fetchDrawings, loading } = useDrawingsContext();
   const [selectedDrawing, setSelectedDrawing] = useState<Drawing | null>(null);
 
   useEffect(() => {
-    if (!didInitialLoad.current) {
-      fetchDrawings({ limit: 12 });
-      didInitialLoad.current = true;
-    }
+    fetchDrawings({ limit: 12 });
   }, [fetchDrawings]);
 
   return (

@@ -1,11 +1,11 @@
-// src/lib/ui/ModalClient.tsx
+// src/lib/ui/UpdatePassModalController.tsx
 
 "use client";
 
 import { useState } from "react";
 import ChangePasswordModal from "@hart/components/UpdatePasswordModal";
 
-const UpdatePassModalClient = () => {
+const UpdatePassModalController = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,4 +23,4 @@ const UpdatePassModalClient = () => {
   );
 };
 
-export default UpdatePassModalClient;
+export default UpdatePassModalController;
