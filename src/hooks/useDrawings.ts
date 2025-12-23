@@ -143,6 +143,7 @@ export const useDrawings = (): UseDrawingsReturn => {
           );
         }
 
+        await fetchDrawings({ append: false });
         return true;
       } catch (err) {
         const e = err instanceof Error ? err : new Error("Unknown error");
