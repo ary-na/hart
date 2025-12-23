@@ -1,20 +1,21 @@
-// src/app/api/admin/messages/[id]/route.ts
+// src/app/api/admin/messages/delete/[id]/route.ts
+
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
+
 import { Message } from "@hart/server/models";
+import { getCurrentUser } from "@hart/server/auth";
+import { s3DeleteObject } from "@hart/server/upload";
 import { connectToDatabase } from "@hart/server/db/mongodb";
-import { authOptions } from "@hart/server/auth/nAuth";
-import { s3DeleteObject } from "@hart/server/upload/s3"; // You need to implement this
 
 export async function DELETE(
   request: Request,
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const params = await context.params; // <-- await here!
+    const params = await context.params;
 
-    const session = await getServerSession(authOptions);
-    if (!session?.user || session.user.role !== "admin") {
+    const user = await getCurrentUser();
+    if (!user || user?.role !== "admin") {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 

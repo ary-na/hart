@@ -1,12 +1,11 @@
-// src/hooks/useDrawing.ts
-
+// src/hooks/useDrawings.ts
 "use client";
 
 import { useState, useCallback, useRef } from "react";
 import { Drawing, FetchOptions, UseDrawingsReturn } from "@hart/lib/types";
 import { CreateDrawingInput } from "@hart/lib/validators";
 
-const LIMIT = 5;
+const LIMIT = 12;
 
 export const useDrawings = (): UseDrawingsReturn => {
   const [drawings, setDrawings] = useState<Drawing[]>([]);
@@ -14,7 +13,6 @@ export const useDrawings = (): UseDrawingsReturn => {
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
-
   const skipRef = useRef(0);
   const isFetchingRef = useRef(false);
 
@@ -27,10 +25,14 @@ export const useDrawings = (): UseDrawingsReturn => {
 
       try {
         const skip = append ? skipRef.current : 0;
-        const res = await fetch(
-          `/api/drawing/list?skip=${skip}&limit=${limit}`,
-          { cache: "no-store" }
-        );
+
+        const url = new URL("/api/drawings", window.location.origin);
+        url.searchParams.set("skip", skip.toString());
+        if (limit !== undefined) {
+          url.searchParams.set("limit", limit.toString());
+        }
+
+        const res = await fetch(url, { cache: "no-store" });
 
         if (!res.ok) {
           const text = await res.text().catch(() => "");
@@ -39,8 +41,19 @@ export const useDrawings = (): UseDrawingsReturn => {
 
         const data: Drawing[] = await res.json();
 
-        setDrawings((prev) => (append ? [...prev, ...data] : data));
-        skipRef.current = append ? skipRef.current + data.length : data.length;
+        setDrawings((prev) => {
+          if (!append) {
+            skipRef.current = data.length;
+            return data;
+          }
+
+          const existingIds = new Set(prev.map((d) => d._id));
+          const newUniqueDrawings = data.filter((d) => !existingIds.has(d._id));
+
+          skipRef.current += newUniqueDrawings.length;
+
+          return [...prev, ...newUniqueDrawings];
+        });
       } catch (err) {
         const e = err instanceof Error ? err : new Error("Unknown error");
         console.error("useDrawings.fetchDrawings:", e);
@@ -57,26 +70,30 @@ export const useDrawings = (): UseDrawingsReturn => {
     async (data: CreateDrawingInput): Promise<Drawing | null> => {
       setCreating(true);
       setError(null);
-
       try {
-        const file = data.file instanceof File ? data.file : data.file?.[0];
-
         const formData = new FormData();
         formData.append("title", data.title.trim());
         formData.append("description", data.description.trim());
+        const file = data.file instanceof File ? data.file : data.file?.[0];
         formData.append("file", file);
-        console.log(data.price);
-        const priceToAppend =
-          typeof data.price === "string" && data.price.trim() !== ""
-            ? data.price
-            : "0";
-        formData.append("price", priceToAppend);
 
+        let priceToAppend = "0";
+        if (data.price != null) {
+          const priceStr = String(data.price).trim();
+          if (priceStr !== "") {
+            const num = parseFloat(priceStr);
+            if (!isNaN(num) && num >= 0) {
+              priceToAppend = String(num);
+            }
+          }
+        }
+
+        formData.append("price", priceToAppend);
         if (data.tags && data.tags.length > 0) {
           formData.append("tags", JSON.stringify(data.tags));
         }
 
-        const res = await fetch("/api/drawing/create", {
+        const res = await fetch("/api/drawings/create", {
           method: "POST",
           body: formData,
         });
@@ -91,7 +108,13 @@ export const useDrawings = (): UseDrawingsReturn => {
         const result = await res.json();
         const newDrawing: Drawing = result.drawing;
 
-        setDrawings((prev) => [newDrawing, ...prev]);
+        // Prepend new drawing (and avoid duplicate if somehow already exists)
+        setDrawings((prev) => {
+          if (prev.some((d) => d._id === newDrawing._id)) {
+            return prev;
+          }
+          return [newDrawing, ...prev];
+        });
 
         return newDrawing;
       } catch (err) {
@@ -115,7 +138,7 @@ export const useDrawings = (): UseDrawingsReturn => {
       setDeletingIds((prev) => new Set(prev).add(drawingId));
 
       try {
-        const res = await fetch(`/api/drawing/delete/${drawingId}`, {
+        const res = await fetch(`/api/drawings/delete/${drawingId}`, {
           method: "DELETE",
         });
 
@@ -131,7 +154,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         const e = err instanceof Error ? err : new Error("Unknown error");
         console.error("useDrawings.deleteDrawing:", e);
         setError(e);
-
+        // Revert on failure
         await fetchDrawings({ append: false });
         return false;
       } finally {

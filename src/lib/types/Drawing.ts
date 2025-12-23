@@ -12,6 +12,8 @@ export interface Drawing {
   price: number;
   tags: string[];
   createdAt: string;
+  fileUrl?: string;
+  thumbnailUrl?: string;
 }
 
 export type UseDrawingsReturn = {

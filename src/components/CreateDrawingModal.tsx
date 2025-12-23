@@ -128,7 +128,10 @@ const CreateDrawingModal = ({ open, onClose }: ModalProps) => {
               {...register("price", { valueAsNumber: true })}
               type="number"
               placeholder="A$0.00"
-              className={cn("input w-full appearance-none", errors.price && "input-error")}
+              className={cn(
+                "input w-full appearance-none",
+                errors.price && "input-error"
+              )}
               disabled={loading}
             />
           </FormField>
