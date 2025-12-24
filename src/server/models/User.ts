@@ -1,10 +1,9 @@
 // src/server/models/User.ts
 
-// Mongoose imports
+import bcrypt from "bcrypt";
 import { Schema, models, model } from "mongoose";
 
-// Bcrypt import for password hashing
-import bcrypt from "bcrypt";
+import { AddressSchema } from "./schemas/Address";
 
 const UserSchema = new Schema(
   {
@@ -33,6 +32,25 @@ const UserSchema = new Schema(
       enum: ["admin", "user"],
       default: "user",
     },
+
+    firstName: { type: String, trim: true, required: true },
+    lastName: { type: String, trim: true },
+    avatarName: { type: String },
+    bio: { type: String },
+
+    shippingAddress: {
+      type: AddressSchema,
+      required: false,
+    },
+
+    paymentCustomerId: { type: String },
+
+    purchases: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Drawing",
+      },
+    ],
   },
   {
     timestamps: true,
@@ -41,7 +59,6 @@ const UserSchema = new Schema(
 
 // Hash password before saving
 UserSchema.pre("save", async function () {
-  // Only hash if the password is new or modified
   if (!this.isModified("password")) return;
 
   const salt = await bcrypt.genSalt(10);

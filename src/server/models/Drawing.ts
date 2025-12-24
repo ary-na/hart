@@ -25,7 +25,6 @@ const DrawingSchema = new Schema(
     },
     price: {
       type: Number,
-      required: false,
       min: 0,
       default: 0,
     },
@@ -40,13 +39,19 @@ const DrawingSchema = new Schema(
         lowercase: true,
       },
     ],
-    createdAt: {
-      type: Date,
-      default: Date.now,
+    isSold: {
+      type: Boolean,
+      default: false,
     },
-    updatedAt: {
+    soldAt: {
       type: Date,
-      default: Date.now,
+    },
+    salePrice: {
+      type: Number,
+    },
+    buyer: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {
@@ -54,7 +59,7 @@ const DrawingSchema = new Schema(
   }
 );
 
-DrawingSchema.pre("save", async function () {
+DrawingSchema.pre("save", function () {
   this.isForSale = (this.price ?? 0) > 0;
 });
 
