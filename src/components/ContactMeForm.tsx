@@ -8,14 +8,14 @@ import { cn } from "@hart/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Toast } from "@hart/lib/ui";
+import { useToast } from "@hart/hooks";
 import { FormField, SubmitButton } from "@hart/lib/ui";
 import { contactMeSchema, ContactMeInput } from "@hart/lib/validators";
 
 export default function ContactMeForm() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { showToast } = Toast();
+  const { showToast } = useToast();
 
   const {
     register,

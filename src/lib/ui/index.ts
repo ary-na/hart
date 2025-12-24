@@ -5,4 +5,4 @@ export * from "./CancelButton"
 export * from "./Logo";
 export * from "./UpdatePassModalController";
 export * from "./ConfirmModal"
-export * from "./Toast";
+export * from "../../hooks/useToast";

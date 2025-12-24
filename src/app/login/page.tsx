@@ -1,17 +1,11 @@
 // src/app/login/page.tsx
 
-// Next.js imports
-import { redirect } from "next/navigation";
-
-// NextAuth imports
 import type { Session } from "next-auth";
+import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 
-// Auth options import
-import { authOptions } from "@hart/server/auth/nAuth";
-
-// Component imports
 import LoginForm from "@hart/components/LoginForm";
+import { authOptions } from "@hart/server/auth/nAuth";
 
 const LoginPage = async () => {
   const session = (await getServerSession(authOptions)) as Session | null;

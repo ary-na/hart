@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { Toast } from "@hart/lib/ui/Toast";
+import { Toast } from "@hart/hooks/useToast";
 import { ConfirmModal } from "@hart/lib/ui";
 import { useMessages } from "@hart/hooks/useMessages";
 

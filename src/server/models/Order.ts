@@ -83,8 +83,4 @@ OrderSchema.index(
   }
 );
 
-OrderSchema.index({ buyer: 1 });
-
-OrderSchema.index({ transactionId: 1 });
-
 export const Order = models.Order || model("Order", OrderSchema);

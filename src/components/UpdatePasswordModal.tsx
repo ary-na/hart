@@ -6,7 +6,7 @@ import { cn } from "@hart/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Toast } from "@hart/lib/ui";
+import { useToast } from "@hart/hooks";
 import { ModalProps } from "@hart/lib/types";
 import { useProfile } from "@hart/hooks/useProfile";
 import { ChangePasswordPayload } from "@hart/lib/types";
@@ -18,7 +18,7 @@ import { FormField, SubmitButton, CancelButton } from "@hart/lib/ui";
 
 const UpdatePasswordModal = ({ open, onClose }: ModalProps) => {
   const { changePassword, loading, error } = useProfile();
-  const { showToast } = Toast();
+  const { showToast } = useToast();
 
   const {
     register,
