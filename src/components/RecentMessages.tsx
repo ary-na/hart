@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { Toast } from "@hart/hooks/useToast";
+import { useToast } from "@hart/hooks/useToast";
 import { ConfirmModal } from "@hart/lib/ui";
 import { useMessages } from "@hart/hooks/useMessages";
 
 const RecentMessages = () => {
-  const { showToast } = Toast();
+  const { showToast } = useToast();
 
   const {
     messages,
