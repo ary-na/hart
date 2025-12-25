@@ -3,34 +3,41 @@
 "use client";
 
 import Link from "next/link";
+import { cn } from "@hart/lib/utils";
+import { useState } from "react";
 import { signOut } from "next-auth/react";
-import { useSession } from "next-auth/react";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Logo } from "@hart/lib/ui";
+import { useCurrentUser } from "@hart/hooks";
 
 const NavBar = () => {
-  const { data: session, status } = useSession();
-  const isLoggedIn = status === "authenticated";
-  const isLoading = status === "loading";
-  const isUnauthenticated = status === "unauthenticated";
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const role = session?.user?.role;
+  const { user, isAuthenticated, isLoading, isUnauthenticated } =
+    useCurrentUser();
+
+  const userRole = user?.role;
 
   const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     signOut({ callbackUrl: "/login" });
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    (document.activeElement as HTMLElement)?.blur();
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div
+        <div className={cn("dropdown", isMenuOpen && "dropdown-open")}>
+          <button
             tabIndex={0}
-            role="button"
             className="btn btn-ghost btn-circle lg:hidden"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,23 +54,47 @@ const NavBar = () => {
                 d="M4 6h16M4 12h16M4 18h7"
               />{" "}
             </svg>
-          </div>
+          </button>
           <ul
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <Link href="/">Home</Link>
+              <Link href="/" onClick={closeMenu}>
+                Home
+              </Link>
             </li>
             <li>
-              <Link href="/gallery">Gallery</Link>
+              <Link href="/gallery" onClick={closeMenu}>
+                Gallery
+              </Link>
             </li>
             <li>
-              <Link href="/about">About</Link>
+              <Link href="/about" onClick={closeMenu}>
+                About
+              </Link>
             </li>
-            <li>
-              <Link href="/contact">Contact</Link>
+            <li className="mb-2">
+              <Link href="/contact" onClick={closeMenu}>
+                Contact
+              </Link>
             </li>
+              <div className="flex gap-4">
+                <Link
+                  href="/signup"
+                  onClick={closeMenu}
+                  className="btn btn-info btn-xs grow"
+                >
+                  Sign up
+                </Link>
+                <Link
+                  href="/login"
+                  onClick={closeMenu}
+                  className="btn btn-primary btn-xs grow"
+                >
+                  Sign in
+                </Link>
+              </div>
           </ul>
         </div>
 
@@ -143,7 +174,7 @@ const NavBar = () => {
             Login
           </Link>
         )}
-        {isLoggedIn && (
+        {isAuthenticated && (
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -157,7 +188,7 @@ const NavBar = () => {
               tabIndex={-1}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              {role === "admin" && (
+              {userRole === "admin" && (
                 <li>
                   <Link href="/admin">Dashboard</Link>
                 </li>

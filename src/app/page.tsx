@@ -14,7 +14,7 @@ const Home = () => {
             I create original artwork and custom commissions inspired by
             emotion, story, and care.
           </p>
-          <Link href="/gallery" className="btn btn-dash">
+          <Link href="/gallery" className="btn btn-ghost">
             See my work
           </Link>
         </div>

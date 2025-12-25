@@ -1,77 +1,80 @@
 // src/app/privacy/page.tsx
 
-// Next.js imports
 import Link from "next/link";
 
 const Privacy = () => {
   return (
-    <article className="p-8">
-      <header>
+    <article>
+      <header className="container mx-auto max-w-4xl p-12">
         <h1>Privacy & Data Policy</h1>
-        <p className="italic text-sm mb-8">Last updated: December 2025</p>
+        <p className="italic text-sm">Last updated: January 2026</p>
       </header>
 
-      <section>
-        <h2>Summary</h2>
-        <p>
-          At <strong>Hart</strong>, we respect your privacy and are committed to
-          protecting your personal data. Here’s what you need to know:
-        </p>
-        <ul>
-          <li>
-            We collect only the data necessary to provide and improve our
-            services.
-          </li>
-          <li>
-            Your data is stored securely and never sold or traded to third
-            parties.
-          </li>
-          <li>
-            You have rights to access, correct, or delete your personal
-            information.
-          </li>
-          <li>
-            We use cookies to enhance your experience, which you can disable in
-            your browser.
-          </li>
-          <li>
-            Your data may be transferred internationally, but we maintain strong
-            safeguards.
-          </li>
-          <li>
-            If you have questions or want to exercise your rights, you can
-            contact us anytime.
-          </li>
-        </ul>
-        <p className="mt-4 italic text-sm">
-          For full details, please read the complete Privacy & Data Policy
-          below.
-        </p>
+      <section className="bg-(--color-hart-dark-secondary)">
+        <div className="container mx-auto max-w-4xl p-12">
+          <h2>Summary</h2>
+          <p>
+            At <strong>Hart</strong>, we respect your privacy and are committed
+            to protecting your personal data. Here’s what you need to know:
+          </p>
+          <ul>
+            <li>
+              We collect only the data necessary to provide and improve our
+              services.
+            </li>
+            <li>
+              Your data is stored securely and never sold or traded to third
+              parties.
+            </li>
+            <li>
+              You have rights to access, correct, or delete your personal
+              information.
+            </li>
+            <li>
+              We use cookies to enhance your experience, which you can disable
+              in your browser.
+            </li>
+            <li>
+              Your data may be transferred internationally, but we maintain
+              strong safeguards.
+            </li>
+            <li>
+              If you have questions or want to exercise your rights, you can
+              contact us anytime.
+            </li>
+          </ul>
+          <p className="mt-4 italic text-sm">
+            For full details, please read the complete Privacy & Data Policy
+            below.
+          </p>
+        </div>
       </section>
 
-      <section>
-        <h2>1. Introduction</h2>
-        <p>
-          Welcome to <strong>Hart</strong> (the “Site”, “we”, “us”, or “our”).
-          This Privacy & Data Policy explains how we collect, use, disclose, and
-          protect information when you visit or use our website (
-          <Link
-            href="https://hildart.vercel.app"
-            className="link"
-            aria-label="Visit the Hart official website at hildart.vercel.app"
-          >
-            hildart.vercel.app
-          </Link>
-          ) or any related services. By using our Site, you agree to the
-          collection and use of information in accordance with this policy.
-        </p>
-        <p className="font-bold italic text-error mt-4">
-          If you do not agree with this policy, please refrain from using the
-          Site.
-        </p>
+      <section className="border-b-2 border-(--color-hart-dark-secondary)">
+        <div className="container mx-auto max-w-4xl p-12">
+          <h2>1. Introduction</h2>
+          <p>
+            Welcome to <strong>Hart</strong> (the “Site”, “we”, “us”, or “our”).
+            This Privacy & Data Policy explains how we collect, use, disclose,
+            and protect information when you visit or use our website (
+            <Link
+              href="https://hildart.vercel.app"
+              className="link"
+              aria-label="Visit the Hart official website at hildart.vercel.app"
+            >
+              hildart.vercel.app
+            </Link>
+            ) or any related services. By using our Site, you agree to the
+            collection and use of information in accordance with this policy.
+          </p>
+          <p className="font-bold italic text-error mt-4">
+            If you do not agree with this policy, please refrain from using the
+            Site.
+          </p>
+        </div>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12 border-b-4 border-(--color-hart-dark-secondary)">
         <h2>2. What Data We Collect</h2>
 
         <section>
@@ -132,7 +135,7 @@ const Privacy = () => {
         </section>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12 border-b-4 border-(--color-hart-dark-secondary)">
         <h2>3. Why We Collect the Data</h2>
         <p>We use the collected data for:</p>
         <ul>
@@ -171,7 +174,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12 border-b-4 border-(--color-hart-dark-secondary)">
         <h2>4. Legal &amp; Compliance Considerations</h2>
         <p>
           Depending on your location or the location of the user, relevant
@@ -186,7 +189,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>5. Data Sharing and Disclosure</h2>
         <p>We may share your data only in the following circumstances:</p>
         <ul>
@@ -217,7 +220,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>6. Cookies &amp; Tracking Technologies</h2>
         <p>We use cookies and similar technologies for:</p>
         <ul>
@@ -232,7 +235,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>7. Data Storage &amp; Security</h2>
         <ul>
           <li>
@@ -256,7 +259,7 @@ const Privacy = () => {
         </ul>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>8. Data Retention &amp; Deletion</h2>
         <p>
           We keep your account and order data as long as you maintain your
@@ -272,7 +275,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>9. Your Rights</h2>
         <p>Depending on your jurisdiction, you may have the right to:</p>
         <ul>
@@ -289,7 +292,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>10. Age &amp; Children Policy</h2>
         <p>Hart is intended for users 13 years old and above.</p>
         <p>
@@ -299,7 +302,7 @@ const Privacy = () => {
         <p>If we become aware of such data, we will promptly delete it.</p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>11. International Transfer of Data</h2>
         <p>
           Your information may be stored and processed in servers located
@@ -310,7 +313,7 @@ const Privacy = () => {
         <p>We maintain adequate safeguards to protect your data.</p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>12. Changes to This Policy</h2>
         <p>
           We may update this Privacy Policy from time to time (for example, if
@@ -323,7 +326,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section>
+      <section className="container mx-auto max-w-4xl p-12">
         <h2>13. Contact Us</h2>
         <p>
           If you have questions, concerns, or want to exercise your data rights,

@@ -7,3 +7,4 @@ export * from "./Modal";
 export * from "./Nav";
 export * from "./Drawing";
 export * from "./Hook";
+export * from "./User";

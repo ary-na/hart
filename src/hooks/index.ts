@@ -5,3 +5,4 @@ export * from "./useDrawings";
 export * from "./useProfile";
 export * from "./useDrawingsContext"
 export * from "./useToast";
+export * from "./useCurrentUser";

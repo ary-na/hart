@@ -22,17 +22,18 @@ h6 {
 }
 
 h1 {
-  @apply text-6xl;
+  @apply text-6xl mb-8;
 }
 
 h2 {
-  @apply text-5xl;
+  @apply text-5xl mb-6;
+}
+
+h3 {
+  @apply text-4xl mb-4;
 }
 
 article {
-  section {
-    @apply mb-15;
-  }
   p {
     @apply leading-8 text-justify;
   }
@@ -47,6 +48,6 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
