@@ -1,20 +1,21 @@
 // src/components/CreateDrawingModal.tsx
+
 "use client";
 
 import { ModalProps } from "@hart/lib/types";
-import CreateDrawingForm from "./CreateDrawingFrom";
+import AddDrawingForm from "./AddDrawingFrom";
 
-const CreateDrawingModal = ({ open, onClose }: ModalProps) => {
-  if (!open) return null;
+const AddDrawingModal = ({ open = false, onClose }: ModalProps) => {
+  if (!open || !onClose) return null;
 
   return (
     <dialog open className="modal">
       <div className="modal-box">
         <h3 className="mb-8!">Create Drawing</h3>
-        <CreateDrawingForm onClose={onClose} />
+        <AddDrawingForm onClose={onClose} />
       </div>
     </dialog>
   );
 };
 
-export default CreateDrawingModal;
+export default AddDrawingModal;

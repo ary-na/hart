@@ -3,7 +3,8 @@
 import { Breadcrumbs } from "@hart/lib/ui";
 import { getCurrentUser } from "@hart/server/auth";
 import GalleryGrid from "@hart/components/GalleryGrid";
-import { CreateDrawingModalController } from "@hart/lib/ui";
+import { ModalWrapper } from "@hart/lib/ui";
+import AddDrawingModal from "@hart/components/AddDrawingModal";
 
 const Gallery = async () => {
   const user = await getCurrentUser();
@@ -28,7 +29,14 @@ const Gallery = async () => {
           )}
         </div>
         {/* Admin action */}
-        {isAdmin && <CreateDrawingModalController />}
+        {isAdmin && (
+          <ModalWrapper
+            trigger="Add Drawing"
+            className="btn-secondary btn-sm"
+            ariaLabel="Add a new drawing"
+            modal={<AddDrawingModal />}
+          />
+        )}
       </header>
 
       {/* Gallery grid */}

@@ -4,7 +4,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@hart/server/auth/nAuth";
-import UpdatePassModalClient from "@hart/lib/ui/UpdatePassModalController";
+import { ModalWrapper } from "@hart/lib/ui";
+import UpdatePasswordModal from "@hart/components/UpdatePasswordModal";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
@@ -44,7 +45,12 @@ const Profile = async () => {
             </li>
           )}
         </ul>
-        <UpdatePassModalClient />
+        <ModalWrapper
+          trigger="Update Password"
+          className="btn-primary btn-sm"
+          ariaLabel="Update your password"
+          modal={<UpdatePasswordModal />}
+        />
       </div>
     </section>
   );

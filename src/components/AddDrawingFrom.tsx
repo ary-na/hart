@@ -15,7 +15,7 @@ type Props = {
   onClose: () => void;
 };
 
-const CreateDrawingForm = ({ onClose }: Props) => {
+const AddDrawingForm = ({ onClose }: Props) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { createDrawing, loading } = useDrawingsContext();
   const { showToast } = useToast();
@@ -161,4 +161,4 @@ const CreateDrawingForm = ({ onClose }: Props) => {
   );
 };
 
-export default CreateDrawingForm;
+export default AddDrawingForm;

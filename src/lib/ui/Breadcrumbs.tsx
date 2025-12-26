@@ -1,6 +1,7 @@
+// src/lib/ui/Breadcrumbs.tsx
+
 import Link from "next/link";
 import { cn } from "@hart/lib/utils";
-
 import { BreadcrumbsProps } from "@hart/lib/types";
 
 export function Breadcrumbs({ items, className }: BreadcrumbsProps) {

@@ -10,7 +10,7 @@ import { Drawing } from "@hart/lib/types";
 import { ConfirmModal } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
 import { useDrawingsContext } from "@hart/hooks";
-import { EmptyGallerySvg } from "@hart/lib/ui/EmptyGallerySvg";
+import { EmptyGallerySvg } from "@hart/lib/ui/svgs/EmptyGallerySvg";
 
 const GalleryGrid = () => {
   const { drawings, fetchDrawings, loading, deleteDrawing, deletingIds } =
