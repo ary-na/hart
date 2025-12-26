@@ -34,7 +34,7 @@ const Gallery = async () => {
             trigger="Add Drawing"
             className="btn-secondary btn-sm"
             ariaLabel="Add a new drawing"
-            modal={<AddDrawingModal />}
+            ModalComponent={AddDrawingModal}
           />
         )}
       </header>

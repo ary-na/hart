@@ -1,10 +1,10 @@
 // src/lib/types/Modal.ts
 
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 
 export type ModalProps = {
-  open?: boolean;
-  onClose?: () => void;
+  open: boolean;
+  onClose: () => void;
 };
 
 export type ConfirmModalProps = {
@@ -27,5 +27,5 @@ export type ModalWrapperProps = {
   trigger: React.ReactNode;
   className?: string;
   ariaLabel?: string;
-  modal: ReactElement<{ open: boolean; onClose: () => void }>;
+  ModalComponent: React.ComponentType<{ open: boolean; onClose: () => void }>;
 };

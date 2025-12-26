@@ -49,7 +49,7 @@ const Profile = async () => {
           trigger="Update Password"
           className="btn-primary btn-sm"
           ariaLabel="Update your password"
-          modal={<UpdatePasswordModal />}
+          ModalComponent={UpdatePasswordModal}
         />
       </div>
     </section>

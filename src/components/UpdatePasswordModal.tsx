@@ -37,7 +37,7 @@ const UpdatePasswordModal = ({ open, onClose }: ModalProps) => {
     });
 
     if (res) {
-      onClose();
+      onClose?.();
       reset();
       showToast("Password updated successfully", "success");
     }
