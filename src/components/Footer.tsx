@@ -2,12 +2,12 @@
 
 // Next.js import
 import Link from "next/link";
-import { Logo } from "@hart/lib/ui";
+import { LogoSvg } from "@hart/lib/ui";
 
 const Footer = () => {
   return (
     <footer className="footer footer-horizontal footer-center text-base-content rounded p-8">
-      <Logo
+      <LogoSvg
         width={144}
         height={64}
         alt="Logo"

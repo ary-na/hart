@@ -1,23 +1,42 @@
 // src/app/gallery/page.tsx
 
+import { Breadcrumbs } from "@hart/lib/ui";
 import { getCurrentUser } from "@hart/server/auth";
 import GalleryGrid from "@hart/components/GalleryGrid";
-import CreateDrawingModalClient from "@hart/lib/ui/CreateDrawingModalController";
+import { CreateDrawingModalController } from "@hart/lib/ui";
 
-const Shop = async () => {
+const Gallery = async () => {
   const user = await getCurrentUser();
+  const isAdmin = user?.role === "admin";
+
   return (
-    <section className="p-8">
-      <div className="mb-8 flex items-center justify-between">
+    <section className="h-container" aria-labelledby="gallery-heading">
+      {/* Section header */}
+      <header className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Gallery</h1>
-          <p className="mt-2 opacity-70">See some of my latest drawings.</p>
+          <h1 id="gallery-heading">Gallery</h1>
+          {isAdmin ? (
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Dashboard", href: "/admin" },
+                { label: "Gallery" },
+              ]}
+            />
+          ) : (
+            <p>Raw, real, and deeply felt.</p>
+          )}
         </div>
-        {user && user.role === "admin" && <CreateDrawingModalClient />}
+        {/* Admin action */}
+        {isAdmin && <CreateDrawingModalController />}
+      </header>
+
+      {/* Gallery grid */}
+      <div role="region" aria-label="Gallery of artworks">
+        <GalleryGrid />
       </div>
-      <GalleryGrid />
     </section>
   );
 };
 
-export default Shop;
+export default Gallery;

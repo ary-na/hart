@@ -1,16 +1,15 @@
-// src/lib/ui/Logo.tsx
+// src/lib/ui/LogoSvg.tsx
 
-// Import the SvgIconProps type from the types directory
 import { SvgIconProps } from "@hart/lib/types";
 
-export function Logo({
+export const LogoSvg = ({
   alt,
   className,
   width,
   height,
   title,
   ...rest
-}: SvgIconProps) {
+}: SvgIconProps) => {
   return (
     <svg
       width={width ?? 164}
@@ -29,4 +28,4 @@ export function Logo({
       <path d="M96.7606 80.643C96.9403 80.2111 97.0818 79.7195 96.9457 79.2551C96.7334 78.8966 96.2435 78.978 95.925 79.1247C95.1873 79.4724 94.7627 80.2329 94.5123 80.9743C94.2074 80.4447 93.8481 79.7956 93.1922 79.6733C92.7403 79.7222 92.2095 79.9395 92.0653 80.4148C91.9047 80.757 92.0707 81.1264 92.2368 81.4333C92.8465 82.5062 93.7338 83.4568 94.858 84C95.3888 83.3482 95.9413 82.6909 96.268 81.9086C96.4449 81.4904 96.581 81.0585 96.7606 80.643Z" />
     </svg>
   );
-}
+};

@@ -1,5 +1,8 @@
 /* src/lib/styles/globals.css  */
 
+/* ==========================================
+   Globals
+   ========================================== */
 html {
   scroll-behavior: smooth;
   background-color: var(--background);
@@ -22,15 +25,26 @@ h6 {
 }
 
 h1 {
-  @apply text-6xl mb-8;
+  @apply text-6xl;
 }
 
 h2 {
-  @apply text-5xl mb-6;
+  @apply text-5xl;
 }
 
 h3 {
-  @apply text-4xl mb-4;
+  @apply text-4xl;
+}
+
+section {
+  header {
+    h1 {
+      @apply mb-2;
+    }
+    p {
+      @apply opacity-75 text-lg mb-2;
+    }
+  }
 }
 
 article {
@@ -42,6 +56,9 @@ article {
   }
 }
 
+/* ==========================================
+   Form fields
+   ========================================== */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -50,4 +67,14 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+/* ==========================================
+   Custom Hart Classes
+   All custom utility classes must be prefixed with "h-"
+   to avoid naming conflicts and maintain consistency.
+   Example: .h-container, .h-section, .h-card, etc.
+   ========================================== */
+.h-container {
+  @apply container mx-auto px-4 py-4 max-w-full md:max-w-2xl lg:max-w-4xl xl:max-w-6xl;
 }

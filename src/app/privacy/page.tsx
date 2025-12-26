@@ -5,13 +5,13 @@ import Link from "next/link";
 const Privacy = () => {
   return (
     <article>
-      <header className="container mx-auto max-w-4xl p-12">
+      <header className="h-container">
         <h1>Privacy & Data Policy</h1>
         <p className="italic text-sm">Last updated: January 2026</p>
       </header>
 
       <section className="bg-(--color-hart-dark-secondary)">
-        <div className="container mx-auto max-w-4xl p-12">
+        <div className="h-container">
           <h2>Summary</h2>
           <p>
             At <strong>Hart</strong>, we respect your privacy and are committed

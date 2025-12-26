@@ -9,7 +9,7 @@ import { signOut } from "next-auth/react";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Logo } from "@hart/lib/ui";
+import { LogoSvg } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
 
 const NavBar = () => {
@@ -118,7 +118,7 @@ const NavBar = () => {
 
       <div className="navbar-center">
         <Link href="/">
-          <Logo
+          <LogoSvg
             className="cursor-pointer hover:text-accent"
             width={144}
             height={64}
