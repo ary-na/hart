@@ -20,9 +20,9 @@ const NavBar = () => {
 
   const userRole = user?.role;
 
-  const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleSignout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    signOut({ callbackUrl: "/login" });
+    signOut({ callbackUrl: "/signin" });
   };
 
   const closeMenu = () => {
@@ -57,7 +57,7 @@ const NavBar = () => {
           </button>
           <ul
             tabIndex={-1}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-xl dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
               <Link href="/" onClick={closeMenu}>
@@ -79,22 +79,22 @@ const NavBar = () => {
                 Contact
               </Link>
             </li>
-              <div className="flex gap-4">
-                <Link
-                  href="/signup"
-                  onClick={closeMenu}
-                  className="btn btn-info btn-xs grow"
-                >
-                  Sign up
-                </Link>
-                <Link
-                  href="/login"
-                  onClick={closeMenu}
-                  className="btn btn-primary btn-xs grow"
-                >
-                  Sign in
-                </Link>
-              </div>
+            <div className="flex gap-2 p-4">
+              <Link
+                href="/signin"
+                onClick={closeMenu}
+                className="btn btn-ghost btn-xs grow"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/signup"
+                onClick={closeMenu}
+                className="btn btn-primary btn-xs grow"
+              >
+                Sign up
+              </Link>
+            </div>
           </ul>
         </div>
 
@@ -170,9 +170,14 @@ const NavBar = () => {
 
         {isLoading && <span className="loading loading-ring loading-md"></span>}
         {isUnauthenticated && (
-          <Link href="/login" className="btn btn-ghost btn-xs">
-            Login
-          </Link>
+          <div className="hidden lg:flex gap-2">
+            <Link href="/signin" className="btn btn-ghost btn-xs">
+              Sign in
+            </Link>
+            <Link href="/signup" className="btn btn-primary btn-xs">
+              Sign up
+            </Link>
+          </div>
         )}
         {isAuthenticated && (
           <div className="dropdown dropdown-end">
@@ -190,16 +195,23 @@ const NavBar = () => {
             >
               {userRole === "admin" && (
                 <li>
-                  <Link href="/admin">Dashboard</Link>
+                  <Link href="/admin" onClick={closeMenu}>
+                    Dashboard
+                  </Link>
                 </li>
               )}
               <li>
-                <Link href="/user/profile">Profile</Link>
+                <Link href="/user/profile" onClick={closeMenu}>
+                  Profile
+                </Link>
               </li>
               <li>
                 <Link
                   href="#"
-                  onClick={handleLogout}
+                  onClick={(e) => {
+                    handleSignout(e);
+                    closeMenu();
+                  }}
                   className="cursor-pointer"
                 >
                   Logout

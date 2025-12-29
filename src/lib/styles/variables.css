@@ -1,10 +1,13 @@
 /* src/lib/styles/variables.css */
 :root {
-  --color-hart-dark-primary: #252739;
+  --color-hart-dark-primary: #181824;
   --color-hart-dark-secondary: #1e202f;
   --color-hart-dark-accent: #237c78;
 
   --color-hart-light-primary: #eff1f5;
   --color-hart-light-secondary: #e7e9ef;
   --color-hart-light-accent: #3aafa9;
+
+  --color-error: red;
+  --color-info: green;
 }

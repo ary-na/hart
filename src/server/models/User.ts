@@ -3,7 +3,7 @@
 import bcrypt from "bcrypt";
 import { Schema, models, model } from "mongoose";
 
-import { AddressSchema } from "./schemas/Address";
+import { AddressSchema } from "./schemas";
 
 const UserSchema = new Schema(
   {

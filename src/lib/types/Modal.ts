@@ -1,6 +1,5 @@
 // src/lib/types/Modal.ts
-
-import { ReactNode } from "react";
+import { ReactNode, ComponentType } from "react";
 
 export type ModalProps = {
   open: boolean;
@@ -16,16 +15,9 @@ export type ConfirmModalProps = {
   onCancel: () => void;
 };
 
-export interface ModalControllerProps {
+export type ModalTriggerProps = {
   trigger?: ReactNode;
   className?: string;
   ariaLabel?: string;
-  children: (props: { open: boolean; onClose: () => void }) => ReactNode;
-}
-
-export type ModalWrapperProps = {
-  trigger: React.ReactNode;
-  className?: string;
-  ariaLabel?: string;
-  ModalComponent: React.ComponentType<{ open: boolean; onClose: () => void }>;
+  ModalComponent: ComponentType<ModalProps>;
 };

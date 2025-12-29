@@ -5,5 +5,6 @@
     --foreground: var(--color-hart-dark-primary);
     --color-accent-content: var(--color-hart-dark-secondary);
     --color-accent: var(--color-hart-light-accent);
+    --color-primary: red;
   }
 }

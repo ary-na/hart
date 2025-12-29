@@ -1,26 +1,17 @@
-// src/components/LoginForm.tsx
+// src/components/SigninForm.tsx
 
 "use client";
 
-// React and library imports
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-
-// Zod resolver import
-import { zodResolver } from "@hookform/resolvers/zod";
-
-// Next.js import
-import { useRouter } from "next/navigation";
-
-// NextAuth import
-import { signIn } from "next-auth/react";
-
-// Utility and schema imports
 import { cn } from "@hart/lib/utils";
+import { signIn } from "next-auth/react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, SubmitButton } from "@hart/lib/ui";
 import { userLoginSchema, UserLoginInput } from "@hart/lib/validators";
 
-export default function LoginForm() {
+export default function SigninForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
