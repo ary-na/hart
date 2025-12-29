@@ -6,8 +6,10 @@ import { getCurrentUser } from "@hart/server/auth";
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
+
   const user = await getCurrentUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -15,7 +17,7 @@ export async function DELETE(
 
   await Cart.updateOne(
     { userId: user._id },
-    { $pull: { items: { drawingId: params.id } } }
+    { $pull: { items: { drawingId: id } } }
   );
 
   return NextResponse.json({ success: true });
