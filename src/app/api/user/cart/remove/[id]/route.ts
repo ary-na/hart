@@ -6,7 +6,7 @@ import { getCurrentUser } from "@hart/server/auth";
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { drawingId: string } }
+  { params }: { params: { id: string } }
 ) {
   const user = await getCurrentUser();
   if (!user) {
@@ -15,7 +15,7 @@ export async function DELETE(
 
   await Cart.updateOne(
     { userId: user._id },
-    { $pull: { items: { drawingId: params.drawingId } } }
+    { $pull: { items: { drawingId: params.id } } }
   );
 
   return NextResponse.json({ success: true });
