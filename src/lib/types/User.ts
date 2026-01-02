@@ -1,4 +1,7 @@
-export type UserRole = "admin" | "user";
+import { useForm } from "react-hook-form";
+import { UserSignupInput } from "../validators";
+
+export type UserRole = "admin" | "customer";
 
 export type Address = {
   street?: string;
@@ -10,7 +13,6 @@ export type Address = {
 
 export type User = {
   id: string;
-  username: string;
   email: string;
   role: UserRole;
 
@@ -28,3 +30,11 @@ export type User = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export interface UseSignupReturn {
+  form: ReturnType<typeof useForm<UserSignupInput>>;
+  onSubmit: (data: UserSignupInput) => Promise<void>;
+  isSubmitting: boolean;
+  serverError: string | null;
+  resetServerError: () => void;
+}

@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, SubmitButton } from "@hart/lib/ui";
-import { userLoginSchema, UserLoginInput } from "@hart/lib/validators";
+import { userSigninSchema, UserSigninInput } from "@hart/lib/validators";
 
 export default function SigninForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,8 +20,8 @@ export default function SigninForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserLoginInput>({
-    resolver: zodResolver(userLoginSchema),
+  } = useForm<UserSigninInput>({
+    resolver: zodResolver(userSigninSchema),
     mode: "onBlur",
   });
 
@@ -30,7 +30,7 @@ export default function SigninForm() {
     setError(null);
 
     const res = await signIn("credentials", {
-      username: data.username,
+      email: data.email,
       password: data.password,
       redirect: false,
     });
@@ -38,21 +38,21 @@ export default function SigninForm() {
     setIsLoading(false);
 
     if (res?.error) {
-      setError("Invalid username or password");
+      setError("Invalid email or password");
       return;
     }
 
-    router.push("/admin");
+    router.push("/");
   });
 
   return (
     <form onSubmit={onSubmit} className="grid gap-4" noValidate>
-      <FormField label="Username" error={errors.username?.message}>
+      <FormField label="Email" error={errors.email?.message}>
         <input
-          {...register("username")}
+          {...register("email")}
           type="text"
-          placeholder="Enter your username..."
-          className={cn("input w-full", errors.username && "input-error")}
+          placeholder="Enter your email..."
+          className={cn("input w-full", errors.email && "input-error")}
           disabled={isLoading}
         />
       </FormField>
@@ -69,8 +69,8 @@ export default function SigninForm() {
       {error && <p className="text-error text-center mt-2">{error}</p>}
       <SubmitButton
         isLoading={isLoading}
-        text="Login"
-        loadingText="Logging in..."
+        text="Sign in"
+        loadingText="Signing in..."
       />
     </form>
   );

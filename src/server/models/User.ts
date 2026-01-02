@@ -1,19 +1,12 @@
 // src/server/models/User.ts
 
-import bcrypt from "bcrypt";
+import { hashPassword } from "../auth";
 import { Schema, models, model } from "mongoose";
 
 import { AddressSchema } from "./schemas";
 
 const UserSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-    },
-
     email: {
       type: String,
       required: true,
@@ -25,12 +18,13 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true,
+      select: false,
     },
 
     role: {
       type: String,
-      enum: ["admin", "user"],
-      default: "user",
+      enum: ["admin", "customer"],
+      default: "customer",
     },
 
     firstName: { type: String, trim: true, required: true },
@@ -60,9 +54,7 @@ const UserSchema = new Schema(
 // Hash password before saving
 UserSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
-
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  this.password = await hashPassword(this.password);
 });
 
 export const User = models.User || model("User", UserSchema);

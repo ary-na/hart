@@ -1,10 +1,9 @@
-// src/components/RootShell.tsx
+// src/components/SiteShell.tsx
 
-// Component imports
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
-const RootShell = ({ children }: { children: React.ReactNode }) => {
+const SiteShell = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
@@ -14,4 +13,4 @@ const RootShell = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default RootShell;
+export default SiteShell;

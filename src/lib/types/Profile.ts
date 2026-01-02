@@ -1,4 +1,4 @@
-export type ChangePasswordPayload = {
+export type UpdatePasswordPayload = {
   currentPassword: string;
   newPassword: string;
 };

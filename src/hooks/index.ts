@@ -2,6 +2,7 @@
 
 export * from "./useCart";
 export * from "./useToast";
+export * from "./useSignup";
 export * from "./useProfile";
 export * from "./useMessages";
 export * from "./useDrawings";

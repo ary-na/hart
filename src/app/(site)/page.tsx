@@ -78,8 +78,8 @@ const Home = () => {
       </section>
 
       {/* Testimonials section */}
-      <section className="p-10">
-        <div className="container max-w-4xl mx-auto text-accent-content">
+      <section className="bg-accent">
+        <div className="container max-w-4xl mx-auto p-10">
           <h2 className="mb-4">What People Say</h2>
           <p className="text-end">
             Testimonials coming soon — stay tuned to hear what clients love

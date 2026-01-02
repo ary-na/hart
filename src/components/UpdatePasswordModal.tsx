@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@hart/hooks";
 import { ModalProps } from "@hart/lib/types";
 import { useProfile } from "@hart/hooks/useProfile";
-import { ChangePasswordPayload } from "@hart/lib/types";
+import { UpdatePasswordPayload } from "@hart/lib/types";
 import {
   updatePasswordSchema,
   UpdatePasswordInput,
@@ -30,7 +30,7 @@ const UpdatePasswordModal = ({ open, onClose }: ModalProps) => {
     mode: "onBlur",
   });
 
-  const onSubmit = async (data: ChangePasswordPayload) => {
+  const onSubmit = async (data: UpdatePasswordPayload) => {
     const res = await changePassword({
       currentPassword: data.currentPassword,
       newPassword: data.newPassword,
