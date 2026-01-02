@@ -3,6 +3,12 @@ import { UserSignupInput } from "../validators";
 
 export type UserRole = "admin" | "customer";
 
+export type SessionUser = {
+  id: string;
+  email: string;
+  role: UserRole;
+};
+
 export type Address = {
   street?: string;
   city?: string;

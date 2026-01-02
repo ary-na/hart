@@ -1,8 +1,8 @@
 // src/server/auth/redirect.ts
 
-import type { User } from "@hart/lib/types";
+import type { SessionUser } from "@hart/lib/types";
 
-export function getRedirectPath(user: User | null): string | null {
+export function getRedirectPath(user: SessionUser | null): string | null {
   if (!user) return null;
 
   switch (user.role) {
