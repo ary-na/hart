@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   }
 
   const cart = await Cart.findOneAndUpdate(
-    { userId: user._id },
+    { userId: user.id },
     {
       $addToSet: {
         items: { drawingId, title, price, thumbnailName },

@@ -16,7 +16,7 @@ export async function DELETE(
   }
 
   await Cart.updateOne(
-    { userId: user._id },
+    { userId: user.id },
     { $pull: { items: { drawingId: id } } }
   );
 

@@ -11,7 +11,7 @@ export async function GET() {
     return NextResponse.json({ items: [] });
   }
 
-  const cart = await Cart.findOne({ userId: user._id });
+  const cart = await Cart.findOne({ userId: user.id });
 
   return NextResponse.json(cart ?? { items: [] });
 }
@@ -23,7 +23,7 @@ export async function DELETE() {
     return NextResponse.json({ success: true });
   }
 
-  await Cart.updateOne({ userId: user._id }, { $set: { items: [] } });
+  await Cart.updateOne({ userId: user.id }, { $set: { items: [] } });
 
   return NextResponse.json({ success: true });
 }
