@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { ChangePasswordPayload } from "@hart/lib/types";
+import { UpdatePasswordPayload } from "@hart/lib/types";
 
 export const useProfile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  const changePassword = async (payload: ChangePasswordPayload) => {
+  const changePassword = async (payload: UpdatePasswordPayload) => {
     setLoading(true);
     setError(null);
     setSuccess(false);
