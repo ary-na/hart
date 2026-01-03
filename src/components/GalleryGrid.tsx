@@ -28,22 +28,22 @@ const GalleryGrid = () => {
   return (
     <>
       <div className="space-y-8">
-        {loading && <div className="flex flex-col my-10 items-center justify-center text-center"><span className="loading loading-bars loading-xl"></span></div>}
+        {loading && (
+          <div className="flex flex-col my-15 items-center justify-center text-center">
+            <span className="loading loading-bars loading-xl"></span>
+          </div>
+        )}
         {drawings.length === 0 && !loading ? (
           <div className="flex flex-col my-10 items-center justify-center text-center">
             <EmptyGalleryCanvas
-              width={200}
-              height={221}
               className="mb-4"
               alt="Illustration of an empty gallery with a blank canvas on an easel"
               title="Empty gallery – waiting for your first drawing"
             />
-            <h2 className="text-2xl font-semibold">The Gallery is empty.</h2>
-            <p className="opacity-70 max-w-md">
-              Please check back later.
+            <h2>Nothing here… yet.</h2>
+            <p className="opacity-75 max-w-md">
+              No drawings have found their way here yet.
             </p>
-            {/* Optional: Add a button to trigger upload/create if you have one */}
-            {/* <button className="btn btn-primary">Add Drawing</button> */}
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

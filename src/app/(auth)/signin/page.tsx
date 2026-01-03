@@ -1,16 +1,19 @@
 // src/app/signin/page.tsx
 
-import type { Session } from "next-auth";
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth/next";
-
+import { getCurrentUser } from "@hart/server/auth";
+import { getRedirectPath } from "@hart/server/auth";
 import SigninForm from "@hart/components/SigninForm";
-import { authOptions } from "@hart/server/auth/nAuth";
+
+export const metadata = {
+  title: "Sign in",
+};
 
 const Signin = async () => {
-  const session = (await getServerSession(authOptions)) as Session | null;
+  const user = await getCurrentUser();
 
-  if (session?.user.role === "admin") redirect("/admin");
+  const redirectTo = getRedirectPath(user);
+  if (redirectTo) redirect(redirectTo);
 
   return (
     <section className="p-8">

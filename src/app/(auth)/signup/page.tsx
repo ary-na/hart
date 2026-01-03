@@ -6,7 +6,7 @@ import { getRedirectPath } from "@hart/server/auth";
 import SignupForm from "@hart/components/SignupForm";
 
 export const metadata = {
-  title: "Signup",
+  title: "Sign up",
 };
 
 const Signup = async () => {
