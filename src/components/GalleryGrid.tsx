@@ -4,13 +4,12 @@
 
 import Image from "next/image";
 import { cn } from "@hart/lib/utils";
-import { useEffect, useState } from "react";
-
 import { Drawing } from "@hart/lib/types";
+import { useEffect, useState } from "react";
 import { ConfirmModal } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
 import { useDrawingsContext } from "@hart/hooks";
-import { EmptyGallerySvg } from "@hart/lib/ui/svgs/EmptyGallerySvg";
+import { EmptyGalleryCanvas } from "@hart/lib/ui";
 
 const GalleryGrid = () => {
   const { drawings, fetchDrawings, loading, deleteDrawing, deletingIds } =
@@ -29,17 +28,18 @@ const GalleryGrid = () => {
   return (
     <>
       <div className="space-y-8">
+        {loading && <div className="flex flex-col my-10 items-center justify-center text-center"><span className="loading loading-bars loading-xl"></span></div>}
         {drawings.length === 0 && !loading ? (
-          <div className="flex flex-col items-center justify-center text-center">
-            <EmptyGallerySvg
-              width={195}
-              height={167}
+          <div className="flex flex-col my-10 items-center justify-center text-center">
+            <EmptyGalleryCanvas
+              width={200}
+              height={221}
               className="mb-4"
               alt="Illustration of an empty gallery with a blank canvas on an easel"
               title="Empty gallery – waiting for your first drawing"
             />
-            <h3 className="text-2xl font-semibold">The Gallery is empty.</h3>
-            <p className="text-lg opacity-70 mb-8 max-w-md">
+            <h2 className="text-2xl font-semibold">The Gallery is empty.</h2>
+            <p className="opacity-70 max-w-md">
               Please check back later.
             </p>
             {/* Optional: Add a button to trigger upload/create if you have one */}

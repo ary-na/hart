@@ -6,7 +6,14 @@ import Link from "next/link";
 import { cn } from "@hart/lib/utils";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHouse,
+  faImages,
+  faCircleInfo,
+  faEnvelope,
+  faRightToBracket,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { LogoSvg } from "@hart/lib/ui";
@@ -57,40 +64,44 @@ const NavBar = () => {
           </button>
           <ul
             tabIndex={-1}
-            className="menu menu-xl dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-xl dropdown-content bg-base-100 rounded-box z-1 mt-3 w-60 p-2 shadow"
           >
             <li>
               <Link href="/" onClick={closeMenu}>
+                <FontAwesomeIcon icon={faHouse} size="xs" className="me-1"/>
                 Home
               </Link>
             </li>
             <li>
               <Link href="/gallery" onClick={closeMenu}>
+              <FontAwesomeIcon icon={faImages} size="xs"className="me-1"/>
                 Gallery
               </Link>
             </li>
             <li>
               <Link href="/about" onClick={closeMenu}>
+              <FontAwesomeIcon icon={faCircleInfo} size="xs" className="me-1"/>
                 About
               </Link>
             </li>
             <li className="mb-2">
               <Link href="/contact" onClick={closeMenu}>
+              <FontAwesomeIcon icon={faEnvelope} size="xs" className="me-1" />
                 Contact
               </Link>
             </li>
-            <div className="flex gap-2 p-4">
+            <div className="flex flex-col gap-2">
               <Link
                 href="/signin"
                 onClick={closeMenu}
-                className="btn btn-ghost btn-xs grow"
+                className="btn btn-outline grow"
               >
                 Sign in
               </Link>
               <Link
                 href="/signup"
                 onClick={closeMenu}
-                className="btn btn-primary btn-xs grow"
+                className="btn btn-primary grow"
               >
                 Sign up
               </Link>
@@ -186,7 +197,7 @@ const NavBar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar flex items-center justify-center h-10 w-10"
             >
-              <FontAwesomeIcon icon={faUser} width="20" />
+              <FontAwesomeIcon icon={faUserPlus} width="20" />
             </div>
 
             <ul

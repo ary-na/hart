@@ -7,4 +7,4 @@ export * from "./CancelButton";
 export * from "./ConfirmModal";
 export * from "./svgs/LogoSvg";
 export * from "./ModalController";
-export * from "./svgs/EmptyGallerySvg";
+export * from "./svgs/EmptyGalleryCanvas";
