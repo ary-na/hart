@@ -3,7 +3,6 @@
 import { SvgIconProps } from "@hart/lib/types";
 
 export const EmptyGalleryCanvas = ({
-  alt,
   className,
   width,
   height,
@@ -17,7 +16,7 @@ export const EmptyGalleryCanvas = ({
       viewBox="0 0 120 191"
       fill="currentColor"
       className={`${className}`}
-      aria-label={alt}
+      aria-label={title}
       role="img"
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
