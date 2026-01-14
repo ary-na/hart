@@ -48,7 +48,7 @@ const UpdatePasswordModal = ({ open, onClose }: ModalProps) => {
       <div className="modal-box">
         <h3 className="mb-8!">Update password</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormField
+          {/* <FormField
             label="Current password"
             error={errors.currentPassword?.message}
           >
@@ -88,7 +88,7 @@ const UpdatePasswordModal = ({ open, onClose }: ModalProps) => {
                 errors.confirmPassword && "input-error"
               )}
             />
-          </FormField>
+          </FormField> */}
 
           {error && <p className="text-error mt-2 text-sm">{error}</p>}
 

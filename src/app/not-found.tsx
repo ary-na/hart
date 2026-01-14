@@ -1,7 +1,5 @@
 // src/app/not-found.tsx
 
-// ! Code review completed.
-
 import Link from "next/link";
 import { QuestionMarkCanvas } from "@hart/lib/ui/svgs/QuestionMarkCanvas";
 
@@ -17,7 +15,6 @@ const NotFound = () => {
           <QuestionMarkCanvas
             width={200}
             height={221}
-            alt=""
             className="mb-6"
             aria-hidden="true"
             title="Decorative question mark illustration for not found page."

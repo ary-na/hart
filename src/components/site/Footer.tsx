@@ -91,6 +91,17 @@ const Footer = () => {
           <p>
             Copyright © {new Date().getFullYear()} - All right reserved by HART
           </p>
+          <p>
+          Built with ☕ by{" "}
+          <Link
+            href="https://ariannyamchelo.netlify.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link link-primary hover:underline"
+          >
+            Arian Najafi Yamchelo
+          </Link>
+        </p>
         </aside>
       </div>
     </footer>

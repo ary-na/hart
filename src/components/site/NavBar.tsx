@@ -137,7 +137,6 @@ const closeMenu = () => {
             className="cursor-pointer hover:text-accent"
             width={144}
             height={64}
-            alt="Logo"
             title="This is Hilda Art's website logo."
           />
         </Link>
