@@ -5,9 +5,9 @@
 import { Breadcrumbs } from "@hart/lib/ui";
 import { ModalController } from "@hart/lib/ui";
 import { getCurrentUser } from "@hart/server/auth";
-import GalleryGrid from "@hart/components/GalleryGrid";
+import GalleryGrid from "@hart/components/site/GalleryGrid";
 import DrawingsProvider from "@hart/context/DrawingsContext";
-import AddDrawingModal from "@hart/components/AddDrawingModal";
+import AddDrawingModal from "@hart/components/site/AddDrawingModal";
 
 const Gallery = async () => {
   const user = await getCurrentUser();
@@ -15,7 +15,7 @@ const Gallery = async () => {
 
   return (
     <DrawingsProvider>
-      <section className="h-container" aria-labelledby="gallery-heading">
+      <section className="h-flex-container" aria-labelledby="gallery-heading">
         {/* Section header */}
         <header className="flex items-center justify-between">
           <div>
@@ -44,7 +44,7 @@ const Gallery = async () => {
         </header>
 
         {/* Gallery grid */}
-        <div role="region" aria-label="Gallery of artworks">
+        <div role="region" className="flex-1 flex flex-col" aria-label="Gallery of artworks">
           <GalleryGrid />
         </div>
       </section>

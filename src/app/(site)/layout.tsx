@@ -1,10 +1,13 @@
 // src/app/(site)/layout.tsx
-import SiteShell from "@hart/components/SiteShell";
+import NavBar from "@hart/components/site/NavBar";
+import Footer from "@hart/components/site/Footer";
 
-export default function SiteLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <SiteShell>{children}</SiteShell>;
-}
+const SiteLayout = ({ children }: { children: React.ReactNode }) => {
+  return <div className="flex flex-col min-h-svh">
+      <NavBar />
+      <main className="flex flex-col flex-1">{children}</main>
+      <Footer />
+    </div>
+};
+
+export default SiteLayout;

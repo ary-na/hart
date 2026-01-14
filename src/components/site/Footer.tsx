@@ -10,7 +10,7 @@ const Footer = () => {
       <LogoSvg
         width={144}
         height={64}
-        alt="Logo"
+        label="Logo"
         className="hover:text-accent"
         title="This is Hilda Art's website logo."
       />
@@ -29,6 +29,9 @@ const Footer = () => {
         </Link>
         <Link href="/privacy" className="link link-hover">
           Privacy Policy
+        </Link>
+        <Link href="/terms" className="link link-hover">
+          Terms of Service
         </Link>
       </nav>
       <div className="grid grid-flow-row md:grid-flow-col gap-4 w-full border-t border-base-content border-opacity-100 pt-8">

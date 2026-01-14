@@ -36,7 +36,7 @@ const closeMenu = () => {
 };
 
   return (
-    <div className="navbar">
+    <header className="navbar">
       <div className="navbar-start">
         <div className={cn("dropdown", isMenuOpen && "dropdown-open")}>
           <button
@@ -239,7 +239,7 @@ const closeMenu = () => {
           </div>
         )}
       </div>
-    </div>
+    </header>
   );
 };
 

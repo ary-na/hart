@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     if (existing) {
       return NextResponse.json(
         { message: "An account with this email already exists." },
-        { status: 400 }
+        { status: 409 }
       );
     }
 
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
 
     // 201 Created – success (no token here; usually you redirect to login or auto-sign-in)
     return NextResponse.json(
-      { message: "Account created successfully" },
+      { message: "Account created successfully." },
       { status: 201 }
     );
   } catch (error: unknown) {
@@ -60,13 +60,13 @@ export async function POST(req: Request) {
       error.code === 11000
     ) {
       return NextResponse.json(
-        { message: "Email already in use" },
+        { message: "Email already in use." },
         { status: 409 }
       );
     }
 
     return NextResponse.json(
-      { message: "Something went wrong – please try again later" },
+      { message: "Something went wrong, please try again later." },
       { status: 500 }
     );
   }

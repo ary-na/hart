@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth/next";
 
 import { authOptions } from "@hart/server/auth/nAuth";
 import { Breadcrumbs } from "@hart/lib/ui/Breadcrumbs";
-import RecentMessages from "@hart/components/RecentMessages";
+import RecentMessages from "@hart/components/site/RecentMessages";
 
 const Admin = async () => {
   const session = await getServerSession(authOptions);

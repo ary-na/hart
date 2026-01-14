@@ -1,15 +1,23 @@
 // src/hooks/useSignup.ts
 "use client";
-
+import { useToast } from "./useToast";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState, useCallback } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UseSignupReturn } from "@hart/lib/types";
 import { userSignupSchema, UserSignupInput } from "@hart/lib/validators";
+
+export interface UseSignupReturn {
+  form: ReturnType<typeof useForm<UserSignupInput>>;
+  onSubmit: (data: UserSignupInput) => Promise<void>;
+  isSubmitting: boolean;
+  serverError: string | null;
+  resetServerError: () => void;
+}
 
 export const useSignup = (): UseSignupReturn => {
   const router = useRouter();
+  const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -25,7 +33,7 @@ export const useSignup = (): UseSignupReturn => {
   });
 
   const onSubmit = useCallback(
-    async (data: UserSignupInput) => {
+    async (data: UserSignupInput): Promise<void> => {
       setIsSubmitting(true);
       setServerError(null);
 
@@ -54,6 +62,11 @@ export const useSignup = (): UseSignupReturn => {
         }
 
         router.push("/signin");
+        showToast(
+          "Account created! We've sent a verification email. Please check your inbox to activate your account.",
+          "success",
+          8000
+        );
       } catch (err) {
         const e = err instanceof Error ? err : new Error("Unknown error");
         console.error("useSignup.onSubmit:", e);
@@ -62,7 +75,7 @@ export const useSignup = (): UseSignupReturn => {
         setIsSubmitting(false);
       }
     },
-    [form, router]
+    [form, router, showToast]
   );
 
   const resetServerError = useCallback(() => {

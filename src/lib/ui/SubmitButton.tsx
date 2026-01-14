@@ -2,11 +2,16 @@
 
 import { cn } from "@hart/lib/utils";
 
-import { SubmitButtonProps } from "@hart/lib/types";
+type SubmitButtonProps = {
+  text?: string;
+  loadingText?: string;
+  isLoading: boolean;
+  className?: string;
+};
 
 export function SubmitButton({
-  text = "Send Message",
-  loadingText = "Sending...",
+  text = "Submit",
+  loadingText = "Submitting...",
   isLoading,
   className,
 }: SubmitButtonProps) {
@@ -16,7 +21,7 @@ export function SubmitButton({
       disabled={isLoading}
       className={cn(
         "btn btn-primary",
-        isLoading && "cursor-not-allowed opacity-90",
+        isLoading && "cursor-not-allowed opacity-75",
         className
       )}
     >

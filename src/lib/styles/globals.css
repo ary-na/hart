@@ -20,20 +20,20 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-bold;
+  @apply font-bold tracking-widest;
   font-family: var(--font-secondary), serif;
 }
 
 h1 {
-  @apply text-6xl;
+  @apply text-5xl md:text-6xl;
 }
 
 h2 {
-  @apply text-5xl;
+  @apply text-4xl md:text-5xl;
 }
 
 h3 {
-  @apply text-4xl;
+  @apply text-3xl md:text-4xl;
 }
 
 section {
@@ -77,4 +77,12 @@ input[type="number"] {
    ========================================== */
 .h-container {
   @apply container mx-auto px-4 py-4 max-w-full md:max-w-2xl lg:max-w-4xl xl:max-w-6xl;
+}
+
+.h-auth-container {
+  @apply container mx-auto  px-4 py-4 max-w-full sm:max-w-xl lg:max-w-4xl xl:max-w-6xl;
+}
+
+.h-flex-container {
+   @apply container mx-auto px-4 py-4 max-w-full md:max-w-2xl lg:max-w-4xl xl:max-w-6xl flex flex-col flex-1;
 }

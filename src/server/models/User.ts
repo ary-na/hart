@@ -17,7 +17,7 @@ const UserSchema = new Schema(
 
     password: {
       type: String,
-      required: true,
+      required: false,
       select: false,
     },
 
@@ -53,8 +53,9 @@ const UserSchema = new Schema(
 
 // Hash password before saving
 UserSchema.pre("save", async function () {
-  if (!this.isModified("password")) return;
-  this.password = await hashPassword(this.password);
+  if (this.isModified("password") && this.password) {
+    this.password = await hashPassword(this.password);
+  }
 });
 
 export const User = models.User || model("User", UserSchema);

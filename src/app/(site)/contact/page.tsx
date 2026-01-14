@@ -1,7 +1,7 @@
 // src/app/contact/page.tsx
 
 // Component imports
-import ContactMeForm from "@hart/components/ContactMeForm";
+import ContactMeForm from "@hart/components/site/ContactMeForm";
 
 const Contact = () => {
   return (

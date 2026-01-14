@@ -63,7 +63,7 @@ const AddDrawingForm = ({ onClose }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" noValidate>
-      <FormField label="Title" error={errors.title?.message}>
+      {/* <FormField label="Title" error={errors.title?.message}>
         <input
           {...register("title")}
           type="text"
@@ -139,7 +139,7 @@ const AddDrawingForm = ({ onClose }: Props) => {
         <p className="label mt-2 text-sm opacity-75">
           Separate multiple tags with commas.
         </p>
-      </FormField>
+      </FormField> */}
 
       <div className="flex justify-end gap-2 mt-4">
         <CancelButton

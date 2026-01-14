@@ -3,8 +3,15 @@
   :root {
     --background: var(--color-hart-light-primary);
     --foreground: var(--color-hart-dark-primary);
+
+    --color-primary: #6a52ff;
+    --color-primary-content: var(--color-hart-light-primary);
+
+    --color-accent: #ff2e63;
     --color-accent-content: var(--color-hart-dark-secondary);
-    --color-accent: var(--color-hart-light-accent);
-    --color-primary: red;
+
+    --color-secondary: #c896a8;
+
+    --color-error: #e03b52;
   }
 }
