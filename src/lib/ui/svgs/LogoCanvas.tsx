@@ -8,7 +8,7 @@ export const LogoCanvas = ({
   title,
   ...rest
 }: SvgIconProps) => {
-  const titleId = "canvas-title";
+  const titleId = "logoCanvas";
   return (
     <svg
       focusable={false}

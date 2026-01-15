@@ -1,16 +1,14 @@
 // src/lib/ui/svgs/Logomark.tsx
 
-// ! Code review completed.
-
 import { SvgIconProps } from "@hart/lib/types";
 
 export const Logomark = ({
   className = "",
-  label = "Hilda loves Art Logomark.",
-  title,
+  label = "Hilda loves art logomark",
+  title = "Hilda loves art logomark",
   ...rest
 }: SvgIconProps) => {
-  const titleId = "logomark-title";
+  const titleId = "logomark";
   return (
     <svg
       focusable={false}

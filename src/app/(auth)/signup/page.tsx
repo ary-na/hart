@@ -41,10 +41,7 @@ const Signup = async () => {
         </p>
       </div>
       <div className="hidden lg:flex flex-col justify-center items-center gap-6">
-        <Logomark
-          className="max-w-md h-auto w-40 lg:w-90 xl:w-120"
-          title="Hilda loves Art"
-        />
+        <Logomark className="max-w-md h-auto w-40 lg:w-90 xl:w-120" />
 
         <div>
           <h2 className="mb-2 text-center lg:text-4xl! xl:text-5xl!">

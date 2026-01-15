@@ -1,7 +1,5 @@
 // src/app/(auth)/layout.tsx
 
-// ! Code review in progress.
-
 import NavBar from "@hart/components/auth/NavBar";
 import Footer from "@hart/components/auth/Footer";
 

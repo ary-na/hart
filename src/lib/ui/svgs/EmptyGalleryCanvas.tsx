@@ -3,25 +3,25 @@
 import { SvgIconProps } from "@hart/lib/types";
 
 export const EmptyGalleryCanvas = ({
-  className,
-  width,
-  height,
-  title,
+  className = "",
+  label = "Illustration of an empty canvas on an easel showing that no drawings are available yet.",
+  title = "No drawings here yet.",
   ...rest
 }: SvgIconProps) => {
+  const titleId = "emptyGalleryCanvas";
   return (
     <svg
-      width={width ?? 120}
-      height={height ?? 191}
+      focusable={false}
       viewBox="0 0 120 191"
       fill="currentColor"
-      className={`${className}`}
-      aria-label={title}
+      className={className}
       role="img"
+      aria-label={label}
+      aria-labelledby={title ? titleId : undefined}
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >
-      {title ? <title>{title}</title> : null}
+      {title && <title id={titleId}>{title}</title>}
       <path d="M47 28H73V22H119.5C119.776 22 120 22.2239 120 22.5V121.5C120 121.776 119.776 122 119.5 122H99V116H21V122H0.5C0.223858 122 0 121.776 0 121.5V22.5C0 22.2239 0.223858 22 0.5 22H47V28ZM50 89.6777L52.8281 92.5059L70.5059 74.8281L67.6777 72L50 89.6777ZM50 79.6777L52.8281 82.5059L70.5059 64.8281L67.6777 62L50 79.6777ZM50 69.6777L52.8281 72.5059L70.5059 54.8281L67.6777 52L50 69.6777Z" />
       <rect x="28" y="158" width="63" height="10" />
       <path d="M55 157V128H65V157H55Z" />

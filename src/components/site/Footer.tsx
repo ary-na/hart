@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LogoSvg } from "@hart/lib/ui";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="footer footer-horizontal footer-center text-base-content rounded p-8">
       <LogoSvg
@@ -34,7 +35,7 @@ const Footer = () => {
           Terms of Service
         </Link>
       </nav>
-      <div className="grid grid-flow-row md:grid-flow-col gap-4 w-full border-t border-base-content border-opacity-100 pt-8">
+      <div className="grid grid-flow-row md:grid-flow-col gap-4 w-full pt-8 opacity-75 border-t">
         <nav className="md:order-2 md:ms-auto">
           <div className="grid grid-flow-col gap-4">
             <Link
@@ -87,17 +88,15 @@ const Footer = () => {
             </Link>
           </div>
         </nav>
-        <aside className="md:order-1 md:me-auto">
-          <p>
-            Copyright © {new Date().getFullYear()} - All right reserved by HART
-          </p>
+        <aside className="md:order-1 md:me-auto md:text-left space-y-2 text-xs">
+          <p>Copyright © {currentYear} – All rights reserved by H♡ART</p>
           <p>
           Built with ☕ by{" "}
           <Link
             href="https://ariannyamchelo.netlify.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="link link-primary hover:underline"
+            className="link link-accent italic"
           >
             Arian Najafi Yamchelo
           </Link>
