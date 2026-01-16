@@ -6,7 +6,7 @@ export * from "./Breadcrumbs";
 export * from "./SubmitButton";
 export * from "./CancelButton";
 export * from "./ConfirmModal";
-export * from "./svgs/LogoSvg";
+export * from "./svgs/Logo";
 export * from "./svgs/Logomark";
 export * from "./ModalController";
 export * from "./EmptyGallery";

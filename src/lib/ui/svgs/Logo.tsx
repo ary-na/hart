@@ -1,11 +1,11 @@
-// src/lib/ui/LogoSvg.tsx
+// src/lib/ui/Logo.tsx
 
 import { SvgIconProps } from "@hart/lib/types";
 
-export const LogoSvg = ({
+export const Logo = ({
   className = "",
-  label = "Hilda loves Art Logo.",
-  title,
+  label = "Hilda loves Art Logo",
+  title = "Hilda loves Art Logo",
   ...rest
 }: SvgIconProps) => {
   const titleId = "logo";

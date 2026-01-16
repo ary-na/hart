@@ -1,48 +1,120 @@
-// src/components/Footer.tsx
+// src/components/site/Footer.tsx
 
-// Next.js import
 import Link from "next/link";
-import { LogoSvg } from "@hart/lib/ui";
+import { Logo } from "@hart/lib/ui";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="footer footer-horizontal footer-center text-base-content rounded p-8">
-      <LogoSvg
-        width={144}
-        height={64}
-        label="Logo"
-        className="hover:text-accent"
-        title="This is Hilda Art's website logo."
-      />
-      <nav className="grid grid-flow-col gap-4">
-        <Link href="/" className="link link-hover">
-          Home
-        </Link>
-        <Link href="/shop" className="link link-hover">
-          Shop
-        </Link>
-        <Link href="/about" className="link link-hover">
-          About
-        </Link>
-        <Link href="/contact" className="link link-hover">
-          Contact
-        </Link>
-        <Link href="/privacy" className="link link-hover">
-          Privacy Policy
-        </Link>
-        <Link href="/terms" className="link link-hover">
-          Terms of Service
-        </Link>
-      </nav>
-      <div className="grid grid-flow-row md:grid-flow-col gap-4 w-full pt-8 opacity-75 border-t">
-        <nav className="md:order-2 md:ms-auto">
+    <footer className="h-container footer" role="contentinfo">
+      <div className="py-8 flex flex-col lg:flex-row md:items-start md:justify-between gap-10 md:gap-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
+          <nav className="w-full">
+            <h6 className="footer-title">Explore</h6>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/" className="link link-hover">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/gallery" className="link link-hover">
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="link link-hover">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="link link-hover">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <nav className="w-full">
+            <h6 className="footer-title">About</h6>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/about" className="link link-hover">
+                  The Artist
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="link link-hover">
+                  Journal
+                </Link>
+              </li>
+              <li>
+                <Link href="/commissions" className="link link-hover">
+                  Processes
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <nav className="w-full">
+            <h6 className="footer-title">Community</h6>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/gallery" className="link link-hover">
+                  Original Artwork
+                </Link>
+              </li>
+              <li>
+                <Link href="/commissions" className="link link-hover">
+                  Custom Commissions
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <nav className="w-full">
+            <h6 className="footer-title">Legal</h6>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/privacy" className="link link-hover">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="link link-hover">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link href="/cookie" className="link link-hover">
+                  Cookie Policy
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+         {/* Logo */}
+        <div className="flex flex-col gap-6 lg:max-w-xs w-full text-center items-center">
+          <Link href="/" className="link link-hover lg:ms-auto">
+            <Logo className="w-30 hover:text-accent" />
+          </Link>
+          <p className="opacity-75 max-w-xs lg:text-right">
+            Each piece waits to bring a little color and wonder into your
+            everyday. Thank you for being part of this gentle story.
+          </p>
+        </div>
+      </div>
+
+      {/* Copyright information */}
+      <div className="flex flex-col md:flex-row md:justify-between gap-4 w-full pb-8 opacity-75">
+        <nav className="md:order-2 self-center">
           <div className="grid grid-flow-col gap-4">
             <Link
               href="https://www.facebook.com/octaviahil"
               aria-label="Facebook"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-accent"
             >
               <svg
                 width="24"
@@ -59,6 +131,7 @@ const Footer = () => {
               aria-label="Instagram"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-accent"
             >
               <svg
                 width="24"
@@ -75,6 +148,7 @@ const Footer = () => {
               aria-label="TikTok"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-accent"
             >
               <svg
                 width="24"
@@ -88,19 +162,19 @@ const Footer = () => {
             </Link>
           </div>
         </nav>
-        <aside className="md:order-1 md:me-auto md:text-left space-y-2 text-xs">
+        <aside className="md:order-1 text-center w-full  md:text-left space-y-1 text-xs">
           <p>Copyright © {currentYear} – All rights reserved by H♡ART</p>
           <p>
-          Built with ☕ by{" "}
-          <Link
-            href="https://ariannyamchelo.netlify.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link link-accent italic"
-          >
-            Arian Najafi Yamchelo
-          </Link>
-        </p>
+            Built with ☕ by{" "}
+            <Link
+              href="https://ariannyamchelo.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link link-accent italic"
+            >
+              Arian Najafi Yamchelo
+            </Link>
+          </p>
         </aside>
       </div>
     </footer>

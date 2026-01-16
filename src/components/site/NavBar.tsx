@@ -15,7 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { LogoSvg } from "@hart/lib/ui";
+import { Logo } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
 
 const NavBar = () => {
@@ -133,7 +133,7 @@ const closeMenu = () => {
 
       <div className="navbar-center">
         <Link href="/">
-          <LogoSvg
+          <Logo
             className="cursor-pointer hover:text-accent"
             width={144}
             height={64}

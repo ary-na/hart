@@ -76,7 +76,7 @@ input[type="number"] {
    Example: .h-container, .h-section, .h-card, etc.
    ========================================== */
 .h-container {
-  @apply container mx-auto px-4 py-4 max-w-full md:max-w-2xl lg:max-w-4xl xl:max-w-6xl;
+  @apply container mx-auto px-4 py-8 md:py-12 max-w-full md:max-w-2xl lg:max-w-4xl xl:max-w-6xl;
 }
 
 .h-auth-container {
