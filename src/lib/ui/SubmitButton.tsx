@@ -19,6 +19,8 @@ export function SubmitButton({
     <button
       type="submit"
       disabled={isLoading}
+      aria-label={isLoading ? "Submitting, please wait" : text}
+      aria-live="polite"
       className={cn(
         "btn btn-primary",
         isLoading && "cursor-not-allowed opacity-75",

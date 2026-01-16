@@ -6,7 +6,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="p-4 sm:p-8 text-xs opacity-75" role="contentinfo">
+    <footer className="h-container text-xs" role="contentinfo">
       <div className="flex flex-col gap-2 justify-between items-center lg:flex-row">
         <p>Copyright © {currentYear} – All rights reserved by H♡ART</p>
         <p>

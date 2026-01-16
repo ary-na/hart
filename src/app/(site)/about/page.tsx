@@ -1,5 +1,9 @@
 // src/app/about/page.tsx
 
+export const metadata = {
+  title: "About the Artist",
+};
+
 const About = () => {
   return (
     <>

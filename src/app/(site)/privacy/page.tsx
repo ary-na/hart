@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 
+export const metadata = {
+  title: "Privacy & Data Policy",
+};
+
 const Privacy = () => {
   return (
     <article>

@@ -1,6 +1,10 @@
 // src/app/terms/page.tsx
 import Link from "next/link";
 
+export const metadata = {
+  title: "Terms of Service",
+};
+
 const Terms = () => {
   return (
     <article className="prose prose-neutral dark:prose-invert max-w-4xl mx-auto px-4 py-12">

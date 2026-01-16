@@ -9,6 +9,10 @@ import GalleryGrid from "@hart/components/site/GalleryGrid";
 import DrawingsProvider from "@hart/context/DrawingsContext";
 import AddDrawingModal from "@hart/components/site/AddDrawingModal";
 
+export const metadata = {
+  title: "Gallery",
+};
+
 const Gallery = async () => {
   const user = await getCurrentUser();
   const isAdmin = user?.role === "admin";

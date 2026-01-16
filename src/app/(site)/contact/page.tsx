@@ -3,6 +3,10 @@
 // Component imports
 import ContactMeForm from "@hart/components/site/ContactMeForm";
 
+export const metadata = {
+  title: "Contact",
+};
+
 const Contact = () => {
   return (
     <section className="p-8">
