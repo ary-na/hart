@@ -14,7 +14,7 @@ export const GoogleSignInButton = ({
   return (
     <button
       className="btn bg-white dark:text-primary-content border-[#e5e5e5] w-full"
-      onClick={() => signIn("google", { callbackUrl: "/" })}
+      onClick={() => signIn("google", { callbackUrl: "/signin" })}
     >
       <svg
         aria-label="Google logo"

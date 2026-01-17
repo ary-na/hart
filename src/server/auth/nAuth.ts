@@ -1,10 +1,12 @@
+// src/server/auth/nAuth.ts
+
 import { User } from "@hart/server/models/User";
-import type { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
+import { type NextAuthOptions } from "next-auth";
 import { verifyPassword } from "@hart/server/auth";
+import GoogleProvider from "next-auth/providers/google";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 import type { GoogleProfile } from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const ONE_DAY = 24 * 60 * 60;
 const THIRTY_DAYS = 30 * ONE_DAY;
@@ -37,7 +39,7 @@ export const authOptions: NextAuthOptions = {
 
         const isValid = await verifyPassword(
           credentials.password,
-          user.password
+          user.password,
         );
         if (!isValid) return null;
 
@@ -55,7 +57,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
 
-    // NEW: Google Provider
+    // Google Provider
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -114,7 +116,7 @@ export const authOptions: NextAuthOptions = {
           user.id = existingUser._id.toString();
         }
 
-        // Important: always override user.firstName with Google’s name
+        // Always override user.firstName with Google’s name
         user.firstName =
           googleProfile.given_name ?? googleProfile.name?.split(" ")[0] ?? "";
       }
@@ -126,6 +128,7 @@ export const authOptions: NextAuthOptions = {
       // When called from signIn, `user` contains data from authorize()
       if (user) {
         token.id = user.id;
+        token.firstName = user.firstName;
         token.email = user.email;
         token.role = user.role;
         token.rememberMe = user.rememberMe;
@@ -136,7 +139,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (account?.provider === "google") {
-        const maxAge = THIRTY_DAYS; // or logic for rememberMe if you add a checkbox
+        const maxAge = THIRTY_DAYS;
         token.exp = Math.floor(Date.now() / 1000) + maxAge;
       }
 
@@ -165,6 +168,18 @@ export const authOptions: NextAuthOptions = {
 
       return session;
     },
+
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith("/")) {
+        return `${baseUrl}${url}`;
+      }
+
+      if (url.startsWith(baseUrl)) {
+        return url;
+      }
+
+      return baseUrl;
+    },
   },
 
   pages: {
@@ -172,6 +187,6 @@ export const authOptions: NextAuthOptions = {
   },
 
   jwt: {
-    maxAge: THIRTY_DAYS, // Fallback, but will be overridden by token.exp
+    maxAge: THIRTY_DAYS,
   },
 };

@@ -2,21 +2,16 @@
 
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@hart/server/auth/nAuth";
 import { ModalController } from "@hart/lib/ui";
+import { getCurrentUser } from "@hart/server/auth";
 import UpdatePasswordModal from "@hart/components/user/UpdatePasswordModal";
 
 const Profile = async () => {
-  const session = await getServerSession(authOptions);
-
-  if (!session) redirect("/signin");
-
-  const user = session.user;
-
+  const user = await getCurrentUser();
+  if (!user) redirect("/signin");
   return (
     <section className="container max-w-4xl mx-auto p-8">
-      <h1>{user.name}&apos;s Profile</h1>
+      <h1>{user.firstName}&apos;s Profile</h1>
       <div className="breadcrumbs text-sm mb-2">
         <ul>
           <li>
@@ -34,7 +29,7 @@ const Profile = async () => {
       <div className="flex gap-2 flex-col justify-between sm:flex-row">
         <ul className="space-y-4">
           <li>
-            <strong>Username:</strong> {user.name}
+            <strong>Name:</strong> {user.firstName}
           </li>
           <li>
             <strong>Email:</strong> {user.email}

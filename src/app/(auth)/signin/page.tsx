@@ -2,9 +2,6 @@
 
 import Link from "next/link";
 import { Logomark } from "@hart/lib/ui";
-import { redirect } from "next/navigation";
-import { getCurrentUser } from "@hart/server/auth";
-import { getRedirectPath } from "@hart/server/auth";
 import SigninForm from "@hart/components/auth/SigninForm";
 import { GoogleSignInButton } from "@hart/lib/ui/GoogleSigninButton";
 
@@ -13,11 +10,6 @@ export const metadata = {
 };
 
 const Signin = async () => {
-  const user = await getCurrentUser();
-
-  const redirectTo = getRedirectPath(user);
-  if (redirectTo) redirect(redirectTo);
-
   return (
     <section
       className="h-auth-container grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-24 items-center"

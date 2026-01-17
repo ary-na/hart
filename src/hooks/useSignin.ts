@@ -2,10 +2,9 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { useState, useCallback } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { userSigninSchema, UserSigninInput } from "@hart/lib/validators";
 
 type UseSigninReturn = {
@@ -17,7 +16,6 @@ type UseSigninReturn = {
 };
 
 export const useSignin = (): UseSigninReturn => {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -32,35 +30,30 @@ export const useSignin = (): UseSigninReturn => {
     },
   });
 
-  const onSubmit = useCallback(
-    async (data: UserSigninInput) => {
-      setIsSubmitting(true);
-      setServerError(null);
+  const onSubmit = useCallback(async (data: UserSigninInput) => {
+    setIsSubmitting(true);
+    setServerError(null);
 
-      try {
-        const res = await signIn("credentials", {
-          email: data.email,
-          password: data.password,
-          rememberMe: data.rememberMe,
-          redirect: false,
-        });
+    try {
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        rememberMe: data.rememberMe,
+        redirect: false,
+      });
 
-        if (res?.error) {
-          throw new Error(
-            "The email or password is incorrect. Please try again."
-          );
-        }
-
-        router.push("/");
-      } catch (err) {
-        const e = err instanceof Error ? err : new Error("Sign in failed");
-        setServerError(e.message);
-      } finally {
-        setIsSubmitting(false);
+      if (res?.error) {
+        throw new Error(
+          "The email or password is incorrect. Please try again.",
+        );
       }
-    },
-    [router]
-  );
+    } catch (err) {
+      const e = err instanceof Error ? err : new Error("Sign in failed");
+      setServerError(e.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, []);
 
   const resetServerError = useCallback(() => {
     setServerError(null);

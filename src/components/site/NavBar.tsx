@@ -5,7 +5,7 @@
 import Link from "next/link";
 import { cn } from "@hart/lib/utils";
 import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { useSignout } from "@hart/hooks";
 import {
   faHouse,
   faImages,
@@ -26,14 +26,11 @@ const NavBar = () => {
 
   const userRole = user?.role;
 
-  const handleSignout = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    signOut({ callbackUrl: "/signin" });
-  };
+  const handleSignout = useSignout();
 
-const closeMenu = () => {
-  setIsMenuOpen(false);
-};
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="navbar">
@@ -231,7 +228,7 @@ const closeMenu = () => {
                   }}
                   className="cursor-pointer"
                 >
-                  Logout
+                  Sign out
                 </Link>
               </li>
             </ul>
