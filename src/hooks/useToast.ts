@@ -1,13 +1,13 @@
 // src/hooks/useToast.ts
 "use client";
 
-import { ToastType } from "@hart/lib/types";
+type ToastType = "success" | "error" | "info";
 
 export const useToast = () => {
   const showToast = (
     message: string,
     type: ToastType = "success",
-    duration: number = 3000
+    duration: number = 3000,
   ) => {
     const toast = document.createElement("div");
     toast.className = "toast toast-top toast-center md:toast-end z-50 fixed";

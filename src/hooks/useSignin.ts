@@ -43,9 +43,7 @@ export const useSignin = (): UseSigninReturn => {
       });
 
       if (res?.error) {
-        throw new Error(
-          "The email or password is incorrect. Please try again.",
-        );
+        throw new Error(res.error);
       }
     } catch (err) {
       const e = err instanceof Error ? err : new Error("Sign in failed");

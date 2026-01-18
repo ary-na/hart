@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     if (existing) {
       return NextResponse.json(
         { message: "An account with this email already exists." },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -29,27 +29,31 @@ export async function POST(req: Request) {
       password: data.password,
       firstName: data.firstName,
       lastName: data.lastName,
+      verificationExpiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
 
     // 201 Created – success (no token here; usually you redirect to login or auto-sign-in)
     return NextResponse.json(
       { message: "Account created successfully." },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error: unknown) {
     console.error("[SIGNUP_ERROR]", error);
 
     // Zod validation error → return first message (or all if you prefer)
     if (error instanceof z.ZodError) {
-      const fieldErrors = error.issues.reduce((acc, issue) => {
-        const path = issue.path.join(".");
-        acc[path] = issue.message;
-        return acc;
-      }, {} as Record<string, string>);
+      const fieldErrors = error.issues.reduce(
+        (acc, issue) => {
+          const path = issue.path.join(".");
+          acc[path] = issue.message;
+          return acc;
+        },
+        {} as Record<string, string>,
+      );
 
       return NextResponse.json(
         { message: "Validation failed", errors: fieldErrors },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -61,13 +65,13 @@ export async function POST(req: Request) {
     ) {
       return NextResponse.json(
         { message: "Email already in use." },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
     return NextResponse.json(
       { message: "Something went wrong, please try again later." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

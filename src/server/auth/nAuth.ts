@@ -35,14 +35,18 @@ export const authOptions: NextAuthOptions = {
           .select("+password")
           .lean();
 
-        if (!user) return null;
+        if (!user) throw new Error("The email or password is incorrect.");
 
         const isValid = await verifyPassword(
           credentials.password,
           user.password,
         );
-        if (!isValid) return null;
+        if (!isValid) throw new Error("The email or password is incorrect.");
 
+        if (!user.verified) {
+          throw new Error("You must verify your email before signing in.");
+        }
+        
         // Pass rememberMe to token via user object
         return {
           id: user._id.toString(),
@@ -101,6 +105,7 @@ export const authOptions: NextAuthOptions = {
               "",
             lastName: googleProfile.family_name ?? "",
             role: "customer",
+            verified: true,
           });
           user.id = newUser._id.toString();
         } else {

@@ -59,7 +59,7 @@ const NavBar = () => {
           </button>
           <ul
             tabIndex={-1}
-            className="menu menu-xl dropdown-content bg-base-100 rounded-box z-1 mt-3 w-60 p-2 shadow focus:outline-none [&_a]:outline-none"
+            className="menu dropdown-content bg-base-300 rounded-box z-1 mt-3 w-50 p-2 shadow focus:outline-none [&_a]:outline-none"
           >
             <li>
               <Link href="/" onClick={closeMenu}>
@@ -94,14 +94,14 @@ const NavBar = () => {
                 <Link
                   href="/signin"
                   onClick={closeMenu}
-                  className="btn btn-outline grow"
+                  className="btn btn-outline btn-sm grow"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/signup"
                   onClick={closeMenu}
-                  className="btn btn-primary grow"
+                  className="btn btn-primary btn-sm grow"
                 >
                   Sign up
                 </Link>
@@ -138,7 +138,7 @@ const NavBar = () => {
           />
         </Link>
       </div>
-      <div className="navbar-end flex gap-2">
+      <div className="navbar-end flex">
         {isAuthenticated && (
           <div className="dropdown dropdown-end">
             <div
@@ -167,7 +167,7 @@ const NavBar = () => {
             </div>
             <div
               tabIndex={0}
-              className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
+              className="card card-compact dropdown-content bg-base-300 z-1 mt-3 w-60 shadow"
             >
               <div className="card-body">
                 <span className="text-lg font-bold">0 Items</span>
@@ -194,7 +194,7 @@ const NavBar = () => {
           </div>
         )}
         {isAuthenticated && (
-          <div className="dropdown menu-xl menu dropdown-end focus:outline-none [&_a]:outline-none">
+          <div className="dropdown menu dropdown-end focus:outline-none [&_a]:outline-none">
             <div
               tabIndex={0}
               role="button"
@@ -205,7 +205,7 @@ const NavBar = () => {
 
             <ul
               tabIndex={-1}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-300 rounded-box z-1 mt-3 w-40 p-2 shadow"
             >
               {userRole === "admin" && (
                 <li>

@@ -15,6 +15,16 @@ const UserSchema = new Schema(
       trim: true,
     },
 
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+
+    verificationExpiresAt: {
+      type: Date,
+      index: { expires: 0 },
+    },
+
     password: {
       type: String,
       required: false,
@@ -48,7 +58,7 @@ const UserSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Hash password before saving

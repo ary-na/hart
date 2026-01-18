@@ -1,12 +1,11 @@
 // src/lib/config/metadata.ts
 
-// Next.js type imports
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Hart",
-    template: "%s | Hart",
+    default: "H♡ART",
+    template: "%s | H♡ART",
   },
   description: "",
   metadataBase: new URL("https://hildart.vercel.app"),
