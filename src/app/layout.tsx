@@ -2,6 +2,7 @@
 
 import { cn } from "@hart/lib/utils";
 import "@hart/lib/styles/__root.css";
+import { Analytics } from "@vercel/analytics/next";
 import { metadata } from "@hart/lib/config/metadata";
 import { Providers } from "@hart/lib/config/providers";
 import { fontClassName } from "@hart/lib/config/fonts";
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn(fontClassName)} suppressHydrationWarning>
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
