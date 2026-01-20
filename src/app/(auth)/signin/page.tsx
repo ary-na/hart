@@ -7,16 +7,17 @@ import { GoogleSignInButton } from "@hart/lib/ui/GoogleSigninButton";
 
 export const metadata = {
   title: "Sign in",
+  description: "Securely sign in to your H♡ART account.",
 };
 
 const Signin = async () => {
   return (
     <section
-      className="h-auth-container grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-24 items-center"
+      className="h-auth-container grid lg:grid-cols-2 gap-10 lg:gap-24 xl:gap-40 items-center"
       aria-labelledby="signin-heading"
     >
-      <div className="hidden lg:flex flex-col justify-center items-center gap-6">
-        <Logomark className="max-w-md h-auto w-40 lg:w-90 xl:w-120" />
+      <div className="hidden lg:flex flex-col justify-center items-center gap-10">
+        <Logomark className="h-auto w-full hover:text-primary" />
 
         <div>
           <h2 className="mb-2 text-center lg:text-4xl! xl:text-5xl!">
