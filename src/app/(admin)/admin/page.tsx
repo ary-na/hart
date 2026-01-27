@@ -1,12 +1,11 @@
 // src/app/admin/page.tsx
 
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@hart/server/auth/nAuth";
+import { auth } from "@hart/auth";
 import { Breadcrumbs } from "@hart/lib/ui/Breadcrumbs";
 import RecentMessages from "@hart/components/site/RecentMessages";
 
 const Admin = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   const user = session?.user;
 

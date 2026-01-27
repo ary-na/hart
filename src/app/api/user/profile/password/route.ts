@@ -1,15 +1,14 @@
 // src/app/api/user/profile/password/route.ts
 
+import {auth} from "@hart/auth";
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@hart/server/auth/nAuth";
 import bcrypt from "bcrypt";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 import { User } from "@hart/server/models/User";
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session || !session.user?.email) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
