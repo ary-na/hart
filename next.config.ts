@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "hart-portfolio-uploads.s3.ap-southeast-2.amazonaws.com",
+        hostname: process.env.AWS_S3_BUCKET_HOSTNAME || "",
         pathname: "/**",
       },
     ],

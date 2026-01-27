@@ -1,13 +1,14 @@
 // src/app/user/profile/page.tsx
 
 import Link from "next/link";
+import { auth } from "@hart/auth";
 import { redirect } from "next/navigation";
 import { ModalController } from "@hart/lib/ui";
-import { getCurrentUser } from "@hart/server/auth";
 import UpdatePasswordModal from "@hart/components/user/UpdatePasswordModal";
 
 const Profile = async () => {
-  const user = await getCurrentUser();
+  const session = await auth();
+  const user = session?.user;
   if (!user) redirect("/signin");
   return (
     <section className="container max-w-4xl mx-auto p-8">

@@ -12,12 +12,12 @@ export const metadata = {
 const Signup = async () => {
   return (
     <section
-      className="h-auth-container grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-24 items-center"
-      aria-labelledby="signin-heading"
+      className="h-auth-container grid lg:grid-cols-2 lg:gap-24 xl:gap-40 items-center"
+      aria-labelledby="signup-heading"
     >
       <div>
         <header>
-          <h1 id="signin-heading">SIGN UP</h1>
+          <h1 id="signup-heading">SIGN UP</h1>
           <p className="mb-4!">
             Welcome, I&apos;m happy you found your way here.
           </p>
@@ -32,11 +32,11 @@ const Signup = async () => {
           </Link>
         </p>
       </div>
-      <div className="hidden lg:flex flex-col justify-center items-center gap-6">
-        <Logomark className="max-w-md h-auto w-40 lg:w-90 xl:w-120" />
+      <div className="hidden lg:flex flex-col justify-center items-center gap-10">
+        <Logomark className="h-auto w-full hover:text-primary" />
 
         <div>
-          <h2 className="mb-2 text-center lg:text-4xl! xl:text-5xl!">
+          <h2 className="mb-2 text-center lg:text-4xl!">
             JOIN the love STORY
           </h2>
           <p className="text-center italic opacity-75">

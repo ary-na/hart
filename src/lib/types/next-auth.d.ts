@@ -1,43 +1,48 @@
 // types/next-auth.d.ts
+import { DefaultSession, DefaultUser } from "next-auth";
+import { JWT as DefaultJWT } from "next-auth/jwt";
 
-import { DefaultSession } from "next-auth";
+// Extend NextRequest for middleware (req.auth)
+declare module "next/server" {
+  interface NextRequest {
+    auth?: Session | null;
+  }
+}
 
+// Extend the User type (from authorize() callback return value)
 declare module "next-auth" {
   /**
-   * The shape of the user object returned in the `authorize()` callback of Credentials provider
-   * → also what you get in jwt() callback as `user`
+   * Returned by authorize() and passed to jwt() as `user`
    */
-  interface User {
-    id: string; // you already return this
-    email: string;
+  interface User extends DefaultUser {
+    id: string;           // MongoDB _id as string
     firstName: string;
     role: "admin" | "customer";
-    rememberMe?: boolean; // ← add this
+    rememberMe?: boolean; // Only used temporarily to set token lifetime
   }
 
   /**
-   * The shape of session.user when using useSession / getSession
+   * The shape of session.user (client: useSession(), server: getSession()/auth())
    */
   interface Session {
     user: {
       id: string;
-      email: string;
       firstName: string;
+      email: string;
       role: "admin" | "customer";
-      // rememberMe is usually NOT needed in the final session
-      // (it's only used to decide token lifetime → can stay in JWT only)
+      emailVerified: Date | null;
     } & DefaultSession["user"];
   }
 }
 
+// Extend the JWT payload
 declare module "next-auth/jwt" {
-  /** The JWT payload */
-  interface JWT {
+  interface JWT extends DefaultJWT {
     id: string;
-    email: string;
     firstName: string;
+    email: string;
     role: "admin" | "customer";
-    rememberMe?: boolean; // ← this is the most important one for your use-case
-    exp?: number;
+    rememberMe?: boolean; // Used in jwt() callback to set exp
+    exp?: number;         // Optional, but good to declare if you override it
   }
 }

@@ -23,7 +23,7 @@ const Home = () => {
       {/* Recent work section */}
       <section
         aria-labelledby="recent-work"
-        className="container mx-auto max-w-4xl px-6 py-20"
+        className="h-container mx-auto max-w-4xl px-6 py-20"
       >
         <h2 id="recent-work" className="sr-only">
           Recent work
@@ -46,7 +46,7 @@ const Home = () => {
       </section>
 
       {/* About section */}
-      <section className="container max-w-4xl mx-auto p-10">
+      <section className="h-container max-w-4xl mx-auto p-10">
         <h2 className="mb-4 text-accent-content">My name is Hilda</h2>
 
         <p className="mb-6 italic leading-relaxed">
@@ -79,7 +79,7 @@ const Home = () => {
 
       {/* Testimonials section */}
       <section className="bg-accent">
-        <div className="container max-w-4xl mx-auto p-10">
+        <div className="h-container max-w-4xl mx-auto p-10">
           <h2 className="mb-4">What People Say</h2>
           <p className="text-end">
             Testimonials coming soon — stay tuned to hear what clients love

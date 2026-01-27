@@ -13,14 +13,14 @@ export const metadata = {
 const Signin = async () => {
   return (
     <section
-      className="h-auth-container grid lg:grid-cols-2 gap-10 lg:gap-24 xl:gap-40 items-center"
+      className="h-auth-container grid lg:grid-cols-2 lg:gap-24 xl:gap-40 items-center"
       aria-labelledby="signin-heading"
     >
       <div className="hidden lg:flex flex-col justify-center items-center gap-10">
         <Logomark className="h-auto w-full hover:text-primary" />
 
         <div>
-          <h2 className="mb-2 text-center lg:text-4xl! xl:text-5xl!">
+          <h2 className="mb-2 text-center lg:text-4xl!">
             ART is love VISIBLE
           </h2>
           <p className="text-center italic opacity-75">

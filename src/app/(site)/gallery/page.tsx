@@ -2,9 +2,9 @@
 
 // ! Code review completed.
 
+import {auth} from "@hart/auth";
 import { Breadcrumbs } from "@hart/lib/ui";
 import { ModalController } from "@hart/lib/ui";
-import { getCurrentUser } from "@hart/server/auth";
 import GalleryGrid from "@hart/components/site/GalleryGrid";
 import DrawingsProvider from "@hart/context/DrawingsContext";
 import AddDrawingModal from "@hart/components/site/AddDrawingModal";
@@ -14,8 +14,8 @@ export const metadata = {
 };
 
 const Gallery = async () => {
-  const user = await getCurrentUser();
-  const isAdmin = user?.role === "admin";
+  const session = await auth();
+  const isAdmin = session?.user?.role === "admin";
 
   return (
     <DrawingsProvider>
