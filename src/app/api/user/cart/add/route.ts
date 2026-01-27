@@ -1,11 +1,12 @@
 // src/app/api/user/cart/add/route.ts
 
+import {auth} from "@hart/auth";
 import { NextResponse } from "next/server";
 import { Cart } from "@hart/server/models";
-import { getCurrentUser } from "@hart/server/auth";
 
 export async function POST(req: Request) {
-  const user = await getCurrentUser();
+     const session = await auth()
+      const user = session?.user;
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

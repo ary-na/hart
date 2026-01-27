@@ -1,12 +1,13 @@
 // src/app/api/user/cart/route.ts
 
+import {auth} from "@hart/auth";
 import { NextResponse } from "next/server";
 import { Cart } from "@hart/server/models";
-import { getCurrentUser } from "@hart/server/auth";
 
 // Get Cart - all items
 export async function GET() {
-  const user = await getCurrentUser();
+     const session = await auth()
+    const user = session?.user;
   if (!user) {
     return NextResponse.json({ items: [] });
   }
@@ -18,7 +19,8 @@ export async function GET() {
 
 // Delete Cart - all items
 export async function DELETE() {
-  const user = await getCurrentUser();
+     const session = await auth()
+    const user = session?.user;
   if (!user) {
     return NextResponse.json({ success: true });
   }

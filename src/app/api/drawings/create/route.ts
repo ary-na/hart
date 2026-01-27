@@ -1,10 +1,9 @@
 // src/app/api/drawing/create/route.ts
 
+import {auth} from "@hart/auth";
 import { NextResponse } from "next/server";
-
 import { Drawing } from "@hart/server/models";
 import { connectToDatabase } from "@hart/server/db/mongodb";
-import { getCurrentUser } from "@hart/server/auth/getCurrentUser";
 import {
   uploadFileToS3,
   generateFileName,
@@ -13,7 +12,8 @@ import {
 
 export async function POST(req: Request) {
   try {
-    const user = await getCurrentUser();
+    const session = await auth()
+    const user = session?.user;
 
     if (!user) {
       return NextResponse.json(

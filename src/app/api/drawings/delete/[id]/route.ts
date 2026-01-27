@@ -1,9 +1,8 @@
 // src/app/api/drawings/delete/[id]/route.ts
 
+import {auth} from "@hart/auth";
 import { NextResponse } from "next/server";
-
 import { Drawing } from "@hart/server/models";
-import { getCurrentUser } from "@hart/server/auth";
 import { s3DeleteObject } from "@hart/server/upload";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 
@@ -13,8 +12,8 @@ export async function DELETE(
 ) {
   try {
     const params = await context.params;
-
-    const user = await getCurrentUser();
+      const session = await auth()
+       const user = session?.user;
     if (!user || user?.role !== "admin") {
       return NextResponse.json({ message: "Forbidden." }, { status: 403 });
     }

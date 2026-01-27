@@ -1,14 +1,15 @@
 // src/app/api/admin/messages/route.ts
 
+import {auth} from "@hart/auth";
 import { NextResponse } from "next/server";
 import { Message } from "@hart/server/models";
-import { getCurrentUser } from "@hart/server/auth";
 import { getPresignedUrl } from "@hart/server/upload";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 
 export async function GET(request: Request) {
   try {
-    const user = await getCurrentUser();
+    const session = await auth();
+    const user = session?.user;
 
     if (!user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
