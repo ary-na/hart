@@ -13,7 +13,6 @@ const Profile = async () => {
   return (
     <section className="container max-w-4xl mx-auto p-8">
       <h1>{user.firstName}&apos;s Profile</h1>
-      
       <div className="breadcrumbs text-sm mb-2">
         <ul>
           <li>
