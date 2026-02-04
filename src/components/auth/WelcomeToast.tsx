@@ -5,9 +5,9 @@
 import { useEffect } from "react";
 import { useCurrentUser, useToast } from "@hart/hooks";
 
-const TOAST_KEY = "post-auth-toast-shown";
+const TOAST_KEY = "welcome-toast-shown";
 
-const PostAuthGate = () => {
+const WelcomeToast = () => {
   const { user, isAuthenticated } = useCurrentUser();
   const { showToast } = useToast();
 
@@ -16,7 +16,7 @@ const PostAuthGate = () => {
 
     if (sessionStorage.getItem(TOAST_KEY)) return;
 
-    showToast(`Welcome ${user.firstName || "back"} 👋`, "success");
+    showToast(`Welcome ${user.firstName || "back"}`, "success");
 
     sessionStorage.setItem(TOAST_KEY, "true");
   }, [isAuthenticated, user, showToast]);
@@ -24,4 +24,4 @@ const PostAuthGate = () => {
   return null;
 };
 
-export default PostAuthGate;
+export default WelcomeToast;

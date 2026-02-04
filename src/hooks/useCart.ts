@@ -46,7 +46,7 @@ export const useCart = (): UseCartReturn => {
       setError(null);
 
       try {
-        const res = await fetch("/api/user/cart/items", {
+        const res = await fetch("/api/user/cart/add", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(item),
@@ -58,7 +58,7 @@ export const useCart = (): UseCartReturn => {
           );
         }
         const updatedCart: CartDocument = await res.json();
-        const itemsWithStringIds = updatedCart.items.map((item) => ({
+        const itemsWithStringIds = (updatedCart.items ?? []).map((item) => ({
           ...item,
           drawingId: item.drawingId.toString(),
         }));
@@ -80,7 +80,7 @@ export const useCart = (): UseCartReturn => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/user/cart/items/${drawingId}`, {
+      const res = await fetch(`/api/user/cart/remove/${drawingId}`, {
         method: "DELETE",
       });
       if (!res.ok) {

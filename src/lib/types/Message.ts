@@ -6,8 +6,11 @@ export interface Message {
   _id: string;
   name: string;
   email: string;
+  subject?: string;
   enquiry: string;
   imageUrl?: string;
+  isRead?: boolean;
+  isArchived?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -17,6 +20,16 @@ export type UseMessagesReturn = {
   loading: boolean;
   error: Error | null;
   deletingIds: Set<string>;
-  fetchMessages: (options?: FetchOptions) => Promise<void>;
-  deleteMessage: (messageId: string) => Promise<boolean>;
+  unreadCount: number;
+  fetchMessages: (
+    options?: FetchOptions & { archived?: string }
+  ) => Promise<void>;
+  deleteMessage: (messageId: string, archived?: "0" | "1") => Promise<boolean>;
+  archiveMessage: (messageId: string) => Promise<boolean>;
+  unarchiveMessage: (messageId: string) => Promise<boolean>;
+  updateReadStatus: (
+    messageId: string,
+    isRead: boolean,
+    archived?: "0" | "1"
+  ) => Promise<boolean>;
 };

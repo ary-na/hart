@@ -40,6 +40,8 @@ export async function GET(req: Request) {
           _id: drawing._id.toString(),
           title: drawing.title,
           description: drawing.description,
+          fileName: drawing.fileName,
+          thumbnailName: drawing.thumbnailName,
           price: drawing.price,
           tags: drawing.tags || [],
           createdAt: drawing.createdAt.toISOString(),

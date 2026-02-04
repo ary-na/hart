@@ -8,7 +8,7 @@ export const useProfile = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  const changePassword = async (payload: UpdatePasswordPayload) => {
+  const updatePassword = async (payload: UpdatePasswordPayload) => {
     setLoading(true);
     setError(null);
     setSuccess(false);
@@ -41,7 +41,7 @@ export const useProfile = () => {
   };
 
   return {
-    changePassword,
+    updatePassword,
     loading,
     error,
     success,

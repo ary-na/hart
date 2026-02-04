@@ -6,7 +6,7 @@ import { SubmitButton } from "@hart/lib/ui";
 import { useSignin } from "@hart/hooks/useSignin";
 import Link from "next/link";
 
-export default function SigninForm() {
+const SigninForm = () => {
   const {
     form: {
       register,
@@ -114,4 +114,6 @@ export default function SigninForm() {
       />
     </form>
   );
-}
+};
+
+export default SigninForm;

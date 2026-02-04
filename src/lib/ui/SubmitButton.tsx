@@ -6,6 +6,7 @@ type SubmitButtonProps = {
   text?: string;
   loadingText?: string;
   isLoading: boolean;
+  disabled?: boolean;
   className?: string;
 };
 
@@ -13,17 +14,19 @@ export function SubmitButton({
   text = "Submit",
   loadingText = "Submitting...",
   isLoading,
+  disabled = false,
   className,
 }: SubmitButtonProps) {
+  const isDisabled = isLoading || disabled;
   return (
     <button
       type="submit"
-      disabled={isLoading}
+      disabled={isDisabled}
       aria-label={isLoading ? "Submitting, please wait" : text}
       aria-live="polite"
       className={cn(
         "btn btn-primary",
-        isLoading && "cursor-not-allowed opacity-75",
+        isDisabled && "cursor-not-allowed opacity-75",
         className
       )}
     >

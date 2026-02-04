@@ -4,7 +4,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { cn } from "@hart/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -75,42 +74,42 @@ export default function ContactMeForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" noValidate>
-      {/* <div className="grid gap-4 md:grid-cols-2">
-        <FormField label="Name" error={errors.name?.message}>
-          <input
-            {...register("name")}
-            type="text"
-            placeholder="Enter your name..."
-            className={cn("input w-full", errors.name && "input-error")}
-          />
-        </FormField>
+      <div className="grid gap-4 md:grid-cols-2">
+        <FormField
+          id="name"
+          label="Name"
+          placeholder="Enter your name..."
+          registerProps={register("name")}
+          error={errors.name?.message}
+        />
 
-        <FormField label="Email" error={errors.email?.message}>
-          <input
-            {...register("email")}
-            type="email"
-            placeholder="Enter your email..."
-            className={cn("input w-full", errors.email && "input-error")}
-          />
-        </FormField>
+        <FormField
+          id="email"
+          label="Email"
+          type="email"
+          placeholder="Enter your email..."
+          registerProps={register("email")}
+          error={errors.email?.message}
+        />
       </div>
 
-      <FormField label="Enquiry" error={errors.enquiry?.message}>
-        <textarea
-          {...register("enquiry")}
-          rows={6}
-          placeholder="Tell me about your project, timeline, budget..."
-          className={cn("textarea w-full", errors.enquiry && "textarea-error")}
-        />
-        <p className="label opacity-80">
-          The more details you give, the better I can help
-        </p>
-      </FormField>
-
       <FormField
-        label="Upload image (optional)"
-        error={(errors.file?.message as string) || undefined}
-      >
+        id="enquiry"
+        label="Enquiry"
+        placeholder="Tell me about your project, timeline, budget..."
+        registerProps={register("enquiry")}
+        error={errors.enquiry?.message}
+        as="textarea"
+        rows={6}
+      />
+      <p className="label opacity-80">
+        The more details you give, the better I can help.
+      </p>
+
+      <div className="form-control w-full">
+        <label className="label mb-2">
+          <span className="label-text">Upload image (optional)</span>
+        </label>
         <input
           type="file"
           accept="image/*"
@@ -121,6 +120,12 @@ export default function ContactMeForm() {
         <p className="label mt-2 text-sm opacity-75">
           Max 20 MB • JPG, PNG, GIF, WebP
         </p>
+
+        {errors.file?.message && (
+          <p className="label-text-alt text-error mt-1">
+            {errors.file.message as string}
+          </p>
+        )}
 
         {previewUrl && (
           <div className="mt-6 overflow-hidden rounded-xl border border-white/10">
@@ -134,7 +139,7 @@ export default function ContactMeForm() {
             />
           </div>
         )}
-      </FormField> */}
+      </div>
 
       <SubmitButton
         isLoading={isLoading}

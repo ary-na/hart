@@ -1,0 +1,99 @@
+// src/components/site/DrawingDetailsModal.tsx
+
+"use client";
+
+import Image from "next/image";
+import { Drawing } from "@hart/lib/types";
+import { AppModal } from "@hart/lib/ui";
+
+type Props = {
+  open: boolean;
+  drawing: Drawing | null;
+  isAdmin: boolean;
+  onClose: () => void;
+  onEdit: (drawing: Drawing) => void;
+  onAddToCart: (drawing: Drawing) => void;
+  addToCartDisabled?: boolean;
+};
+
+const DrawingDetailsModal = ({
+  open,
+  drawing,
+  isAdmin,
+  onClose,
+  onEdit,
+  onAddToCart,
+  addToCartDisabled = false,
+}: Props) => {
+  if (!open || !drawing) return null;
+
+  return (
+    <AppModal open={open} onClose={onClose} className="max-w-5xl">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="relative overflow-hidden rounded-lg bg-base-200">
+          {drawing.fileUrl ? (
+            <Image
+              src={drawing.fileUrl}
+              alt={drawing.title}
+              width={1200}
+              height={1200}
+              className="max-h-[70vh] w-full object-contain"
+              priority
+            />
+          ) : (
+            <div className="flex aspect-video items-center justify-center">
+              <span className="text-2xl opacity-50">Loading full image...</span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div>
+            <h2 className="text-3xl font-bold">{drawing.title}</h2>
+            <p className="mt-3 text-lg opacity-80">
+              {drawing.description}
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <span className="text-2xl font-semibold">
+              ${drawing.price.toLocaleString()}
+            </span>
+            {!isAdmin && (
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => onAddToCart(drawing)}
+                disabled={addToCartDisabled}
+              >
+                Add to cart
+              </button>
+            )}
+          </div>
+
+          {drawing.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {drawing.tags.map((tag) => (
+                <span key={tag} className="badge badge-primary badge-lg">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {isAdmin && (
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => onEdit(drawing)}
+            >
+              Edit
+            </button>
+          )}
+        </div>
+      </div>
+    </AppModal>
+  );
+};
+
+export default DrawingDetailsModal;

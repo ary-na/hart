@@ -177,6 +177,52 @@ const Footer = () => {
           </p>
         </aside>
       </div>
+
+      <div className="flex items-center justify-center pb-10">
+        <span className="sr-only">Payment methods</span>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
+            <img
+              src="https://cdn.simpleicons.org/paypal"
+              alt="PayPal"
+              className="h-5 w-auto"
+              loading="lazy"
+            />
+          </div>
+          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
+            <img
+              src="https://cdn.simpleicons.org/applepay"
+              alt="Apple Pay"
+              className="h-5 w-auto"
+              loading="lazy"
+            />
+          </div>
+          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
+            <img
+              src="https://cdn.simpleicons.org/googlepay"
+              alt="Google Pay"
+              className="h-5 w-auto"
+              loading="lazy"
+            />
+          </div>
+          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
+            <img
+              src="https://cdn.simpleicons.org/visa"
+              alt="Visa"
+              className="h-5 w-auto"
+              loading="lazy"
+            />
+          </div>
+          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
+            <img
+              src="https://cdn.simpleicons.org/mastercard"
+              alt="Mastercard"
+              className="h-5 w-auto"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
     </footer>
   );
 };

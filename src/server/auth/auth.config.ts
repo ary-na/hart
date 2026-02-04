@@ -136,6 +136,10 @@ export const authConfig: NextAuthConfig = {
           await existingUser.save();
           user.id = existingUser._id.toString();
         }
+        
+        // Set the role from DB on the user object here
+        user.role = existingUser.role;
+
         // Override firstName
         user.firstName =
           googleProfile.given_name ?? googleProfile.name?.split(" ")[0] ?? "";

@@ -22,6 +22,7 @@ export const ConfirmModal = ({
 
         <div className="modal-action">
           <button
+            type="button"
             className="btn btn-ghost"
             onClick={onCancel}
             disabled={loading}
@@ -30,6 +31,7 @@ export const ConfirmModal = ({
           </button>
 
           <button
+            type="button"
             className="btn btn-error"
             onClick={onConfirm}
             disabled={loading}

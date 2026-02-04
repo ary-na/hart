@@ -1,9 +1,10 @@
 // src/hooks/useSignin.ts
 "use client";
 
-import { useForm } from "react-hook-form";
-import { useState, useCallback } from "react";
 import { signIn } from "next-auth/react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useState, useCallback } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSigninSchema, UserSigninInput } from "@hart/lib/validators";
 
@@ -16,6 +17,7 @@ type UseSigninReturn = {
 };
 
 export const useSignin = (): UseSigninReturn => {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -40,10 +42,13 @@ export const useSignin = (): UseSigninReturn => {
         password: data.password,
         rememberMe: data.rememberMe,
         redirect: false,
+        redirectTo: "auth-callback"
       });
 
       if (res?.error) {
         throw new Error(res.error);
+      } else {
+        router.replace(res?.url || "/");
       }
     } catch (err) {
       const e = err instanceof Error ? err : new Error("Sign in failed");
@@ -51,7 +56,7 @@ export const useSignin = (): UseSigninReturn => {
     } finally {
       setIsSubmitting(false);
     }
-  }, []);
+  }, [router]);
 
   const resetServerError = useCallback(() => {
     setServerError(null);

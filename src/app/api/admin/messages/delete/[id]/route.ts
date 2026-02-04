@@ -1,6 +1,6 @@
 // src/app/api/admin/messages/delete/[id]/route.ts
 
-import {auth} from "@hart/auth";
+import {auth} from "@hart/server/auth/auth";
 import { NextResponse } from "next/server";
 import { Message } from "@hart/server/models";
 import { s3DeleteObject } from "@hart/server/upload";

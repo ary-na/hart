@@ -1,6 +1,6 @@
 // src/app/api/drawing/create/route.ts
 
-import {auth} from "@hart/auth";
+import {auth} from "@hart/server/auth/auth";
 import { NextResponse } from "next/server";
 import { Drawing } from "@hart/server/models";
 import { connectToDatabase } from "@hart/server/db/mongodb";

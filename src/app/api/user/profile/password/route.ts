@@ -1,6 +1,6 @@
 // src/app/api/user/profile/password/route.ts
 
-import {auth} from "@hart/auth";
+import {auth} from "@hart/server/auth/auth";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { connectToDatabase } from "@hart/server/db/mongodb";

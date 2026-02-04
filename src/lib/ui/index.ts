@@ -9,6 +9,7 @@ export * from "./ConfirmModal";
 export * from "./svgs/Logo";
 export * from "./svgs/Logomark";
 export * from "./ModalController";
+export * from "./AppModal";
 export * from "./EmptyGallery";
 export * from "./GoogleSigninButton";
 export * from "./svgs/EmptyGalleryCanvas";

@@ -52,6 +52,11 @@ const MessageSchema = new Schema(
       default: false,
     },
 
+    isArchived: {
+      type: Boolean,
+      default: false,
+    },
+
     isReplied: {
       type: Boolean,
       default: false,

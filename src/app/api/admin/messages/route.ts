@@ -1,6 +1,6 @@
 // src/app/api/admin/messages/route.ts
 
-import {auth} from "@hart/auth";
+import {auth} from "@hart/server/auth/auth";
 import { NextResponse } from "next/server";
 import { Message } from "@hart/server/models";
 import { getPresignedUrl } from "@hart/server/upload";
@@ -24,12 +24,26 @@ export async function GET(request: Request) {
 
     await connectToDatabase();
 
-    const messages = await Message.find()
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean()
-      .exec();
+    const includeArchived = url.searchParams.get("archived") === "1";
+
+    const filter = includeArchived
+      ? { isArchived: true }
+      : {
+          $or: [{ isArchived: false }, { isArchived: { $exists: false } }],
+        };
+
+    const [messages, unreadCount] = await Promise.all([
+      Message.find(filter)
+        .sort({ isRead: 1, createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .lean()
+        .exec(),
+      Message.countDocuments({
+        isRead: false,
+        $or: [{ isArchived: false }, { isArchived: { $exists: false } }],
+      }),
+    ]);
 
     for (const msg of messages) {
       if (msg.fileName) {
@@ -37,7 +51,7 @@ export async function GET(request: Request) {
       }
     }
 
-    return NextResponse.json(messages, { status: 200 });
+    return NextResponse.json({ messages, unreadCount }, { status: 200 });
   } catch (error) {
     console.error("GET /api/admin/messages error:", error);
     return NextResponse.json(

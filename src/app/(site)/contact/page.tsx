@@ -8,6 +8,8 @@ export const metadata = {
 };
 
 const Contact = () => {
+  
+
   return (
     <section className="p-8">
       <h1>Contact me</h1>

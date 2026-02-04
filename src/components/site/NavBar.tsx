@@ -4,13 +4,13 @@
 
 import Link from "next/link";
 import { cn } from "@hart/lib/utils";
-import { useState } from "react";
-import { useSignout } from "@hart/hooks";
+import { useEffect, useMemo, useState } from "react";
+import { useSignout, useCartContext } from "@hart/hooks";
 import {
-  faHouse,
-  faImages,
-  faCircleInfo,
-  faEnvelope,
+  faHouseChimney,
+  faPalette,
+  faFeatherPointed,
+  faPaperPlane,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,10 +23,23 @@ const NavBar = () => {
 
   const { user, isAuthenticated, isLoading, isUnauthenticated } =
     useCurrentUser();
+  const { items, fetchCart } = useCartContext();
 
   const userRole = user?.role;
 
   const handleSignout = useSignout();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchCart();
+    }
+  }, [isAuthenticated, fetchCart]);
+
+  const cartTotals = useMemo(() => {
+    const count = items.length;
+    const subtotal = items.reduce((sum, item) => sum + item.price, 0);
+    return { count, subtotal };
+  }, [items]);
 
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -63,32 +76,46 @@ const NavBar = () => {
           >
             <li>
               <Link href="/" onClick={closeMenu}>
-                <FontAwesomeIcon icon={faHouse} size="xs" className="me-1" />
+                <FontAwesomeIcon
+                  icon={faHouseChimney}
+                  size="xs"
+                  className="me-2 text-accent/80"
+                />
                 Home
               </Link>
             </li>
             <li>
               <Link href="/gallery" onClick={closeMenu}>
-                <FontAwesomeIcon icon={faImages} size="xs" className="me-1" />
+                <FontAwesomeIcon
+                  icon={faPalette}
+                  size="xs"
+                  className="me-2 text-accent/80"
+                />
                 Gallery
               </Link>
             </li>
             <li>
               <Link href="/about" onClick={closeMenu}>
                 <FontAwesomeIcon
-                  icon={faCircleInfo}
+                  icon={faFeatherPointed}
                   size="xs"
-                  className="me-1"
+                  className="me-2 text-accent/80"
                 />
                 About
               </Link>
             </li>
-            <li className="mb-2">
-              <Link href="/contact" onClick={closeMenu}>
-                <FontAwesomeIcon icon={faEnvelope} size="xs" className="me-1" />
-                Contact
-              </Link>
-            </li>
+            {userRole !== "admin" && (
+              <li className="mb-2">
+                <Link href="/contact" onClick={closeMenu}>
+                  <FontAwesomeIcon
+                    icon={faPaperPlane}
+                    size="xs"
+                    className="me-2 text-accent/80"
+                  />
+                  Contact
+                </Link>
+              </li>
+            )}
             {isUnauthenticated && (
               <div className="flex flex-col gap-2">
                 <Link
@@ -113,17 +140,34 @@ const NavBar = () => {
         <div className="hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link href="/">Home</Link>
+              <Link href="/" className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faHouseChimney} className="text-accent/80" />
+                Home
+              </Link>
             </li>
             <li>
-              <Link href="/gallery">Gallery</Link>
+              <Link href="/gallery" className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faPalette} className="text-accent/80" />
+                Gallery
+              </Link>
             </li>
             <li>
-              <Link href="/about">About</Link>
+              <Link href="/about" className="flex items-center gap-2">
+                <FontAwesomeIcon
+                  icon={faFeatherPointed}
+                  className="text-accent/80"
+                />
+                About
+              </Link>
             </li>
-            <li>
-              <Link href="/contact">Contact</Link>
-            </li>
+            {userRole !== "admin" && (
+              <li>
+                <Link href="/contact" className="flex items-center gap-2">
+                  <FontAwesomeIcon icon={faPaperPlane} className="text-accent/80" />
+                  Contact
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -139,7 +183,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-end flex">
-        {isAuthenticated && (
+        {isAuthenticated && userRole !== "admin" && (
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -162,7 +206,9 @@ const NavBar = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />{" "}
                 </svg>
-                <span className="badge badge-sm indicator-item">0</span>
+                <span className="badge badge-sm indicator-item">
+                  {cartTotals.count}
+                </span>
               </div>
             </div>
             <div
@@ -170,8 +216,12 @@ const NavBar = () => {
               className="card card-compact dropdown-content bg-base-300 z-1 mt-3 w-60 shadow"
             >
               <div className="card-body">
-                <span className="text-lg font-bold">0 Items</span>
-                <span className="text-info">Subtotal: $0</span>
+                <span className="text-lg font-bold">
+                  {cartTotals.count} Items
+                </span>
+                <span className="text-info">
+                  Subtotal: ${cartTotals.subtotal.toLocaleString()}
+                </span>
                 <div className="card-actions">
                   <Link href="/user/cart" className="btn btn-primary btn-block">
                     View cart

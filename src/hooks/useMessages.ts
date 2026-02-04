@@ -11,6 +11,7 @@ export const useMessages = (): UseMessagesReturn => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
+  const [unreadCount, setUnreadCount] = useState(0);
 
   const skipRef = useRef(0);
   const isFetchingRef = useRef(false);
@@ -19,7 +20,8 @@ export const useMessages = (): UseMessagesReturn => {
     async ({
       append = false,
       limit = LIMIT,
-    }: FetchOptions = {}): Promise<void> => {
+      archived = "0",
+    }: (FetchOptions & { archived?: string }) = {}): Promise<void> => {
       if (isFetchingRef.current) return;
       isFetchingRef.current = true;
       setLoading(true);
@@ -28,7 +30,7 @@ export const useMessages = (): UseMessagesReturn => {
       try {
         const skip = append ? skipRef.current : 0;
         const res = await fetch(
-          `/api/admin/messages?skip=${skip}&limit=${limit}`,
+          `/api/admin/messages?skip=${skip}&limit=${limit}&archived=${archived}`,
           { cache: "no-store" }
         );
 
@@ -37,9 +39,20 @@ export const useMessages = (): UseMessagesReturn => {
           throw new Error(text || `Failed to fetch messages (${res.status})`);
         }
 
-        const data: Message[] = await res.json();
-        setMessages((prev) => (append ? [...prev, ...data] : data));
-        skipRef.current = append ? skipRef.current + data.length : data.length;
+        const data = await res.json();
+        const nextMessages: Message[] = Array.isArray(data)
+          ? data
+          : data.messages ?? [];
+
+        setMessages((prev) =>
+          append ? [...prev, ...nextMessages] : nextMessages
+        );
+        skipRef.current = append
+          ? skipRef.current + nextMessages.length
+          : nextMessages.length;
+        if (!Array.isArray(data) && typeof data.unreadCount === "number") {
+          setUnreadCount(data.unreadCount);
+        }
       } catch (err) {
         const e = err instanceof Error ? err : new Error("Unknown error");
         console.error("useMessages.fetchMessages:", e);
@@ -53,7 +66,7 @@ export const useMessages = (): UseMessagesReturn => {
   );
 
   const deleteMessage = useCallback(
-    async (messageId: string): Promise<boolean> => {
+    async (messageId: string, archived: "0" | "1" = "0"): Promise<boolean> => {
       if (deletingIds.has(messageId)) return false;
 
       // 1. Optimistically remove the deleted message
@@ -85,12 +98,16 @@ export const useMessages = (): UseMessagesReturn => {
         if (currentCount < LIMIT) {
           // We have less than 5 → fetch exactly 1 more
           const moreRes = await fetch(
-            `/api/admin/messages?skip=${skipRef.current}&limit=1`,
+            `/api/admin/messages?skip=${skipRef.current}&limit=1&archived=${archived}`,
             { cache: "no-store" }
           );
 
           if (moreRes.ok) {
-            const [extraMessage] = await moreRes.json();
+            const extraData = await moreRes.json();
+            const extraList = Array.isArray(extraData)
+              ? extraData
+              : extraData.messages ?? [];
+            const extraMessage = extraList[0];
             if (extraMessage) {
               setMessages((prev) => [...prev, extraMessage]);
               skipRef.current += 1; // update cursor
@@ -105,7 +122,7 @@ export const useMessages = (): UseMessagesReturn => {
         setError(e);
 
         // Revert optimistic delete on real failure
-        await fetchMessages({ append: false });
+        await fetchMessages({ append: false, archived });
         return false;
       } finally {
         setDeletingIds((prev) => {
@@ -118,12 +135,117 @@ export const useMessages = (): UseMessagesReturn => {
     [deletingIds, messages.length, fetchMessages] // ← added messages.length to deps
   );
 
+  const archiveMessage = useCallback(
+    async (messageId: string): Promise<boolean> => {
+      if (deletingIds.has(messageId)) return false;
+
+      setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
+
+      try {
+        const res = await fetch(`/api/admin/messages/archive/${messageId}`, {
+          method: "PATCH",
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(
+            errorData.message || `Failed to archive (${res.status})`
+          );
+        }
+
+        await fetchMessages({ append: false, archived: "0" });
+        return true;
+      } catch (err) {
+        const e = err instanceof Error ? err : new Error("Unknown error");
+        console.error("Archive failed:", e);
+        setError(e);
+        await fetchMessages({ append: false, archived: "0" });
+        return false;
+      }
+    },
+    [deletingIds, fetchMessages]
+  );
+
+  const unarchiveMessage = useCallback(
+    async (messageId: string): Promise<boolean> => {
+      if (deletingIds.has(messageId)) return false;
+
+      setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
+
+      try {
+        const res = await fetch(`/api/admin/messages/unarchive/${messageId}`, {
+          method: "PATCH",
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(
+            errorData.message || `Failed to unarchive (${res.status})`
+          );
+        }
+
+        await fetchMessages({ append: false, archived: "1" });
+        return true;
+      } catch (err) {
+        const e = err instanceof Error ? err : new Error("Unknown error");
+        console.error("Unarchive failed:", e);
+        setError(e);
+        await fetchMessages({ append: false, archived: "1" });
+        return false;
+      }
+    },
+    [deletingIds, fetchMessages]
+  );
+
+  const updateReadStatus = useCallback(
+    async (
+      messageId: string,
+      isRead: boolean,
+      archived: "0" | "1" = "0"
+    ): Promise<boolean> => {
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg._id === messageId ? { ...msg, isRead } : msg
+        )
+      );
+
+      try {
+        const res = await fetch(`/api/admin/messages/read/${messageId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ isRead }),
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(
+            errorData.message || `Failed to update (${res.status})`
+          );
+        }
+
+        await fetchMessages({ append: false, archived });
+        return true;
+      } catch (err) {
+        const e = err instanceof Error ? err : new Error("Unknown error");
+        console.error("Update read status failed:", e);
+        setError(e);
+        await fetchMessages({ append: false, archived });
+        return false;
+      }
+    },
+    [fetchMessages]
+  );
+
   return {
     messages,
     loading,
     error,
     deletingIds,
+    unreadCount,
     fetchMessages,
     deleteMessage,
+    archiveMessage,
+    unarchiveMessage,
+    updateReadStatus,
   };
 };

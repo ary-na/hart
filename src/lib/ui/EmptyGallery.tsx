@@ -5,7 +5,7 @@ import { EmptyGalleryCanvas } from "./svgs/EmptyGalleryCanvas";
 export function EmptyGallery({ ...props }) {
   return (
     <div
-      className="flex flex-col flex-1 items-center justify-center text-center py-30"
+      className="flex flex-col flex-1 items-center justify-center text-center"
       {...props}
     >
       <EmptyGalleryCanvas className="mb-6 w-20" />

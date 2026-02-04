@@ -3,7 +3,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import { Drawing, FetchOptions, UseDrawingsReturn } from "@hart/lib/types";
-import { CreateDrawingInput } from "@hart/lib/validators";
+import { AddDrawingInput, UpdateDrawingInput } from "@hart/lib/validators";
 
 const LIMIT = 12;
 
@@ -11,6 +11,7 @@ export const useDrawings = (): UseDrawingsReturn => {
   const [drawings, setDrawings] = useState<Drawing[]>([]);
   const [loading, setLoading] = useState(false);
   const [creating, setCreating] = useState(false);
+  const [updating, setUpdating] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
   const skipRef = useRef(0);
@@ -63,11 +64,11 @@ export const useDrawings = (): UseDrawingsReturn => {
         isFetchingRef.current = false;
       }
     },
-    []
+    [],
   );
 
-  const createDrawing = useCallback(
-    async (data: CreateDrawingInput): Promise<Drawing | null> => {
+  const addDrawing = useCallback(
+    async (data: AddDrawingInput): Promise<Drawing | null> => {
       setCreating(true);
       setError(null);
       try {
@@ -90,7 +91,7 @@ export const useDrawings = (): UseDrawingsReturn => {
 
         formData.append("price", priceToAppend);
         if (data.tags && data.tags.length > 0) {
-          formData.append("tags", JSON.stringify(data.tags));
+          formData.append("tags", data.tags);
         }
 
         const res = await fetch("/api/drawings/create", {
@@ -101,7 +102,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({}));
           throw new Error(
-            errorData.message || `Failed to create drawing (${res.status})`
+            errorData.message || `Failed to create drawing (${res.status})`,
           );
         }
 
@@ -118,6 +119,70 @@ export const useDrawings = (): UseDrawingsReturn => {
         return null;
       } finally {
         setCreating(false);
+      }
+    },
+    [fetchDrawings],
+  );
+
+  const updateDrawing = useCallback(
+    async (
+      drawingId: string,
+      data: UpdateDrawingInput
+    ): Promise<Drawing | null> => {
+      setUpdating(true);
+      setError(null);
+
+      try {
+        const formData = new FormData();
+        formData.append("title", data.title.trim());
+        formData.append("description", data.description.trim());
+
+        const file = data.file instanceof File ? data.file : data.file?.[0];
+        if (file) {
+          formData.append("file", file);
+        }
+
+        let priceToAppend = "0";
+        if (data.price != null) {
+          const priceStr = String(data.price).trim();
+          if (priceStr !== "") {
+            const num = parseFloat(priceStr);
+            if (!isNaN(num) && num >= 0) {
+              priceToAppend = String(num);
+            }
+          }
+        }
+
+        formData.append("price", priceToAppend);
+        if (data.tags && data.tags.length > 0) {
+          formData.append("tags", data.tags);
+        }
+
+        const res = await fetch(`/api/drawings/update/${drawingId}`, {
+          method: "PUT",
+          body: formData,
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(
+            errorData.message || `Failed to update drawing (${res.status})`
+          );
+        }
+
+        const result = await res.json();
+        const updatedDrawing: Drawing = result.drawing;
+
+        await fetchDrawings({ append: false });
+
+        return updatedDrawing;
+      } catch (err) {
+        const e = err instanceof Error ? err : new Error("Unknown error");
+        console.error("useDrawings.updateDrawing:", e);
+        setError(e);
+        return null;
+      } finally {
+        setUpdating(false);
       }
     },
     [fetchDrawings]
@@ -139,7 +204,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({}));
           throw new Error(
-            errorData.message || `Failed to delete (${res.status})`
+            errorData.message || `Failed to delete (${res.status})`,
           );
         }
 
@@ -160,7 +225,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         });
       }
     },
-    [deletingIds, fetchDrawings]
+    [deletingIds, fetchDrawings],
   );
 
   const resetError = useCallback(() => {
@@ -172,9 +237,11 @@ export const useDrawings = (): UseDrawingsReturn => {
     loading,
     error,
     creating,
+    updating,
     deletingIds,
     fetchDrawings,
-    createDrawing,
+    addDrawing,
+    updateDrawing,
     deleteDrawing,
     resetError,
   };

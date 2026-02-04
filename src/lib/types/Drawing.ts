@@ -1,7 +1,7 @@
 // src/lib/types/Drawing.ts
 
 import { FetchOptions } from "./Hook";
-import { CreateDrawingInput } from "../validators";
+import { AddDrawingInput, UpdateDrawingInput } from "../validators";
 
 export interface Drawing {
   _id: string;
@@ -21,9 +21,14 @@ export type UseDrawingsReturn = {
   loading: boolean;
   error: Error | null;
   creating: boolean;
+  updating: boolean;
   deletingIds: Set<string>;
   fetchDrawings: (options?: FetchOptions) => Promise<void>;
-  createDrawing: (data: CreateDrawingInput) => Promise<Drawing | null>;
+  addDrawing: (data: AddDrawingInput) => Promise<Drawing | null>;
+  updateDrawing: (
+    drawingId: string,
+    data: UpdateDrawingInput
+  ) => Promise<Drawing | null>;
   deleteDrawing: (drawingId: string) => Promise<boolean>;
   resetError: () => void;
 };

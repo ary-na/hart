@@ -17,6 +17,7 @@ const RecentMessages = () => {
     fetchMessages,
     deleteMessage,
     deletingIds,
+    unreadCount,
   } = useMessages();
 
   const [confirmId, setConfirmId] = useState<string | null>(null);
@@ -47,9 +48,14 @@ const RecentMessages = () => {
       <div className="space-y-4">
         <div className="flex items-end justify-between">
           <h2>Recent messages</h2>
-          <Link href="/admin/messages" className="link">
-            View all
-          </Link>
+          <div className="flex items-center gap-3">
+            <span className="text-xs opacity-60">
+              Unread: {unreadCount}
+            </span>
+            <Link href="/admin/messages" className="link">
+              View all
+            </Link>
+          </div>
         </div>
 
         <ul className="list bg-base-100 rounded-box shadow-md">
@@ -59,11 +65,19 @@ const RecentMessages = () => {
 
           {messages.slice(0, 3).map((msg) => {
             const isDeleting = deletingIds.has(msg._id);
+            const isUnread = msg.isRead === false;
 
             return (
               <li key={msg._id} className="list-row items-center gap-4">
                 <div className="min-w-0">
-                  <div className="font-medium">{msg.name}</div>
+                  <div className="font-medium flex items-center gap-2">
+                    {msg.name}
+                    {isUnread && (
+                      <span className="badge badge-primary badge-xs">
+                        Unread
+                      </span>
+                    )}
+                  </div>
                   <div className="text-xs opacity-60 truncate">
                     {msg.enquiry}
                   </div>
