@@ -3,20 +3,13 @@
 "use client";
 
 import Link from "next/link";
+import { Logo } from "@hart/lib/ui";
 import { cn } from "@hart/lib/utils";
+import { useCurrentUser } from "@hart/hooks";
 import { useEffect, useMemo, useState } from "react";
 import { useSignout, useCartContext } from "@hart/hooks";
-import {
-  faHouseChimney,
-  faPalette,
-  faFeatherPointed,
-  faPaperPlane,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { Logo } from "@hart/lib/ui";
-import { useCurrentUser } from "@hart/hooks";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,42 +69,22 @@ const NavBar = () => {
           >
             <li>
               <Link href="/" onClick={closeMenu}>
-                <FontAwesomeIcon
-                  icon={faHouseChimney}
-                  size="xs"
-                  className="me-2 text-accent/80"
-                />
                 Home
               </Link>
             </li>
             <li>
               <Link href="/gallery" onClick={closeMenu}>
-                <FontAwesomeIcon
-                  icon={faPalette}
-                  size="xs"
-                  className="me-2 text-accent/80"
-                />
                 Gallery
               </Link>
             </li>
             <li>
               <Link href="/about" onClick={closeMenu}>
-                <FontAwesomeIcon
-                  icon={faFeatherPointed}
-                  size="xs"
-                  className="me-2 text-accent/80"
-                />
                 About
               </Link>
             </li>
             {userRole !== "admin" && (
               <li className="mb-2">
                 <Link href="/contact" onClick={closeMenu}>
-                  <FontAwesomeIcon
-                    icon={faPaperPlane}
-                    size="xs"
-                    className="me-2 text-accent/80"
-                  />
                   Contact
                 </Link>
               </li>
@@ -141,29 +114,22 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">
             <li>
               <Link href="/" className="flex items-center gap-2">
-                <FontAwesomeIcon icon={faHouseChimney} className="text-accent/80" />
                 Home
               </Link>
             </li>
             <li>
               <Link href="/gallery" className="flex items-center gap-2">
-                <FontAwesomeIcon icon={faPalette} className="text-accent/80" />
                 Gallery
               </Link>
             </li>
             <li>
               <Link href="/about" className="flex items-center gap-2">
-                <FontAwesomeIcon
-                  icon={faFeatherPointed}
-                  className="text-accent/80"
-                />
                 About
               </Link>
             </li>
             {userRole !== "admin" && (
               <li>
                 <Link href="/contact" className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faPaperPlane} className="text-accent/80" />
                   Contact
                 </Link>
               </li>

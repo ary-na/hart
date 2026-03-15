@@ -6,21 +6,24 @@ export const metadata = {
 
 const About = () => {
   return (
-    <section className="py-12">
-      <header className="h-container">
+    <section className="my-10">
+      <header className="h-container py-20 h-reveal">
         <p className="text-sm uppercase tracking-[0.35em] opacity-60">
           About the Artist
         </p>
         <h1 className="mt-3">Hilda&apos;s Story</h1>
-        <p className="mt-4 max-w-2xl text-lg opacity-80">
+        <p
+          className="mt-4 max-w-2xl text-lg opacity-80 h-reveal"
+          style={{ ["--reveal-delay" as never]: "120ms" }}
+        >
           Hilda paints with her whole heart. Every piece is a conversation
           between memory, emotion, and the quiet power of everyday life.
         </p>
       </header>
 
       <div className="mt-10 bg-accent/15">
-        <div className="h-container grid gap-8 py-12 lg:grid-cols-[1.2fr_1fr]">
-          <div className="space-y-5 text-base leading-relaxed">
+        <div className="h-container grid gap-8 py-20 lg:grid-cols-[1.2fr_1fr]">
+          <div className="space-y-5 text-base leading-relaxed h-reveal">
             <p>
               Hilda began drawing as a child, filling the margins of school
               notebooks with tiny animals and soft, curious faces. Painting
@@ -45,7 +48,10 @@ const About = () => {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
+          <div
+            className="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm h-reveal"
+            style={{ ["--reveal-delay" as never]: "140ms" }}
+          >
             <p className="text-sm uppercase tracking-[0.3em] opacity-60">
               In Her Words
             </p>

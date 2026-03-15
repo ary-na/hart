@@ -33,15 +33,18 @@ const GalleryGrid = () => {
         <EmptyGallery />
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {drawings.map((drawing) => (
+          {drawings.map((drawing, index) => (
             <div
               key={drawing._id}
-              className="group flex flex-col overflow-hidden rounded-md border-4 border-base-200 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(245,242,232,0.92))] shadow-[0_18px_35px_rgba(15,23,42,0.12)] transition-shadow hover:shadow-[0_24px_50px_rgba(15,23,42,0.18)]"
+              className="group flex flex-col overflow-hidden border border-base-300 bg-base-100 shadow-[0_18px_35px_rgba(15,23,42,0.12)] transition-shadow hover:shadow-[0_24px_50px_rgba(15,23,42,0.18)] h-reveal"
+              style={{ ["--reveal-delay" as never]: `${index % 5 * 80}ms` }}
             >
-              <button
-                onClick={() => setSelectedDrawing(drawing)}
-                className="relative text-left w-full"
-              >
+              <div className="relative">
+                <button
+                  onClick={() => setSelectedDrawing(drawing)}
+                  className="absolute inset-0 z-10 text-left"
+                  aria-label={`View details for ${drawing.title}`}
+                />
                 <figure className="relative aspect-square w-full overflow-hidden bg-base-200">
                   {drawing.thumbnailUrl ? (
                     <Image
@@ -57,7 +60,61 @@ const GalleryGrid = () => {
                     </div>
                   )}
                 </figure>
-              </button>
+
+                {!isAdmin && (
+                  <div className="pointer-events-none absolute inset-0 z-20 flex items-end justify-center bg-black/0 p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100">
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm pointer-events-auto"
+                      onClick={async (event) => {
+                        event.stopPropagation();
+                        const isInCart = cartItems.some(
+                          (item) => item.drawingId === drawing._id
+                        );
+
+                        if (isInCart) {
+                          const removed = await removeItem(drawing._id);
+                          if (removed) {
+                            showToast("Removed from cart.", "success");
+                          } else {
+                            showToast("Could not remove item.", "error");
+                          }
+                          return;
+                        }
+
+                        if (!drawing.thumbnailName) {
+                          showToast(
+                            "Missing thumbnail for cart item.",
+                            "error"
+                          );
+                          return;
+                        }
+                        const added = await addItem({
+                          drawingId: drawing._id,
+                          title: drawing.title,
+                          price: drawing.price,
+                          thumbnailName: drawing.thumbnailName,
+                        });
+
+                        if (added) {
+                          showToast("Added to cart.", "success");
+                        } else {
+                          showToast("Could not add to cart.", "error");
+                        }
+                      }}
+                      disabled={cartLoading}
+                    >
+                      {cartLoading
+                        ? "Working..."
+                        : cartItems.some(
+                              (item) => item.drawingId === drawing._id
+                            )
+                          ? "Remove from cart"
+                          : "Add to cart"}
+                    </button>
+                  </div>
+                )}
+              </div>
 
               <div className="flex flex-1 flex-col gap-3 border-t border-base-200/60 p-4">
                 <div className="flex items-start justify-between gap-3">
@@ -73,52 +130,9 @@ const GalleryGrid = () => {
                 </div>
 
                 {!isAdmin && (
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-sm"
-                    onClick={async (event) => {
-                      event.stopPropagation();
-                      const isInCart = cartItems.some(
-                        (item) => item.drawingId === drawing._id
-                      );
-
-                      if (isInCart) {
-                        const removed = await removeItem(drawing._id);
-                        if (removed) {
-                          showToast("Removed from cart.", "success");
-                        } else {
-                          showToast("Could not remove item.", "error");
-                        }
-                        return;
-                      }
-
-                      if (!drawing.thumbnailName) {
-                        showToast("Missing thumbnail for cart item.", "error");
-                        return;
-                      }
-                      const added = await addItem({
-                        drawingId: drawing._id,
-                        title: drawing.title,
-                        price: drawing.price,
-                        thumbnailName: drawing.thumbnailName,
-                      });
-
-                      if (added) {
-                        showToast("Added to cart.", "success");
-                      } else {
-                        showToast("Could not add to cart.", "error");
-                      }
-                    }}
-                    disabled={cartLoading}
-                  >
-                    {cartLoading
-                      ? "Working..."
-                      : cartItems.some(
-                            (item) => item.drawingId === drawing._id
-                          )
-                        ? "Remove from cart"
-                        : "Add to cart"}
-                  </button>
+                  <div className="text-xs opacity-60">
+                    Hover to add to cart
+                  </div>
                 )}
               </div>
             </div>

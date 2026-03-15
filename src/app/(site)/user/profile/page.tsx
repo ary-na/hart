@@ -32,15 +32,15 @@ const Profile = async () => {
   const avatarSrc = avatarName ? `/api/user/avatar/${avatarName}` : null;
 
   return (
-    <section className="h-container py-10">
+    <section className="h-container py-20 my-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
+        <div className="h-reveal">
           <p className="text-sm uppercase tracking-[0.35em] opacity-60">
             Account
           </p>
           <h1 className="mt-2">Profile</h1>
         </div>
-        <div className="breadcrumbs text-sm mb-2">
+        <div className="breadcrumbs text-sm mb-2 h-reveal">
           <ul>
             <li>
               <Link href="/">Home</Link>
@@ -56,7 +56,7 @@ const Profile = async () => {
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
+        <div className="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm h-reveal">
           <div className="flex flex-wrap items-center gap-4">
             <div className="relative h-20 w-20 overflow-hidden rounded-full border border-base-300 bg-base-200">
               {avatarSrc ? (
@@ -110,7 +110,10 @@ const Profile = async () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
+        <div
+          className="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm h-reveal"
+          style={{ ["--reveal-delay" as never]: "120ms" }}
+        >
           <h2 className="text-lg font-semibold">Account actions</h2>
           <p className="mt-2 text-sm opacity-70">
             Keep your account secure and up to date.

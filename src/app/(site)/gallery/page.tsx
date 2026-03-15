@@ -19,10 +19,10 @@ const Gallery = async () => {
 
   return (
     <DrawingsProvider>
-      <section className="h-flex-container" aria-labelledby="gallery-heading">
+      <section className="h-flex-container my-10 py-20" aria-labelledby="gallery-heading">
         {/* Section header */}
         <header className="flex items-center justify-between mb-6">
-          <div>
+          <div className="h-reveal">
             <h1 id="gallery-heading">Gallery</h1>
             {isAdmin ? (
               <Breadcrumbs
@@ -33,14 +33,19 @@ const Gallery = async () => {
                 ]}
               />
             ) : (
-              <p>Raw, real, and deeply felt.</p>
+              <p
+                className="h-reveal"
+                style={{ ["--reveal-delay" as never]: "120ms" }}
+              >
+                Raw, real, and deeply felt.
+              </p>
             )}
           </div>
           {/* Admin action */}
           {isAdmin && (
             <ModalController
               trigger="Add Drawing"
-              className="btn-secondary btn-sm text-primary-content"
+              className="btn-secondary btn-sm text-primary-content h-reveal"
               ariaLabel="Add a new drawing"
               ModalComponent={AddDrawingModal}
             />

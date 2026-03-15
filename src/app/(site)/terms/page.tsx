@@ -7,15 +7,15 @@ export const metadata = {
 
 const Terms = () => {
   return (
-    <article className="prose prose-neutral dark:prose-invert max-w-4xl mx-auto px-4 py-12">
-      <header className="text-center mb-12">
+    <article className="prose prose-neutral dark:prose-invert max-w-4xl mx-auto px-4 py-20 my-10">
+      <header className="text-center mb-12 h-reveal">
         <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
         <p className="text-sm opacity-70 italic">
           Last updated: January 12, 2026
         </p>
       </header>
 
-      <section className="mb-12">
+      <section className="mb-12 h-reveal">
         <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
         <p>
           Welcome to Hart (<strong>we</strong>, <strong>us</strong>, or
@@ -30,7 +30,7 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12">
+      <section className="mb-12 h-reveal">
         <h2 className="text-2xl font-semibold mb-4">2. Use of the Site</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>You must be at least 13 years old to use the Site.</li>
@@ -40,7 +40,7 @@ const Terms = () => {
         </ul>
       </section>
 
-      <section className="mb-12">
+      <section className="mb-12 h-reveal">
         <h2 className="text-2xl font-semibold mb-4">3. Purchases & Payments</h2>
         <ul className="list-disc pl-6 space-y-2">
           <li>All prices are in AUD and include GST where applicable.</li>
@@ -51,7 +51,7 @@ const Terms = () => {
         </ul>
       </section>
 
-      <section className="mb-12">
+      <section className="mb-12 h-reveal">
         <h2 className="text-2xl font-semibold mb-4">4. Intellectual Property</h2>
         <p>
           All artwork, images, text, design and content on the Site are owned by
@@ -63,7 +63,7 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12">
+      <section className="mb-12 h-reveal">
         <h2 className="text-2xl font-semibold mb-4">5. Limitation of Liability</h2>
         <p>
           To the maximum extent permitted by law, Hart is not liable for any
@@ -76,7 +76,7 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12">
+      <section className="mb-12 h-reveal">
         <h2 className="text-2xl font-semibold mb-4">6. Australian Consumer Law</h2>
         <p>
           Nothing in these Terms excludes, restricts or modifies any right or
@@ -86,7 +86,7 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12">
+      <section className="mb-12 h-reveal">
         <h2 className="text-2xl font-semibold mb-4">7. Changes to Terms</h2>
         <p>
           We may update these Terms from time to time. The updated version will
@@ -95,7 +95,7 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12">
+      <section className="mb-12 h-reveal">
         <h2 className="text-2xl font-semibold mb-4">8. Contact Us</h2>
         <p>
           Questions about these Terms? Reach out:
