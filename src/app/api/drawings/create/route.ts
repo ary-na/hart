@@ -9,6 +9,10 @@ import {
   generateFileName,
   generateThumbnail,
 } from "@hart/server/upload";
+import {
+  DRAWING_IMAGE_TYPE_MESSAGE,
+  isSupportedDrawingImageType,
+} from "@hart/lib/constants/drawingUpload";
 
 export async function POST(req: Request) {
   try {
@@ -70,9 +74,9 @@ export async function POST(req: Request) {
     }
 
     // File validation
-    if (!file.type.startsWith("image/")) {
+    if (!isSupportedDrawingImageType(file.type)) {
       return NextResponse.json(
-        { message: "Only image files are allowed" },
+        { message: DRAWING_IMAGE_TYPE_MESSAGE },
         { status: 400 }
       );
     }
@@ -87,14 +91,27 @@ export async function POST(req: Request) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    let thumbnailBuffer: Buffer;
+    let thumbnailFileName: string;
+    try {
+      ({ thumbnailBuffer, thumbnailFileName } = await generateThumbnail(
+        buffer,
+        file.name,
+        "drawings"
+      ));
+    } catch (error) {
+      console.error("Create drawing thumbnail error:", error);
+      return NextResponse.json(
+        {
+          message:
+            "The uploaded image could not be processed. Please use a valid JPG, PNG, GIF, or WebP image.",
+        },
+        { status: 400 }
+      );
+    }
+
     const originalFileName = generateFileName(file.name, "drawings");
     const fileName = await uploadFileToS3(buffer, originalFileName, file.type);
-
-    const { thumbnailBuffer, thumbnailFileName } = await generateThumbnail(
-      buffer,
-      file.name,
-      "drawings"
-    );
     // drawings/thumbnails/uuid.webp
     const thumbnailName = await uploadFileToS3(
       thumbnailBuffer,

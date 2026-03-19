@@ -1,6 +1,10 @@
 // src/lib/validators/AddDrawing.ts
 
 import { z } from "zod";
+import {
+  DRAWING_IMAGE_TYPE_MESSAGE,
+  isSupportedDrawingImageType,
+} from "@hart/lib/constants/drawingUpload";
 
 const baseDrawingSchema = z.object({
   title: z.string().min(1, { message: "Title is required." }),
@@ -26,8 +30,8 @@ const requiredFileSchema = z
   .refine((files) => files && files.length > 0, {
     message: "A file is required.",
   })
-  .refine((files) => files?.[0]?.type?.startsWith("image/"), {
-    message: "Only image files are allowed (jpg, png, gif, webp, etc.).",
+  .refine((files) => isSupportedDrawingImageType(files?.[0]?.type), {
+    message: DRAWING_IMAGE_TYPE_MESSAGE,
   })
   .refine((files) => files?.[0]?.size <= 50 * 1024 * 1024, {
     message: "Image must be under 50 MB.",
@@ -38,11 +42,9 @@ const optionalFileSchema = z
   .optional()
   .refine(
     (files) =>
-      !files ||
-      files.length === 0 ||
-      files?.[0]?.type?.startsWith("image/"),
+      !files || files.length === 0 || isSupportedDrawingImageType(files?.[0]?.type),
     {
-      message: "Only image files are allowed (jpg, png, gif, webp, etc.).",
+      message: DRAWING_IMAGE_TYPE_MESSAGE,
     }
   )
   .refine(

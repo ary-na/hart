@@ -21,6 +21,10 @@ import {
   UpdateDrawingInput,
 } from "@hart/lib/validators";
 import { Drawing } from "@hart/lib/types";
+import {
+  DRAWING_FILE_ACCEPT,
+  DRAWING_IMAGE_TYPE_MESSAGE,
+} from "@hart/lib/constants/drawingUpload";
 
 type Props = {
   onClose: () => void;
@@ -165,7 +169,7 @@ const AddDrawingForm = ({ onClose, initialDrawing }: Props) => {
 
         <input
           type="file"
-          accept="image/*"
+          accept={DRAWING_FILE_ACCEPT}
           onChange={handleFileChange}
           className={cn("file-input w-full", errors.file && "file-input-error")}
           disabled={isSaving}
@@ -173,6 +177,9 @@ const AddDrawingForm = ({ onClose, initialDrawing }: Props) => {
 
         <p className="label mt-2 text-sm! opacity-75 mb-0!">
           Max 50 MB • JPG, PNG, GIF, WebP
+        </p>
+        <p className="label mt-1 text-xs! opacity-65 mb-0!">
+          {DRAWING_IMAGE_TYPE_MESSAGE}
         </p>
 
         {errors.file?.message && (

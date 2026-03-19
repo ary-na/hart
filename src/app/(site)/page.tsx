@@ -1,8 +1,32 @@
 // src/app/page.tsx
 
+import Image from "next/image";
 import Link from "next/link";
+import { connectToDatabase } from "@hart/server/db/mongodb";
+import { Drawing } from "@hart/server/models";
+import { getPresignedUrl } from "@hart/server/upload";
 
-const Home = () => {
+const Home = async () => {
+  await connectToDatabase();
+
+  const latestDrawings = await Drawing.find({})
+    .sort({ createdAt: -1 })
+    .limit(4)
+    .lean();
+
+  const showcaseDrawings = await Promise.all(
+    latestDrawings.map(async (drawing) => ({
+      _id: drawing._id.toString(),
+      title: drawing.title,
+      description: drawing.description,
+      thumbnailUrl: await getPresignedUrl(drawing.thumbnailName),
+      fileUrl: await getPresignedUrl(drawing.fileName),
+    }))
+  );
+
+  const heroDrawing = showcaseDrawings[0] ?? null;
+  const featuredDrawings = showcaseDrawings.slice(1, 4);
+
   return (
     <>
       {/* Hero section */}
@@ -67,13 +91,39 @@ const Home = () => {
           >
             <div className="space-y-6">
               <Link
-                href="/gallery"
-                className="block aspect-4/5 w-full overflow-hidden border border-base-300 bg-base-100 shadow-2xl h-animate-float transition-transform duration-600 ease-out will-change-transform hover:-rotate-2 hover:scale-[1.03]"
+                href={heroDrawing ? `/gallery?drawing=${heroDrawing._id}` : "/gallery"}
+                className="group block aspect-4/5 w-full overflow-hidden border border-stone-300 bg-[#f6f1e8] shadow-[0_20px_45px_rgba(43,33,24,0.22),0_6px_18px_rgba(43,33,24,0.12)] h-animate-float transition-transform duration-600 ease-out will-change-transform hover:-rotate-2 hover:scale-[1.03]"
               >
-                <div className="h-full w-full bg-[linear-gradient(135deg,#1f2937,#111827)]" />
+                <div className="relative h-full w-full">
+                  {heroDrawing ? (
+                    <Image
+                      src={heroDrawing.fileUrl}
+                      alt={heroDrawing.title}
+                      fill={false}
+                      width={800}
+                      height={1000}
+                      className="h-full w-full object-cover"
+                      unoptimized
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-[linear-gradient(135deg,#1f2937,#111827)]" />
+                  )}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-20 mix-blend-soft-light bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.26)_0px,rgba(255,255,255,0.26)_1px,transparent_1px,transparent_4px),repeating-linear-gradient(90deg,rgba(255,255,255,0.14)_0px,rgba(255,255,255,0.14)_1px,transparent_1px,transparent_6px)]"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.2),transparent_18%,transparent_82%,rgba(0,0,0,0.12)),linear-gradient(90deg,rgba(255,255,255,0.08),transparent_10%,transparent_90%,rgba(0,0,0,0.1))]"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(120,95,68,0.18),inset_0_18px_30px_rgba(255,255,255,0.08),inset_0_-18px_24px_rgba(0,0,0,0.08)]"
+                  />
+                </div>
               </Link>
               <p className="text-center text-sm font-medium opacity-80">
-                Featured canvas
+                {heroDrawing?.title ?? "Featured canvas"}
               </p>
               <div
                 className="grid gap-3 h-reveal"
@@ -165,22 +215,54 @@ const Home = () => {
         </div>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
-          {[1, 2, 3].map((i, index) => (
+          {(featuredDrawings.length > 0
+            ? featuredDrawings
+            : Array.from({ length: 3 }, (_, index) => ({
+                _id: `placeholder-${index}`,
+                title: `Artwork ${index + 1}`,
+                thumbnailUrl: "",
+              }))
+          ).map((drawing, index) => (
             <div
-              key={i}
+              key={drawing._id}
               className="h-reveal"
               style={{
                 ["--reveal-delay" as never]: `${index * 90 + 80}ms`,
               }}
             >
               <Link
-                href="/gallery"
-                className="group block overflow-hidden border border-base-300 bg-base-100 shadow-xl transition-transform duration-500 ease-out will-change-transform hover:-rotate-1 hover:scale-[1.01]"
+                href={"thumbnailUrl" in drawing && drawing.thumbnailUrl ? `/gallery?drawing=${drawing._id}` : "/gallery"}
+                className="group block overflow-hidden border border-stone-300 bg-[#f6f1e8] shadow-[0_18px_35px_rgba(43,33,24,0.18),0_6px_18px_rgba(43,33,24,0.1)] transition-transform duration-500 ease-out will-change-transform hover:-rotate-1 hover:scale-[1.01]"
               >
-                <div className="aspect-video bg-base-200 transition-transform duration-500 ease-out group-hover:scale-[1.02]" />
+                <div className="relative">
+                  {drawing.thumbnailUrl ? (
+                    <Image
+                      src={drawing.fileUrl}
+                      alt={drawing.title}
+                      width={1200}
+                      height={1500}
+                      className="aspect-[4/5] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                      unoptimized
+                    />
+                  ) : (
+                    <div className="aspect-[4/5] bg-base-200 transition-transform duration-500 ease-out group-hover:scale-[1.02]" />
+                  )}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-18 mix-blend-soft-light bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.24)_0px,rgba(255,255,255,0.24)_1px,transparent_1px,transparent_4px),repeating-linear-gradient(90deg,rgba(255,255,255,0.12)_0px,rgba(255,255,255,0.12)_1px,transparent_1px,transparent_6px)]"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_18%,transparent_82%,rgba(0,0,0,0.1)),linear-gradient(90deg,rgba(255,255,255,0.06),transparent_10%,transparent_90%,rgba(0,0,0,0.08))]"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(120,95,68,0.16),inset_0_16px_24px_rgba(255,255,255,0.08),inset_0_-14px_20px_rgba(0,0,0,0.07)]"
+                  />
+                </div>
               </Link>
               <p className="mt-3 text-center text-sm font-medium opacity-80">
-                Artwork {i}
+                {drawing.title}
               </p>
             </div>
           ))}

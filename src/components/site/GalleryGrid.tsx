@@ -3,9 +3,10 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "@hart/lib/ui";
 import { Drawing } from "@hart/lib/types";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { EmptyGallery } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
 import { useDrawingsContext, useCartContext, useToast } from "@hart/hooks";
@@ -13,18 +14,43 @@ import DrawingDetailsModal from "./DrawingDetailsModal";
 import AddDrawingModal from "@hart/components/admin/AddDrawingModal";
 
 const GalleryGrid = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { drawings, fetchDrawings, loading } = useDrawingsContext();
   const { user, isLoading } = useCurrentUser();
-  const { items: cartItems, addItem, removeItem, loading: cartLoading } =
-    useCartContext();
+  const { addItem, loading: cartLoading } = useCartContext();
   const { showToast } = useToast();
   const isAdmin = user?.role === "admin";
-  const [selectedDrawing, setSelectedDrawing] = useState<Drawing | null>(null);
+  const [manualSelectedDrawing, setManualSelectedDrawing] =
+    useState<Drawing | null>(null);
   const [editingDrawing, setEditingDrawing] = useState<Drawing | null>(null);
+  const selectedDrawingId = searchParams.get("drawing");
 
   useEffect(() => {
     fetchDrawings({ limit: 12 });
   }, [fetchDrawings]);
+
+  const selectedDrawing = useMemo(() => {
+    if (manualSelectedDrawing) return manualSelectedDrawing;
+    if (!selectedDrawingId) return null;
+    return (
+      drawings.find((drawing) => drawing._id === selectedDrawingId) ?? null
+    );
+  }, [drawings, manualSelectedDrawing, selectedDrawingId]);
+
+  const handleCloseDrawingModal = () => {
+    setManualSelectedDrawing(null);
+
+    if (!selectedDrawingId) return;
+
+    const nextParams = new URLSearchParams(searchParams.toString());
+    nextParams.delete("drawing");
+    const nextQuery = nextParams.toString();
+    router.replace(nextQuery ? `${pathname}?${nextQuery}` : pathname, {
+      scroll: false,
+    });
+  };
 
   return (
     <>
@@ -32,16 +58,16 @@ const GalleryGrid = () => {
       {!loading && drawings.length === 0 ? (
         <EmptyGallery />
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {drawings.map((drawing, index) => (
             <div
               key={drawing._id}
-              className="group flex flex-col overflow-hidden border border-base-300 bg-base-100 shadow-[0_18px_35px_rgba(15,23,42,0.12)] transition-shadow hover:shadow-[0_24px_50px_rgba(15,23,42,0.18)] h-reveal"
+              className="group h-reveal"
               style={{ ["--reveal-delay" as never]: `${index % 5 * 80}ms` }}
             >
-              <div className="relative">
+              <div className="relative overflow-hidden border border-stone-300 bg-[#f6f1e8] shadow-[0_18px_35px_rgba(43,33,24,0.18),0_6px_18px_rgba(43,33,24,0.1)] transition-shadow hover:shadow-[0_24px_50px_rgba(43,33,24,0.22)]">
                 <button
-                  onClick={() => setSelectedDrawing(drawing)}
+                  onClick={() => setManualSelectedDrawing(drawing)}
                   className="absolute inset-0 z-10 text-left"
                   aria-label={`View details for ${drawing.title}`}
                 />
@@ -59,82 +85,24 @@ const GalleryGrid = () => {
                       No Image
                     </div>
                   )}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-18 mix-blend-soft-light bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.24)_0px,rgba(255,255,255,0.24)_1px,transparent_1px,transparent_4px),repeating-linear-gradient(90deg,rgba(255,255,255,0.12)_0px,rgba(255,255,255,0.12)_1px,transparent_1px,transparent_6px)]"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_18%,transparent_82%,rgba(0,0,0,0.1)),linear-gradient(90deg,rgba(255,255,255,0.06),transparent_10%,transparent_90%,rgba(0,0,0,0.08))]"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(120,95,68,0.16),inset_0_16px_24px_rgba(255,255,255,0.08),inset_0_-14px_20px_rgba(0,0,0,0.07)]"
+                  />
                 </figure>
 
-                {!isAdmin && (
-                  <div className="pointer-events-none absolute inset-0 z-20 flex items-end justify-center bg-black/0 p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100">
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-sm pointer-events-auto"
-                      onClick={async (event) => {
-                        event.stopPropagation();
-                        const isInCart = cartItems.some(
-                          (item) => item.drawingId === drawing._id
-                        );
-
-                        if (isInCart) {
-                          const removed = await removeItem(drawing._id);
-                          if (removed) {
-                            showToast("Removed from cart.", "success");
-                          } else {
-                            showToast("Could not remove item.", "error");
-                          }
-                          return;
-                        }
-
-                        if (!drawing.thumbnailName) {
-                          showToast(
-                            "Missing thumbnail for cart item.",
-                            "error"
-                          );
-                          return;
-                        }
-                        const added = await addItem({
-                          drawingId: drawing._id,
-                          title: drawing.title,
-                          price: drawing.price,
-                          thumbnailName: drawing.thumbnailName,
-                        });
-
-                        if (added) {
-                          showToast("Added to cart.", "success");
-                        } else {
-                          showToast("Could not add to cart.", "error");
-                        }
-                      }}
-                      disabled={cartLoading}
-                    >
-                      {cartLoading
-                        ? "Working..."
-                        : cartItems.some(
-                              (item) => item.drawingId === drawing._id
-                            )
-                          ? "Remove from cart"
-                          : "Add to cart"}
-                    </button>
-                  </div>
-                )}
               </div>
-
-              <div className="flex flex-1 flex-col gap-3 border-t border-base-200/60 p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h2 className="text-base font-semibold">{drawing.title}</h2>
-                    <p className="text-sm opacity-70 line-clamp-2">
-                      {drawing.description}
-                    </p>
-                  </div>
-                  <span className="text-sm font-semibold">
-                    ${drawing.price.toLocaleString()}
-                  </span>
-                </div>
-
-                {!isAdmin && (
-                  <div className="text-xs opacity-60">
-                    Hover to add to cart
-                  </div>
-                )}
-              </div>
+              <p className="mt-3 text-center text-sm font-medium opacity-80">
+                {drawing.title}
+              </p>
             </div>
           ))}
         </div>
@@ -161,10 +129,10 @@ const GalleryGrid = () => {
         open={selectedDrawing !== null}
         drawing={selectedDrawing}
         isAdmin={isAdmin && !isLoading}
-        onClose={() => setSelectedDrawing(null)}
+        onClose={handleCloseDrawingModal}
         onEdit={(drawing) => {
           setEditingDrawing(drawing);
-          setSelectedDrawing(null);
+          setManualSelectedDrawing(null);
         }}
         onAddToCart={async (drawing) => {
           if (!drawing.thumbnailName) {

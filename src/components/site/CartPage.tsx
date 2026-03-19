@@ -23,6 +23,14 @@ const CartPage = () => {
     let active = true;
 
     const loadThumbnails = async () => {
+      if (items.length === 0) {
+        await Promise.resolve();
+        if (active) {
+          setThumbnailUrls({});
+        }
+        return;
+      }
+
       const nextUrls: Record<string, string> = {};
 
       await Promise.all(
@@ -51,11 +59,7 @@ const CartPage = () => {
       }
     };
 
-    if (items.length > 0) {
-      loadThumbnails();
-    } else {
-      setThumbnailUrls({});
-    }
+    void loadThumbnails();
 
     return () => {
       active = false;

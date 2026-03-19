@@ -27,11 +27,16 @@ export const AppModal = ({
 
   return (
     <dialog className="modal modal-open">
-      <div className={cn("modal-box", className)}>
+      <div
+        className={cn(
+          "modal-box overflow-visible px-6 pb-6 pt-14 md:px-8 md:pb-8 md:pt-16",
+          className
+        )}
+      >
         {showClose && (
           <button
             onClick={onClose}
-            className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3"
+            className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 z-20 border border-base-300/60 bg-base-100/90 shadow-sm backdrop-blur-sm"
             aria-label="Close modal"
           >
             ✕

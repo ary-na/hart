@@ -28,31 +28,30 @@ const DrawingDetailsModal = ({
   if (!open || !drawing) return null;
 
   return (
-    <AppModal open={open} onClose={onClose} className="max-w-5xl">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="relative overflow-hidden rounded-lg bg-base-200">
+    <AppModal open={open} onClose={onClose} className="max-w-6xl">
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="flex min-h-[240px] items-start justify-center rounded-lg bg-base-200/50 p-3 md:p-4">
           {drawing.fileUrl ? (
             <Image
               src={drawing.fileUrl}
               alt={drawing.title}
               width={1200}
               height={1200}
-              className="max-h-[70vh] w-full object-contain"
+              className="h-auto max-h-[72vh] w-auto max-w-full rounded-md object-contain shadow-[0_18px_35px_rgba(43,33,24,0.14)]"
               priority
+              unoptimized
             />
           ) : (
-            <div className="flex aspect-video items-center justify-center">
+            <div className="flex min-h-[240px] w-full items-center justify-center">
               <span className="text-2xl opacity-50">Loading full image...</span>
             </div>
           )}
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 lg:pt-1">
           <div>
             <h2 className="text-3xl font-bold">{drawing.title}</h2>
-            <p className="mt-3 text-lg opacity-80">
-              {drawing.description}
-            </p>
+            <p className="mt-3 text-lg opacity-80">{drawing.description}</p>
           </div>
 
           <div className="flex items-center justify-between">
