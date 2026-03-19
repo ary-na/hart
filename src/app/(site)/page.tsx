@@ -216,12 +216,13 @@ const Home = async () => {
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {(featuredDrawings.length > 0
-            ? featuredDrawings
-            : Array.from({ length: 3 }, (_, index) => ({
-                _id: `placeholder-${index}`,
-                title: `Artwork ${index + 1}`,
-                thumbnailUrl: "",
-              }))
+              ? featuredDrawings
+              : Array.from({ length: 3 }, (_, index) => ({
+                  _id: `placeholder-${index}`,
+                  title: `Artwork ${index + 1}`,
+                  thumbnailUrl: "",
+                  fileUrl: "/gallery",
+                }))
           ).map((drawing, index) => (
             <div
               key={drawing._id}
