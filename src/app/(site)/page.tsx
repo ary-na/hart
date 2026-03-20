@@ -6,6 +6,8 @@ import { connectToDatabase } from "@hart/server/db/mongodb";
 import { Drawing } from "@hart/server/models";
 import { getPresignedUrl } from "@hart/server/upload";
 
+export const dynamic = "force-dynamic";
+
 const Home = async () => {
   await connectToDatabase();
 
