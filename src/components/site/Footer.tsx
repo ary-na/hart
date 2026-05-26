@@ -5,221 +5,160 @@ import { Logo } from "@hart/lib/ui";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const navColumns = [
+    {
+      heading: "Explore",
+      links: [
+        { label: "Home", href: "/" },
+        { label: "Gallery", href: "/gallery" },
+        { label: "About", href: "/about" },
+        { label: "Contact", href: "/contact" },
+      ],
+    },
+    {
+      heading: "Commission",
+      links: [
+        { label: "How it works", href: "/contact" },
+        { label: "Custom piece", href: "/contact" },
+        { label: "The Artist", href: "/about" },
+      ],
+    },
+    {
+      heading: "Legal",
+      links: [
+        { label: "Privacy Policy", href: "/privacy" },
+        { label: "Terms of Service", href: "/terms" },
+      ],
+    },
+  ];
+
+  const socialLinks = [
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/hart_hilda_art?igsh=ZWt6ajFkaHVtaW45&utm_source=qr",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.4 2.66667H21.6C25.8667 2.66667 29.3333 6.13334 29.3333 10.4V21.6C29.3333 23.651 28.5186 25.618 27.0683 27.0683C25.618 28.5186 23.651 29.3333 21.6 29.3333H10.4C6.13333 29.3333 2.66666 25.8667 2.66666 21.6V10.4C2.66666 8.349 3.48142 6.38199 4.93171 4.93171C6.38199 3.48143 8.34899 2.66667 10.4 2.66667ZM10.1333 5.33334C8.86029 5.33334 7.63939 5.83905 6.73922 6.73923C5.83904 7.6394 5.33333 8.8603 5.33333 10.1333V21.8667C5.33333 24.52 7.48 26.6667 10.1333 26.6667H21.8667C23.1397 26.6667 24.3606 26.161 25.2608 25.2608C26.161 24.3606 26.6667 23.1397 26.6667 21.8667V10.1333C26.6667 7.48001 24.52 5.33334 21.8667 5.33334H10.1333ZM23 7.33334C23.442 7.33334 23.8659 7.50893 24.1785 7.82149C24.4911 8.13405 24.6667 8.55798 24.6667 9.00001C24.6667 9.44203 24.4911 9.86596 24.1785 10.1785C23.8659 10.4911 23.442 10.6667 23 10.6667C22.558 10.6667 22.134 10.4911 21.8215 10.1785C21.5089 9.86596 21.3333 9.44203 21.3333 9.00001C21.3333 8.55798 21.5089 8.13405 21.8215 7.82149C22.134 7.50893 22.558 7.33334 23 7.33334ZM16 9.33334C17.7681 9.33334 19.4638 10.0357 20.714 11.286C21.9643 12.5362 22.6667 14.2319 22.6667 16C22.6667 17.7681 21.9643 19.4638 20.714 20.7141C19.4638 21.9643 17.7681 22.6667 16 22.6667C14.2319 22.6667 12.5362 21.9643 11.286 20.7141C10.0357 19.4638 9.33333 17.7681 9.33333 16C9.33333 14.2319 10.0357 12.5362 11.286 11.286C12.5362 10.0357 14.2319 9.33334 16 9.33334ZM16 12C14.9391 12 13.9217 12.4214 13.1716 13.1716C12.4214 13.9217 12 14.9391 12 16C12 17.0609 12.4214 18.0783 13.1716 18.8284C13.9217 19.5786 14.9391 20 16 20C17.0609 20 18.0783 19.5786 18.8284 18.8284C19.5786 18.0783 20 17.0609 20 16C20 14.9391 19.5786 13.9217 18.8284 13.1716C18.0783 12.4214 17.0609 12 16 12Z" />
+        </svg>
+      ),
+    },
+    {
+      label: "Facebook",
+      href: "https://www.facebook.com/octaviahil",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29.3333 16C29.3333 8.64001 23.36 2.66667 16 2.66667C8.64 2.66667 2.66667 8.64001 2.66667 16C2.66667 22.4533 7.25333 27.8267 13.3333 29.0667V20H10.6667V16H13.3333V12.6667C13.3333 10.0933 15.4267 8.00001 18 8.00001H21.3333V12H18.6667C17.9333 12 17.3333 12.6 17.3333 13.3333V16H21.3333V20H17.3333V29.2667C24.0667 28.6 29.3333 22.92 29.3333 16Z" />
+        </svg>
+      ),
+    },
+    {
+      label: "TikTok",
+      href: "https://www.tiktok.com/@hildaokara_art?_r=1&_t=ZS-929hPONm9g7",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25.7619 7.41625C25.5594 7.31159 25.3623 7.19687 25.1712 7.0725C24.6158 6.70528 24.1065 6.27259 23.6544 5.78375C22.5231 4.48938 22.1006 3.17625 21.945 2.25688H21.9512C21.8212 1.49375 21.875 1 21.8831 1H16.7306V20.9237C16.7306 21.1912 16.7306 21.4556 16.7194 21.7169C16.7194 21.7494 16.7162 21.7794 16.7144 21.8144C16.7144 21.8288 16.7144 21.8438 16.7112 21.8587V21.87C16.6569 22.5849 16.4278 23.2754 16.0439 23.8809C15.6601 24.4864 15.1333 24.9884 14.51 25.3425C13.8603 25.7121 13.1256 25.906 12.3781 25.905C9.9775 25.905 8.03187 23.9475 8.03187 21.53C8.03187 19.1125 9.9775 17.155 12.3781 17.155C12.8326 17.1546 13.2842 17.2261 13.7162 17.3669L13.7225 12.1206C12.4109 11.9512 11.0783 12.0554 9.80898 12.4268C8.53964 12.7981 7.36102 13.4285 6.3475 14.2781C5.45941 15.0498 4.7128 15.9704 4.14125 16.9988C3.92375 17.3738 3.10312 18.8806 3.00375 21.3263C2.94125 22.7144 3.35812 24.1525 3.55687 24.7469V24.7594C3.68187 25.1094 4.16625 26.3037 4.95562 27.3106C5.59215 28.1183 6.34418 28.8278 7.1875 29.4163V29.4037L7.2 29.4163C9.69437 31.1112 12.46 31 12.46 31C12.9387 30.9806 14.5425 31 16.3637 30.1369C18.3837 29.18 19.5337 27.7544 19.5337 27.7544C20.2684 26.9025 20.8526 25.9318 21.2612 24.8838C21.7275 23.6581 21.8831 22.1881 21.8831 21.6006V11.0306C21.9456 11.0681 22.7781 11.6187 22.7781 11.6187C22.7781 11.6187 23.9775 12.3875 25.8487 12.8881C27.1912 13.2444 29 13.3194 29 13.3194V8.20438C28.3662 8.27313 27.0794 8.07313 25.7619 7.41625Z" />
+        </svg>
+      ),
+    },
+  ];
+
   return (
-    <footer className="h-container footer" role="contentinfo">
-      <div className="py-8 flex flex-col lg:flex-row md:items-start md:justify-between gap-10 md:gap-8 w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
-          <nav className="w-full">
-            <h6 className="footer-title">Explore</h6>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="link link-hover">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/gallery" className="link link-hover">
-                  Gallery
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="link link-hover">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="link link-hover">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
+    <footer className="border-t border-base-300" role="contentinfo">
+      {/* Main footer grid */}
+      <div className="h-container py-14">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
 
-          <nav className="w-full">
-            <h6 className="footer-title">About</h6>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="link link-hover">
-                  The Artist
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="link link-hover">
-                  Journal
-                </Link>
-              </li>
-              <li>
-                <Link href="/commissions" className="link link-hover">
-                  Processes
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          {/* Brand column */}
+          <div className="flex flex-col gap-5">
+            <Link href="/" aria-label="H♡ART home">
+              <Logo className="w-28 hover:text-accent transition-colors" />
+            </Link>
+            <p className="text-sm leading-relaxed opacity-60 max-w-xs">
+              Each piece waits to bring a little color and wonder into your
+              everyday. Thank you for being part of this gentle story.
+            </p>
 
-          <nav className="w-full">
-            <h6 className="footer-title">Community</h6>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/gallery" className="link link-hover">
-                  Original Artwork
-                </Link>
-              </li>
-              <li>
-                <Link href="/commissions" className="link link-hover">
-                  Custom Commissions
-                </Link>
-              </li>
-            </ul>
-          </nav>
+            {/* Social links */}
+            <div className="flex items-center gap-3 mt-1">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-base-300 text-base-content/50 transition-all hover:border-accent hover:text-accent hover:bg-accent/5"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
 
-          <nav className="w-full">
-            <h6 className="footer-title">Legal</h6>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/privacy" className="link link-hover">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="link link-hover">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/cookie" className="link link-hover">
-                  Cookie Policy
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-         {/* Logo */}
-        <div className="flex flex-col gap-6 lg:max-w-xs w-full text-center items-center">
-          <Link href="/" className="link link-hover lg:ms-auto">
-            <Logo className="w-30 hover:text-accent" />
-          </Link>
-          <p className="opacity-75 max-w-xs lg:text-right">
-            Each piece waits to bring a little color and wonder into your
-            everyday. Thank you for being part of this gentle story.
-          </p>
+          {/* Nav columns */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            {navColumns.map((col) => (
+              <nav key={col.heading}>
+                <p className="text-xs font-semibold uppercase tracking-[0.35em] opacity-45 mb-4">
+                  {col.heading}
+                </p>
+                <ul className="space-y-2.5">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm opacity-65 transition-opacity hover:opacity-100"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Copyright information */}
-      <div className="flex flex-col md:flex-row md:justify-between gap-4 w-full pb-8 opacity-75">
-        <nav className="md:order-2 self-center">
-          <div className="grid grid-flow-col gap-4">
-            <Link
-              href="https://www.facebook.com/octaviahil"
-              aria-label="Facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 32 32"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M29.3333 16C29.3333 8.64001 23.36 2.66667 16 2.66667C8.64 2.66667 2.66667 8.64001 2.66667 16C2.66667 22.4533 7.25333 27.8267 13.3333 29.0667V20H10.6667V16H13.3333V12.6667C13.3333 10.0933 15.4267 8.00001 18 8.00001H21.3333V12H18.6667C17.9333 12 17.3333 12.6 17.3333 13.3333V16H21.3333V20H17.3333V29.2667C24.0667 28.6 29.3333 22.92 29.3333 16Z" />
-              </svg>
-            </Link>
-            <Link
-              href="https://www.instagram.com/hart_hilda_art?igsh=ZWt6ajFkaHVtaW45&utm_source=qr"
-              aria-label="Instagram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 32 32"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M10.4 2.66667H21.6C25.8667 2.66667 29.3333 6.13334 29.3333 10.4V21.6C29.3333 23.651 28.5186 25.618 27.0683 27.0683C25.618 28.5186 23.651 29.3333 21.6 29.3333H10.4C6.13333 29.3333 2.66666 25.8667 2.66666 21.6V10.4C2.66666 8.349 3.48142 6.38199 4.93171 4.93171C6.38199 3.48143 8.34899 2.66667 10.4 2.66667ZM10.1333 5.33334C8.86029 5.33334 7.63939 5.83905 6.73922 6.73923C5.83904 7.6394 5.33333 8.8603 5.33333 10.1333V21.8667C5.33333 24.52 7.48 26.6667 10.1333 26.6667H21.8667C23.1397 26.6667 24.3606 26.161 25.2608 25.2608C26.161 24.3606 26.6667 23.1397 26.6667 21.8667V10.1333C26.6667 7.48001 24.52 5.33334 21.8667 5.33334H10.1333ZM23 7.33334C23.442 7.33334 23.8659 7.50893 24.1785 7.82149C24.4911 8.13405 24.6667 8.55798 24.6667 9.00001C24.6667 9.44203 24.4911 9.86596 24.1785 10.1785C23.8659 10.4911 23.442 10.6667 23 10.6667C22.558 10.6667 22.134 10.4911 21.8215 10.1785C21.5089 9.86596 21.3333 9.44203 21.3333 9.00001C21.3333 8.55798 21.5089 8.13405 21.8215 7.82149C22.134 7.50893 22.558 7.33334 23 7.33334ZM16 9.33334C17.7681 9.33334 19.4638 10.0357 20.714 11.286C21.9643 12.5362 22.6667 14.2319 22.6667 16C22.6667 17.7681 21.9643 19.4638 20.714 20.7141C19.4638 21.9643 17.7681 22.6667 16 22.6667C14.2319 22.6667 12.5362 21.9643 11.286 20.7141C10.0357 19.4638 9.33333 17.7681 9.33333 16C9.33333 14.2319 10.0357 12.5362 11.286 11.286C12.5362 10.0357 14.2319 9.33334 16 9.33334ZM16 12C14.9391 12 13.9217 12.4214 13.1716 13.1716C12.4214 13.9217 12 14.9391 12 16C12 17.0609 12.4214 18.0783 13.1716 18.8284C13.9217 19.5786 14.9391 20 16 20C17.0609 20 18.0783 19.5786 18.8284 18.8284C19.5786 18.0783 20 17.0609 20 16C20 14.9391 19.5786 13.9217 18.8284 13.1716C18.0783 12.4214 17.0609 12 16 12Z" />
-              </svg>
-            </Link>
-            <Link
-              href="https://www.tiktok.com/@hildaokara_art?_r=1&_t=ZS-929hPONm9g7"
-              aria-label="TikTok"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 32 32"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M25.7619 7.41625C25.5594 7.31159 25.3623 7.19687 25.1712 7.0725C24.6158 6.70528 24.1065 6.27259 23.6544 5.78375C22.5231 4.48938 22.1006 3.17625 21.945 2.25688H21.9512C21.8212 1.49375 21.875 1 21.8831 1H16.7306V20.9237C16.7306 21.1912 16.7306 21.4556 16.7194 21.7169C16.7194 21.7494 16.7162 21.7794 16.7144 21.8144C16.7144 21.8288 16.7144 21.8438 16.7112 21.8587V21.87C16.6569 22.5849 16.4278 23.2754 16.0439 23.8809C15.6601 24.4864 15.1333 24.9884 14.51 25.3425C13.8603 25.7121 13.1256 25.906 12.3781 25.905C9.9775 25.905 8.03187 23.9475 8.03187 21.53C8.03187 19.1125 9.9775 17.155 12.3781 17.155C12.8326 17.1546 13.2842 17.2261 13.7162 17.3669L13.7225 12.1206C12.4109 11.9512 11.0783 12.0554 9.80898 12.4268C8.53964 12.7981 7.36102 13.4285 6.3475 14.2781C5.45941 15.0498 4.7128 15.9704 4.14125 16.9988C3.92375 17.3738 3.10312 18.8806 3.00375 21.3263C2.94125 22.7144 3.35812 24.1525 3.55687 24.7469V24.7594C3.68187 25.1094 4.16625 26.3037 4.95562 27.3106C5.59215 28.1183 6.34418 28.8278 7.1875 29.4163V29.4037L7.2 29.4163C9.69437 31.1112 12.46 31 12.46 31C12.9387 30.9806 14.5425 31 16.3637 30.1369C18.3837 29.18 19.5337 27.7544 19.5337 27.7544C20.2684 26.9025 20.8526 25.9318 21.2612 24.8838C21.7275 23.6581 21.8831 22.1881 21.8831 21.6006V11.0306C21.9456 11.0681 22.7781 11.6187 22.7781 11.6187C22.7781 11.6187 23.9775 12.3875 25.8487 12.8881C27.1912 13.2444 29 13.3194 29 13.3194V8.20438C28.3662 8.27313 27.0794 8.07313 25.7619 7.41625Z" />
-              </svg>
-            </Link>
-          </div>
-        </nav>
-        <aside className="md:order-1 text-center w-full  md:text-left space-y-1 text-xs">
-          <p>Copyright © {currentYear} – All rights reserved by H♡ART</p>
-          <p>
-            Built with ☕ by{" "}
-            <Link
-              href="https://ariannyamchelo.netlify.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link link-accent italic"
-            >
-              Arian Najafi Yamchelo
-            </Link>
-          </p>
-        </aside>
-      </div>
+      {/* Bottom bar */}
+      <div className="border-t border-base-300">
+        <div className="h-container py-6">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
 
-      <div className="flex items-center justify-center pb-10">
-        <span className="sr-only">Payment methods</span>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
-            <img
-              src="https://cdn.simpleicons.org/paypal"
-              alt="PayPal"
-              className="h-5 w-auto"
-              loading="lazy"
-            />
-          </div>
-          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
-            <img
-              src="https://cdn.simpleicons.org/applepay"
-              alt="Apple Pay"
-              className="h-5 w-auto"
-              loading="lazy"
-            />
-          </div>
-          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
-            <img
-              src="https://cdn.simpleicons.org/googlepay"
-              alt="Google Pay"
-              className="h-5 w-auto"
-              loading="lazy"
-            />
-          </div>
-          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
-            <img
-              src="https://cdn.simpleicons.org/visa"
-              alt="Visa"
-              className="h-5 w-auto"
-              loading="lazy"
-            />
-          </div>
-          <div className="flex h-10 w-16 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm">
-            <img
-              src="https://cdn.simpleicons.org/mastercard"
-              alt="Mastercard"
-              className="h-5 w-auto"
-              loading="lazy"
-            />
+            {/* Copyright */}
+            <p className="text-xs opacity-50 text-center sm:text-left">
+              © {currentYear} H♡ART. All rights reserved.{" "}
+              <span className="opacity-70">
+                Built with ☕ by{" "}
+                <a
+                  href="https://ariannyamchelo.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link link-accent italic"
+                >
+                  Arian Najafi Yamchelo
+                </a>
+              </span>
+            </p>
+
+            {/* Payment methods */}
+            <div className="flex items-center gap-2" aria-label="Accepted payment methods">
+              {[
+                { src: "https://cdn.simpleicons.org/paypal", alt: "PayPal" },
+                { src: "https://cdn.simpleicons.org/applepay", alt: "Apple Pay" },
+                { src: "https://cdn.simpleicons.org/googlepay", alt: "Google Pay" },
+                { src: "https://cdn.simpleicons.org/visa", alt: "Visa" },
+                { src: "https://cdn.simpleicons.org/mastercard", alt: "Mastercard" },
+              ].map((pm) => (
+                <div
+                  key={pm.alt}
+                  className="flex h-8 w-14 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm"
+                >
+                  <img src={pm.src} alt={pm.alt} className="h-4 w-auto" loading="lazy" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
