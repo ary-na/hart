@@ -20,11 +20,10 @@ const passwordSchema = z
 
 export const userSignupSchema = z
   .object({
-    email: z
-      .union([nonEmptyEmailSchema])
-      .refine((val) => val === "" || z.email().safeParse(val).success, {
-        message: "Please enter a valid email address",
-      }),
+    email: nonEmptyEmailSchema.refine(
+      (val) => val === "" || z.email().safeParse(val).success,
+      { message: "Please enter a valid email address" }
+    ),
     password: passwordSchema,
     confirmPassword: z
       .string()

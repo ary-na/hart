@@ -3,10 +3,11 @@
 import {auth} from "@hart/server/auth/auth";
 import { NextResponse } from "next/server";
 import { Cart } from "@hart/server/models";
+import { connectToDatabase } from "@hart/server/db/mongodb";
 
 export async function POST(req: Request) {
-     const session = await auth()
-      const user = session?.user;
+  const session = await auth();
+  const user = session?.user;
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -17,6 +18,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
+  await connectToDatabase();
   const cart = await Cart.findOneAndUpdate(
     { userId: user.id },
     {

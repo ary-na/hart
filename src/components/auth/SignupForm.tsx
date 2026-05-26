@@ -186,7 +186,7 @@ export default function SignupForm() {
           Privacy Policy
         </Link>{" "}
         and{" "}
-        <Link href="/terms-of-service" className="link link-primary underline">
+        <Link href="/terms" className="link link-primary underline">
           Terms of Service
         </Link>
         .

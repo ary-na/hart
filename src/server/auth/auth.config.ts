@@ -125,6 +125,7 @@ export const authConfig: NextAuthConfig = {
             verified: true,
           });
           user.id = newUser._id.toString();
+          user.role = newUser.role;
         } else {
           // Update existing
           existingUser.firstName =
@@ -135,10 +136,8 @@ export const authConfig: NextAuthConfig = {
             googleProfile.family_name ?? existingUser.lastName;
           await existingUser.save();
           user.id = existingUser._id.toString();
+          user.role = existingUser.role;
         }
-        
-        // Set the role from DB on the user object here
-        user.role = existingUser.role;
 
         // Override firstName
         user.firstName =
