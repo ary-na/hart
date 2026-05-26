@@ -23,6 +23,9 @@ export type UseDrawingsReturn = {
   creating: boolean;
   updating: boolean;
   deletingIds: Set<string>;
+  allTags: string[];
+  activeTag: string | null;
+  setActiveTag: (tag: string | null) => void;
   fetchDrawings: (options?: FetchOptions) => Promise<void>;
   addDrawing: (data: AddDrawingInput) => Promise<Drawing | null>;
   updateDrawing: (

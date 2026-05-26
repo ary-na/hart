@@ -1,7 +1,7 @@
 // src/hooks/useDrawings.ts
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { Drawing, FetchOptions, UseDrawingsReturn } from "@hart/lib/types";
 import { AddDrawingInput, UpdateDrawingInput } from "@hart/lib/validators";
 
@@ -14,8 +14,20 @@ export const useDrawings = (): UseDrawingsReturn => {
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
+  const [allTags, setAllTags] = useState<string[]>([]);
+  const [activeTag, setActiveTagState] = useState<string | null>(null);
+
   const skipRef = useRef(0);
   const isFetchingRef = useRef(false);
+  const activeTagRef = useRef<string | null>(null);
+
+  // Load all available tags once on mount
+  useEffect(() => {
+    fetch("/api/drawings/tags", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : { tags: [] }))
+      .then((data) => setAllTags(data.tags ?? []))
+      .catch(() => {});
+  }, []);
 
   const fetchDrawings = useCallback(
     async ({ append = false, limit = LIMIT }: FetchOptions = {}) => {
@@ -29,8 +41,9 @@ export const useDrawings = (): UseDrawingsReturn => {
 
         const url = new URL("/api/drawings", window.location.origin);
         url.searchParams.set("skip", skip.toString());
-        if (limit !== undefined) {
-          url.searchParams.set("limit", limit.toString());
+        url.searchParams.set("limit", limit.toString());
+        if (activeTagRef.current) {
+          url.searchParams.set("tag", activeTagRef.current);
         }
 
         const res = await fetch(url, { cache: "no-store" });
@@ -50,9 +63,7 @@ export const useDrawings = (): UseDrawingsReturn => {
 
           const existingIds = new Set(prev.map((d) => d._id));
           const newUniqueDrawings = data.filter((d) => !existingIds.has(d._id));
-
           skipRef.current += newUniqueDrawings.length;
-
           return [...prev, ...newUniqueDrawings];
         });
       } catch (err) {
@@ -65,6 +76,17 @@ export const useDrawings = (): UseDrawingsReturn => {
       }
     },
     [],
+  );
+
+  const setActiveTag = useCallback(
+    (tag: string | null) => {
+      activeTagRef.current = tag;
+      setActiveTagState(tag);
+      skipRef.current = 0;
+      isFetchingRef.current = false; // allow new fetch even if one was in flight
+      fetchDrawings({ append: false });
+    },
+    [fetchDrawings],
   );
 
   const addDrawing = useCallback(
@@ -83,9 +105,7 @@ export const useDrawings = (): UseDrawingsReturn => {
           const priceStr = String(data.price).trim();
           if (priceStr !== "") {
             const num = parseFloat(priceStr);
-            if (!isNaN(num) && num >= 0) {
-              priceToAppend = String(num);
-            }
+            if (!isNaN(num) && num >= 0) priceToAppend = String(num);
           }
         }
 
@@ -125,10 +145,7 @@ export const useDrawings = (): UseDrawingsReturn => {
   );
 
   const updateDrawing = useCallback(
-    async (
-      drawingId: string,
-      data: UpdateDrawingInput
-    ): Promise<Drawing | null> => {
+    async (drawingId: string, data: UpdateDrawingInput): Promise<Drawing | null> => {
       setUpdating(true);
       setError(null);
 
@@ -138,18 +155,14 @@ export const useDrawings = (): UseDrawingsReturn => {
         formData.append("description", data.description.trim());
 
         const file = data.file instanceof File ? data.file : data.file?.[0];
-        if (file) {
-          formData.append("file", file);
-        }
+        if (file) formData.append("file", file);
 
         let priceToAppend = "0";
         if (data.price != null) {
           const priceStr = String(data.price).trim();
           if (priceStr !== "") {
             const num = parseFloat(priceStr);
-            if (!isNaN(num) && num >= 0) {
-              priceToAppend = String(num);
-            }
+            if (!isNaN(num) && num >= 0) priceToAppend = String(num);
           }
         }
 
@@ -166,7 +179,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({}));
           throw new Error(
-            errorData.message || `Failed to update drawing (${res.status})`
+            errorData.message || `Failed to update drawing (${res.status})`,
           );
         }
 
@@ -185,14 +198,13 @@ export const useDrawings = (): UseDrawingsReturn => {
         setUpdating(false);
       }
     },
-    [fetchDrawings]
+    [fetchDrawings],
   );
 
   const deleteDrawing = useCallback(
     async (drawingId: string): Promise<boolean> => {
       if (deletingIds.has(drawingId)) return false;
 
-      // Optimistic delete
       setDrawings((prev) => prev.filter((d) => d._id !== drawingId));
       setDeletingIds((prev) => new Set(prev).add(drawingId));
 
@@ -214,7 +226,6 @@ export const useDrawings = (): UseDrawingsReturn => {
         const e = err instanceof Error ? err : new Error("Unknown error");
         console.error("useDrawings.deleteDrawing:", e);
         setError(e);
-        // Revert on failure
         await fetchDrawings({ append: false });
         return false;
       } finally {
@@ -228,9 +239,7 @@ export const useDrawings = (): UseDrawingsReturn => {
     [deletingIds, fetchDrawings],
   );
 
-  const resetError = useCallback(() => {
-    setError(null);
-  }, []);
+  const resetError = useCallback(() => setError(null), []);
 
   return {
     drawings,
@@ -239,6 +248,9 @@ export const useDrawings = (): UseDrawingsReturn => {
     creating,
     updating,
     deletingIds,
+    allTags,
+    activeTag,
+    setActiveTag,
     fetchDrawings,
     addDrawing,
     updateDrawing,

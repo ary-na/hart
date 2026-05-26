@@ -19,7 +19,10 @@ export async function GET(req: Request) {
       10
     );
 
-    const drawings = await Drawing.find({})
+    const tag = searchParams.get("tag");
+    const filter = tag ? { tags: tag } : {};
+
+    const drawings = await Drawing.find(filter)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
