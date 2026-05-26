@@ -1,94 +1,120 @@
-Hart — Next.js portfolio and contact admin app
+# H♡ART
 
-This project is a portfolio/contact management app built with the Next.js App Router. It provides a public portfolio with a contact form and an admin UI for viewing messages. The project uses a simple credentials-based NextAuth authentication flow, MongoDB for data storage, and AWS S3 for optional file uploads from the contact form.
+An art gallery and shop built with Next.js App Router. Visitors can browse original drawings, filter by tag, add pieces to a cart, and send commission enquiries. An admin panel lets the artist manage drawings, messages, and orders.
 
-Key features:
+## Features
 
-- Public pages: Home, About, Contact, Shop (with cart), Privacy
-- Contact form: submits to MongoDB and optionally uploads an image to S3
-- Admin UI: protected by NextAuth `Credentials` provider; view and delete messages
-- NextAuth credentials flow: admin user creation is available via an init endpoint
+- **Gallery** — browsable grid of drawings with tag-based filtering and scroll-reveal animations
+- **Drawing details** — full-size image, price, and add-to-cart flow
+- **Cart & checkout** — persistent cart with shipping/billing form
+- **Contact** — enquiry form with optional image upload
+- **Auth** — email/password sign-up and Google OAuth; JWT sessions
+- **Admin panel** — add/edit/delete drawings, manage inbox and archived messages
+- **User profile** — view profile and update password
 
-Tech stack
+## Tech stack
 
-- Frontend: Next.js (App Router), React 19, Tailwind CSS, DaisyUI
-- Auth: next-auth using `Credentials` provider
-- Database: MongoDB with Mongoose
-- File storage: AWS S3 using `@aws-sdk/client-s3`
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 15 (App Router), React 19, TypeScript |
+| Styling | Tailwind CSS v4, DaisyUI v5 |
+| Auth | next-auth v5 — Credentials + Google OAuth providers |
+| Database | MongoDB with Mongoose |
+| File storage | AWS S3 — presigned URLs, Sharp for thumbnail generation |
+| Forms | React Hook Form + Zod v4 |
 
-Getting started
+## Getting started
 
-Prerequisites:
-
-- Node.js (v20+ recommended) and a package manager (`pnpm`, `npm`, `yarn`)
-- MongoDB connection string (Atlas or self-hosted)
-- AWS credentials with an S3 bucket for uploads (optional for file attachments)
-
-Install packages and run locally:
+**Prerequisites:** Node.js 20+, a MongoDB connection string, AWS S3 bucket, Google OAuth credentials.
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Open http://localhost:3000 to view the site.
+Open [http://localhost:3000](http://localhost:3000).
 
-Environment variables
-Create a `.env.local` file in the project root with the following variables (replace placeholders accordingly):
+## Environment variables
 
-```
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/<db_name>
+Create `.env.local` in the project root:
+
+```env
+# App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=<a-long-secure-secret>
-JWT_SECRET=<jwt-secret>
+
+# Auth (next-auth v5)
+AUTH_SECRET=<long-random-secret>
+
+# Google OAuth
+GOOGLE_CLIENT_ID=<google-client-id>
+GOOGLE_CLIENT_SECRET=<google-client-secret>
+
+# MongoDB
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/<db>
+
+# AWS S3
 AWS_REGION=ap-southeast-2
-AWS_S3_BUCKET_NAME=<s3-bucket-name>
-AWS_ACCESS_KEY_ID=<aws-access-key-id>
-AWS_SECRET_ACCESS_KEY=<aws-secret>
-ADMIN_USERNAME=<admin-username>
-ADMIN_EMAIL=<admin-email>
-ADMIN_PASSWORD=<admin-password>
+AWS_S3_BUCKET_NAME=<bucket-name>
+AWS_ACCESS_KEY_ID=<access-key-id>
+AWS_SECRET_ACCESS_KEY=<secret-access-key>
 ```
 
-The app includes an endpoint to create an initial admin user if needed: `POST /api/admin/initAdmin`.
+## API routes
 
-API Endpoints
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/api/drawings` | List drawings (supports `?tag=`, `?skip=`, `?limit=`) |
+| `GET` | `/api/drawings/tags` | All distinct tags |
+| `POST` | `/api/drawings/create` | Upload a new drawing (admin) |
+| `PUT` | `/api/drawings/update/[id]` | Edit a drawing (admin) |
+| `DELETE` | `/api/drawings/delete/[id]` | Delete a drawing (admin) |
+| `POST` | `/api/contact` | Submit a contact enquiry with optional image |
+| `GET` | `/api/admin/messages` | Fetch messages (admin) |
+| `POST` | `/api/admin/messages/archive/[id]` | Archive a message (admin) |
+| `DELETE` | `/api/admin/messages/delete/[id]` | Delete a message (admin) |
+| `GET` | `/api/user/cart` | Fetch cart items |
+| `POST` | `/api/user/cart/add` | Add item to cart |
+| `DELETE` | `/api/user/cart/remove/[id]` | Remove item from cart |
+| `PUT` | `/api/user/profile/password` | Change password |
+| `POST` | `/api/auth/signup` | Register a new user |
 
-- `POST /api/contact` — submit contact info and optional image file (multipart/form-data). The server validates required fields and uploads the file to S3 if present.
-- `GET /api/admin/messages` — fetch admin messages (protected)
-- `DELETE /api/admin/messages/delete/:id` — delete a message (protected)
-- `POST /api/admin/initAdmin` — create an admin user using ADMIN\_\* environment vars
-  For authenticated routes, NextAuth is configured using `src/server/auth/nAuth.ts`.
+## Project structure
 
-Project layout highlights
+```
+src/
+  app/               # Next.js pages and API routes
+    (auth)/          # Sign-in, sign-up, forgot-password
+    (site)/          # Public and user pages
+    (admin)/         # Admin-only pages
+    api/             # Route handlers
+  components/
+    site/            # Public-facing components (NavBar, GalleryGrid, …)
+    admin/           # Admin components (AddDrawingModal, …)
+    auth/            # Auth form components
+  hooks/             # Client-side data hooks (useDrawings, useCart, …)
+  lib/
+    types/           # Shared TypeScript types
+    validators/      # Zod schemas
+    ui/              # Shared UI primitives (Loader, FormField, …)
+    styles/          # Global CSS and theme variables
+  server/
+    auth/            # next-auth config and helpers
+    db/              # MongoDB connection
+    models/          # Mongoose models (User, Drawing, Cart, Message, Order)
+    upload/          # S3 upload and presigned URL helpers
+```
 
-- `src/app` — Next.js App Router pages and server actions
-- `src/components` — React components (NavBar, LoginForm, ContactForm, Footer, etc.)
-- `src/server` — server-side modules (auth, db, models, upload, proxy)
-- `src/lib` — client/server shared utilities, types, and styles
-- `src/hooks` — custom hooks (e.g., `useMessages`) used by UI
+## Deployment
 
-Deployment
+```bash
+pnpm build
+pnpm start
+```
 
-- Build for production: `pnpm build`
-- Start server in production mode: `pnpm start`
-- When deploying to platforms like Vercel, set corresponding environment variables under project settings.
+Set all environment variables in your hosting provider (e.g. Vercel project settings). Make sure the S3 bucket policy allows the IAM user to `GetObject`, `PutObject`, and `DeleteObject`.
 
-Security and best practices
+## Security notes
 
-- Keep secrets secure (do not commit `.env.local` or any keys)
-- Use proper IAM permissions for the S3 bucket, and prefer short-lived credentials or roles in production
-
-Troubleshooting
-
-- If you encounter port or lock issues while developing, kill dev processes and remove `.next/dev/lock` before restarting the dev server.
-- If NextAuth or type issues appear, ensure `NEXTAUTH_SECRET` and env variables are set correctly and restart the dev server.
-
-Contributing
-
-- Open issues for bugs or feature requests. Contributions are welcome via pull requests.
-
-License
-
-- This repo does not include a license file. Add one if you intend to open-source it.
+- Never commit `.env.local` or any secret keys
+- Use scoped IAM permissions for the S3 bucket; prefer instance roles or short-lived credentials in production
+- `AUTH_SECRET` must be a cryptographically random string of at least 32 characters
