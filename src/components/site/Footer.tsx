@@ -132,7 +132,7 @@ const Footer = () => {
               <span className="opacity-70">
                 Built with ☕ by{" "}
                 <a
-                  href="https://ariannyamchelo.netlify.app"
+                  href="https://arii.dev"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="link link-accent italic"
