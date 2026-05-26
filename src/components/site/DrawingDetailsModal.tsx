@@ -10,6 +10,7 @@ type Props = {
   open: boolean;
   drawing: Drawing | null;
   isAdmin: boolean;
+  isAuthenticated: boolean;
   onClose: () => void;
   onEdit: (drawing: Drawing) => void;
   onAddToCart: (drawing: Drawing) => void;
@@ -20,6 +21,7 @@ const DrawingDetailsModal = ({
   open,
   drawing,
   isAdmin,
+  isAuthenticated,
   onClose,
   onEdit,
   onAddToCart,
@@ -93,7 +95,7 @@ const DrawingDetailsModal = ({
           </div>
 
           {/* Actions */}
-          {!isAdmin && (
+          {isAuthenticated && !isAdmin && (
             <div className="flex flex-col gap-2 mt-auto">
               {isForSale ? (
                 <button

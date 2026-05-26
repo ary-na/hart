@@ -269,6 +269,7 @@ const GalleryGrid = () => {
         open={selectedDrawing !== null}
         drawing={selectedDrawing}
         isAdmin={isAdmin && !isLoading}
+        isAuthenticated={isAuthenticated && !isLoading}
         onClose={handleCloseDrawingModal}
         onEdit={(drawing) => {
           setEditingDrawing(drawing);
