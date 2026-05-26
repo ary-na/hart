@@ -16,7 +16,7 @@ const ForgotPassword = async () => {
       aria-labelledby="forgot-password-heading"
     >
       <header>
-        <h1 id="forgot-password-heading">FORGOT your PASSWORD?</h1>
+        <h1 id="forgot-password-heading">FORGOT PASSWORD</h1>
         <p className="mb-4!">
           Enter your email and I&apos;ll help you reset your password.
         </p>

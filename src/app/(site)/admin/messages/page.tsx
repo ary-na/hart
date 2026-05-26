@@ -88,14 +88,14 @@ const Messages = () => {
         </Link>
       </div>
 
-      {error && <p className="text-red-600 mb-4">{error.message}</p>}
+      {error && <p className="text-error text-sm mb-4">{error.message}</p>}
       {loading && messages.length === 0 && (
-        <p className="mb-4">Loading messages...</p>
+        <p className="text-sm opacity-60 mb-4">Loading messages...</p>
       )}
 
       <div className="mt-8 space-y-4">
         {messages.length === 0 && !loading && (
-          <p className="text-gray-500">No messages found.</p>
+          <p className="opacity-60 text-sm">No messages found.</p>
         )}
 
         {messages.map((msg) => (
@@ -209,9 +209,9 @@ const Messages = () => {
         <button
           onClick={handleLoadMore}
           disabled={loading}
-          className="btn btn-secondary mt-6"
+          className="btn btn-outline mt-6"
         >
-          {loading ? "Loading more..." : "Load More"}
+          {loading ? <span className="loading loading-spinner loading-sm" /> : "Load more"}
         </button>
       )}
 

@@ -121,7 +121,7 @@ const Profile = async () => {
           <div className="mt-6">
             <ModalController
               trigger="Update Password"
-              className="btn-secondary btn-sm text-primary-content"
+              className="btn-primary btn-sm"
               ariaLabel="Update your password"
               ModalComponent={UpdatePasswordModal}
             />

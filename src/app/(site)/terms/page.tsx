@@ -7,20 +7,19 @@ export const metadata = {
 
 const Terms = () => {
   return (
-    <article className="prose prose-neutral dark:prose-invert max-w-4xl mx-auto px-4 py-20 my-10">
-      <header className="text-center mb-12 h-reveal">
-        <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
-        <p className="text-sm opacity-70 italic">
-          Last updated: January 12, 2026
-        </p>
+    <article>
+      <header className="h-container py-20 my-10 h-reveal">
+        <p className="text-xs uppercase tracking-[0.4em] opacity-50 mb-2">Legal</p>
+        <h1>Terms of Service</h1>
+        <p className="italic text-sm mt-2">Last updated: January 12, 2026</p>
       </header>
 
-      <section className="mb-12 h-reveal">
-        <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
+        <h2 className="text-2xl font-semibold mb-4 tracking-normal">1. Introduction</h2>
         <p>
           Welcome to Hart (<strong>we</strong>, <strong>us</strong>, or
-          <strong> our</strong>). These Terms of Service (“Terms”) govern your
-          access to and use of hildart.vercel.app (the “Site”) and the purchase
+          <strong> our</strong>). These Terms of Service ("Terms") govern your
+          access to and use of hildart.vercel.app (the "Site") and the purchase
           of artwork from me, the sole artist and operator.
         </p>
         <p className="mt-4 font-medium text-error">
@@ -30,9 +29,9 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12 h-reveal">
-        <h2 className="text-2xl font-semibold mb-4">2. Use of the Site</h2>
-        <ul className="list-disc pl-6 space-y-2">
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
+        <h2 className="text-2xl font-semibold mb-4 tracking-normal">2. Use of the Site</h2>
+        <ul>
           <li>You must be at least 13 years old to use the Site.</li>
           <li>You agree not to misuse the Site (e.g. no scraping, hacking, spam).</li>
           <li>All artwork displayed is owned by me (copyright © Hart 2026).</li>
@@ -40,9 +39,9 @@ const Terms = () => {
         </ul>
       </section>
 
-      <section className="mb-12 h-reveal">
-        <h2 className="text-2xl font-semibold mb-4">3. Purchases & Payments</h2>
-        <ul className="list-disc pl-6 space-y-2">
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
+        <h2 className="text-2xl font-semibold mb-4 tracking-normal">3. Purchases &amp; Payments</h2>
+        <ul>
           <li>All prices are in AUD and include GST where applicable.</li>
           <li>Payment is processed securely via third-party providers (e.g. Stripe).</li>
           <li>Once payment is confirmed, orders are non-refundable except as required by Australian Consumer Law.</li>
@@ -51,8 +50,8 @@ const Terms = () => {
         </ul>
       </section>
 
-      <section className="mb-12 h-reveal">
-        <h2 className="text-2xl font-semibold mb-4">4. Intellectual Property</h2>
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
+        <h2 className="text-2xl font-semibold mb-4 tracking-normal">4. Intellectual Property</h2>
         <p>
           All artwork, images, text, design and content on the Site are owned by
           Hart and protected by copyright and other intellectual property laws.
@@ -63,8 +62,8 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12 h-reveal">
-        <h2 className="text-2xl font-semibold mb-4">5. Limitation of Liability</h2>
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
+        <h2 className="text-2xl font-semibold mb-4 tracking-normal">5. Limitation of Liability</h2>
         <p>
           To the maximum extent permitted by law, Hart is not liable for any
           indirect, incidental, special or consequential damages arising from
@@ -76,8 +75,8 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12 h-reveal">
-        <h2 className="text-2xl font-semibold mb-4">6. Australian Consumer Law</h2>
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
+        <h2 className="text-2xl font-semibold mb-4 tracking-normal">6. Australian Consumer Law</h2>
         <p>
           Nothing in these Terms excludes, restricts or modifies any right or
           remedy you may have under the Australian Consumer Law (Schedule 2 of
@@ -86,21 +85,19 @@ const Terms = () => {
         </p>
       </section>
 
-      <section className="mb-12 h-reveal">
-        <h2 className="text-2xl font-semibold mb-4">7. Changes to Terms</h2>
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
+        <h2 className="text-2xl font-semibold mb-4 tracking-normal">7. Changes to Terms</h2>
         <p>
           We may update these Terms from time to time. The updated version will
-          be posted here with a new “Last updated” date. Continued use of the
+          be posted here with a new "Last updated" date. Continued use of the
           Site after changes constitutes acceptance.
         </p>
       </section>
 
-      <section className="mb-12 h-reveal">
-        <h2 className="text-2xl font-semibold mb-4">8. Contact Us</h2>
-        <p>
-          Questions about these Terms? Reach out:
-        </p>
-        <ul className="list-disc pl-6 mt-2">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
+        <h2 className="text-2xl font-semibold mb-4 tracking-normal">8. Contact Us</h2>
+        <p>Questions about these Terms? Reach out:</p>
+        <ul className="mt-2">
           <li>
             Email:{" "}
             <Link href="mailto:admin@hart.com.au" className="link">

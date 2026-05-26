@@ -14,7 +14,7 @@ const Privacy = () => {
         <p className="italic text-sm">Last updated: January 2026</p>
       </header>
 
-      <section className="bg-(--color-hart-dark-secondary) my-10">
+      <section className="bg-base-200 my-10">
         <div className="h-container py-20 h-reveal">
           <h2>Summary</h2>
           <p>
@@ -54,8 +54,8 @@ const Privacy = () => {
         </div>
       </section>
 
-      <section className="border-b-2 border-(--color-hart-dark-secondary) my-10">
-        <div className="container mx-auto max-w-4xl p-12 h-reveal">
+      <section className="border-b border-base-300 my-10">
+        <div className="mx-auto max-w-4xl px-4 py-12 h-reveal">
           <h2>1. Introduction</h2>
           <p>
             Welcome to <strong>Hart</strong> (the “Site”, “we”, “us”, or “our”).
@@ -78,7 +78,7 @@ const Privacy = () => {
         </div>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 border-b-4 border-(--color-hart-dark-secondary) my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
         <h2>2. What Data We Collect</h2>
 
         <section>
@@ -139,7 +139,7 @@ const Privacy = () => {
         </section>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 border-b-4 border-(--color-hart-dark-secondary) my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
         <h2>3. Why We Collect the Data</h2>
         <p>We use the collected data for:</p>
         <ul>
@@ -178,7 +178,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 border-b-4 border-(--color-hart-dark-secondary) my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 border-b border-base-300 my-10 h-reveal">
         <h2>4. Legal &amp; Compliance Considerations</h2>
         <p>
           Depending on your location or the location of the user, relevant
@@ -193,7 +193,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>5. Data Sharing and Disclosure</h2>
         <p>We may share your data only in the following circumstances:</p>
         <ul>
@@ -224,7 +224,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>6. Cookies &amp; Tracking Technologies</h2>
         <p>We use cookies and similar technologies for:</p>
         <ul>
@@ -239,7 +239,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>7. Data Storage &amp; Security</h2>
         <ul>
           <li>
@@ -263,7 +263,7 @@ const Privacy = () => {
         </ul>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>8. Data Retention &amp; Deletion</h2>
         <p>
           We keep your account and order data as long as you maintain your
@@ -279,7 +279,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>9. Your Rights</h2>
         <p>Depending on your jurisdiction, you may have the right to:</p>
         <ul>
@@ -296,7 +296,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>10. Age &amp; Children Policy</h2>
         <p>Hart is intended for users 13 years old and above.</p>
         <p>
@@ -306,7 +306,7 @@ const Privacy = () => {
         <p>If we become aware of such data, we will promptly delete it.</p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>11. International Transfer of Data</h2>
         <p>
           Your information may be stored and processed in servers located
@@ -317,7 +317,7 @@ const Privacy = () => {
         <p>We maintain adequate safeguards to protect your data.</p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>12. Changes to This Policy</h2>
         <p>
           We may update this Privacy Policy from time to time (for example, if
@@ -330,7 +330,7 @@ const Privacy = () => {
         </p>
       </section>
 
-      <section className="container mx-auto max-w-4xl p-12 my-10 h-reveal">
+      <section className="mx-auto max-w-4xl px-4 py-12 my-10 h-reveal">
         <h2>13. Contact Us</h2>
         <p>
           If you have questions, concerns, or want to exercise your data rights,

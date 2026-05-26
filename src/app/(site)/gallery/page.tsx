@@ -45,7 +45,7 @@ const Gallery = async () => {
           {isAdmin && (
             <ModalController
               trigger="Add Drawing"
-              className="btn-secondary btn-sm text-primary-content h-reveal"
+              className="btn-primary btn-sm h-reveal"
               ariaLabel="Add a new drawing"
               ModalComponent={AddDrawingModal}
             />

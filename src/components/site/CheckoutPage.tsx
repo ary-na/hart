@@ -66,7 +66,7 @@ const CheckoutPage = () => {
   };
 
   return (
-    <section className="px-6 py-10 md:px-10 lg:px-16">
+    <section className="h-container py-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1>Checkout</h1>
