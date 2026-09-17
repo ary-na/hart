@@ -75,14 +75,13 @@ const Home = async () => {
       <section className="h-container pb-24 pt-4 md:pb-32">
         <div className="mx-auto flex max-w-2xl flex-col gap-8 md:gap-10">
           <article className="h-invite h-reveal">
-            <h2 className="text-2xl md:text-3xl">About me</h2>
+            <h2 className="text-2xl md:text-3xl">About Hilda</h2>
             <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
-              I’m Hilda, from Bandung, Indonesia. I’ve been painting since I was
-              little, starting with tiny animals in the margins of my notebooks. I
-              only paint animals, because I love them, their honesty, and the
-              quiet way they show up in a room. These days I work slowly, layer by
-              layer, so each piece feels calm enough to hang somewhere you
-              actually spend time.
+              Hilda paints animals the way she sees them: honest, soft, and full
+              of feeling. She started as a kid doodling in the margins of
+              notebooks, and painting became the place she could say what words
+              couldn’t. These days she works slowly, layer by layer, so each
+              piece feels calm enough to hang somewhere you actually spend time.
             </p>
           </article>
 
@@ -90,13 +89,14 @@ const Home = async () => {
             <h2 className="text-2xl md:text-3xl">Commissions</h2>
             <ol className="mt-6 list-decimal space-y-4 pl-5 text-base leading-relaxed opacity-80 md:text-lg">
               <li>
-                Tell me which animal the piece is for, and the mood you want.
+                Tell her who or what the piece is for, and the mood you want.
               </li>
               <li>
-                You’ll get a rough direction and colours to check before I paint.
+                You’ll get a rough direction and colours to check before she
+                paints.
               </li>
               <li>
-                I finish it carefully, then get it ready to come home to you.
+                She finishes it carefully, then gets it ready to come home to you.
               </li>
             </ol>
             <Link href="/contact" className="btn btn-primary mt-8">
