@@ -36,7 +36,7 @@ const ArtworkFrame = ({
         href={destination}
         className="h-frame h-frame-hover group block p-3 md:p-4"
         aria-label={
-          drawing ? `View ${drawing.title} in the gallery` : "Explore the gallery"
+          drawing ? `View ${drawing.title} in the gallery` : "Explore animal portraits in the gallery"
         }
       >
         <div className={cn("relative overflow-hidden bg-hart-peach/40", imageClassName)}>
