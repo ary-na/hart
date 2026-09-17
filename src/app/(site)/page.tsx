@@ -77,11 +77,12 @@ const Home = async () => {
           <article className="h-invite h-reveal">
             <h2 className="text-2xl md:text-3xl">About Hilda</h2>
             <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
-              Hilda paints animals the way she sees them: honest, soft, and full
-              of feeling. She started as a kid doodling in the margins of
-              notebooks, and painting became the place she could say what words
-              couldn’t. These days she works slowly, layer by layer, so each
-              piece feels calm enough to hang somewhere you actually spend time.
+              Hilda is from Bandung, Indonesia. She’s been painting since she was
+              little, starting with doodles in the margins of her notebooks. She
+              paints animals because she loves them, their honesty, and the quiet
+              way they show up in a room. These days she works slowly, layer by
+              layer, so each piece feels calm enough to hang somewhere you
+              actually spend time.
             </p>
           </article>
 
