@@ -39,16 +39,11 @@ const ArtworkFrame = ({
         className={cn("h-frame h-frame-hover group block", hero && "h-frame-hero")}
         aria-label={
           drawing
-            ? `View ${drawing.title} in the gallery`
+            ? `View animal portrait ${drawing.title}`
             : "Explore animal portraits in the gallery"
         }
       >
-        <div
-          className={cn(
-            "h-frame-face relative overflow-hidden",
-            imageClassName
-          )}
-        >
+        <div className={cn("h-frame-face", imageClassName)}>
           {src ? (
             <Image
               src={src}
