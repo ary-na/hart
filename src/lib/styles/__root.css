@@ -9,7 +9,7 @@
   color-scheme: light;
 
   --color-base-100: #fbf6ef;
-  --color-base-200: #f7f0e8;
+  --color-base-200: #faf8f5;
   --color-base-300: #d9cfc3;
   --color-base-content: #3d342c;
 
@@ -51,7 +51,7 @@
   --color-base-100: #322c26;
   --color-base-200: #3d342c;
   --color-base-300: #5a4e44;
-  --color-base-content: #f7f0e8;
+  --color-base-content: #faf8f5;
 
   --color-primary: #e8a4a8;
   --color-primary-content: #3d342c;
@@ -68,11 +68,11 @@
   --color-info: #edd9c8;
   --color-info-content: #3d342c;
   --color-success: #8a9a7b;
-  --color-success-content: #f7f0e8;
+  --color-success-content: #faf8f5;
   --color-warning: #d4b483;
   --color-warning-content: #3d342c;
   --color-error: #c97b7b;
-  --color-error-content: #f7f0e8;
+  --color-error-content: #faf8f5;
 
   --radius-selector: 0.5rem;
   --radius-field: 0.4rem;
