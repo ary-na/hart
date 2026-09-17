@@ -37,26 +37,28 @@ const Home = async () => {
 
   return (
     <>
-      <section className="h-container py-16 md:py-24">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16">
-          <div className="h-reveal max-w-md lg:max-w-none">
-            <ArtworkFrame drawing={heroDrawing} priority />
+      <section className="h-container pb-16 pt-10 md:pb-24 md:pt-16">
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center lg:max-w-3xl">
+          <div className="h-reveal w-full max-w-md md:max-w-xl lg:max-w-2xl">
+            <ArtworkFrame drawing={heroDrawing} priority hero showTitle={false} />
           </div>
 
-          <div className="flex flex-col items-start gap-7 h-reveal lg:ps-4">
-            <h1 className="text-3xl leading-snug md:text-4xl">
-              Gentle animal portraits, made to live with.
-            </h1>
-            <Link href="/gallery" className="btn btn-primary">
-              Explore the gallery
-            </Link>
-          </div>
+          <h1 className="h-reveal mt-10 max-w-xl text-3xl leading-snug md:mt-12 md:text-4xl">
+            Gentle animal portraits, made to live with.
+          </h1>
+          <Link
+            href="/gallery"
+            className="btn btn-primary h-reveal mt-7"
+            style={{ ["--reveal-delay" as never]: "80ms" }}
+          >
+            Explore the gallery
+          </Link>
         </div>
       </section>
 
       {featuredDrawings.length > 0 && (
-        <section className="h-container pb-20 pt-4 md:pb-28">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="h-container pb-16 pt-2 md:pb-24">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
             {featuredDrawings.map((drawing, index) => (
               <div
                 key={drawing._id}
@@ -70,53 +72,50 @@ const Home = async () => {
         </section>
       )}
 
-      <section className="h-container py-16 md:py-24">
-        <div className="h-reveal mx-auto max-w-2xl">
-          <h2 className="text-2xl md:text-3xl">About Hilda</h2>
-          <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
-            Hilda paints animals the way she sees them — honest, soft, and full
-            of feeling. She started as a kid doodling in the margins of
-            notebooks, and painting became the place she could say what words
-            couldn&apos;t. These days she works slowly, layer by layer, so each
-            piece feels calm enough to hang somewhere you actually spend time.
-          </p>
-        </div>
-      </section>
+      <section className="h-container pb-24 pt-4 md:pb-32">
+        <div className="mx-auto flex max-w-2xl flex-col gap-8 md:gap-10">
+          <article className="h-invite h-reveal">
+            <h2 className="text-2xl md:text-3xl">About me</h2>
+            <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
+              I’m Hilda, from Bandung, Indonesia. I’ve been painting since I was
+              little, starting with tiny animals in the margins of my notebooks. I
+              only paint animals, because I love them, their honesty, and the
+              quiet way they show up in a room. These days I work slowly, layer by
+              layer, so each piece feels calm enough to hang somewhere you
+              actually spend time.
+            </p>
+          </article>
 
-      <section className="h-container py-16 md:py-24">
-        <div className="h-reveal mx-auto max-w-2xl">
-          <h2 className="text-2xl md:text-3xl">Commissions</h2>
-          <ol className="mt-6 list-decimal space-y-4 pl-5 text-base leading-relaxed opacity-80 md:text-lg">
-            <li>
-              Tell her who or what the piece is for, and the mood you want.
-            </li>
-            <li>
-              You&apos;ll get a rough direction and colours to check before she
-              paints.
-            </li>
-            <li>
-              She finishes it carefully, then gets it ready to come home to you.
-            </li>
-          </ol>
-          <Link href="/contact" className="btn btn-primary mt-8">
-            Start a commission
-          </Link>
-        </div>
-      </section>
+          <article className="h-invite h-reveal">
+            <h2 className="text-2xl md:text-3xl">Commissions</h2>
+            <ol className="mt-6 list-decimal space-y-4 pl-5 text-base leading-relaxed opacity-80 md:text-lg">
+              <li>
+                Tell me which animal the piece is for, and the mood you want.
+              </li>
+              <li>
+                You’ll get a rough direction and colours to check before I paint.
+              </li>
+              <li>
+                I finish it carefully, then get it ready to come home to you.
+              </li>
+            </ol>
+            <Link href="/contact" className="btn btn-primary mt-8">
+              Start a commission
+            </Link>
+          </article>
 
-      <section className="mt-8 border-y border-base-300 bg-hart-peach/50">
-        <div className="h-container py-14 text-center md:py-16">
-          <p className="h-reveal mx-auto max-w-xl text-base leading-relaxed md:text-lg">
-            Take a quiet look through the gallery — something might already feel
-            like yours.
-          </p>
-          <Link
-            href="/gallery"
-            className="h-reveal mt-5 inline-block text-sm underline decoration-hart-rose/80 underline-offset-8 hover:opacity-80"
-            style={{ ["--reveal-delay" as never]: "80ms" }}
-          >
-            Explore the gallery
-          </Link>
+          <article className="h-invite h-reveal px-8 py-12 text-center md:px-12 md:py-14">
+            <p className="mx-auto max-w-xl text-base leading-relaxed md:text-lg">
+              Take a quiet look through the gallery. Something might already feel
+              like yours.
+            </p>
+            <Link
+              href="/gallery"
+              className="mt-6 inline-block text-sm underline decoration-hart-rose/80 underline-offset-8 hover:opacity-80"
+            >
+              Explore the gallery
+            </Link>
+          </article>
         </div>
       </section>
     </>

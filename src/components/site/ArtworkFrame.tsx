@@ -16,6 +16,7 @@ type ArtworkFrameProps = {
   imageClassName?: string;
   priority?: boolean;
   showTitle?: boolean;
+  hero?: boolean;
 };
 
 const ArtworkFrame = ({
@@ -25,6 +26,7 @@ const ArtworkFrame = ({
   imageClassName = "aspect-[4/5]",
   priority = false,
   showTitle = true,
+  hero = false,
 }: ArtworkFrameProps) => {
   const destination =
     href ?? (drawing ? `/gallery?drawing=${drawing._id}` : "/gallery");
@@ -34,12 +36,19 @@ const ArtworkFrame = ({
     <div className={className}>
       <Link
         href={destination}
-        className="h-frame h-frame-hover group block p-3 md:p-4"
+        className={cn("h-frame h-frame-hover group block", hero && "h-frame-hero")}
         aria-label={
-          drawing ? `View ${drawing.title} in the gallery` : "Explore animal portraits in the gallery"
+          drawing
+            ? `View ${drawing.title} in the gallery`
+            : "Explore animal portraits in the gallery"
         }
       >
-        <div className={cn("relative overflow-hidden bg-hart-peach/40", imageClassName)}>
+        <div
+          className={cn(
+            "h-frame-face relative overflow-hidden",
+            imageClassName
+          )}
+        >
           {src ? (
             <Image
               src={src}
@@ -60,7 +69,7 @@ const ArtworkFrame = ({
         </div>
       </Link>
       {showTitle && (
-        <p className="mt-3 text-center text-sm opacity-70">
+        <p className="mt-4 text-center text-sm opacity-70">
           {drawing?.title ?? "Animal portrait"}
         </p>
       )}
