@@ -43,7 +43,7 @@ const ArtworkFrame = ({
           {src ? (
             <Image
               src={src}
-              alt={drawing?.title ?? "Artwork"}
+              alt={drawing?.title ?? "Animal portrait"}
               width={1200}
               height={1500}
               className="h-full w-full object-cover"
@@ -53,7 +53,7 @@ const ArtworkFrame = ({
           ) : (
             <div className="flex h-full w-full items-center justify-center px-6 text-center">
               <p className="text-sm leading-relaxed opacity-60">
-                A piece will hang here soon.
+                An animal portrait will hang here soon.
               </p>
             </div>
           )}
@@ -61,7 +61,7 @@ const ArtworkFrame = ({
       </Link>
       {showTitle && (
         <p className="mt-3 text-center text-sm opacity-70">
-          {drawing?.title ?? "From the studio"}
+          {drawing?.title ?? "Animal portrait"}
         </p>
       )}
     </div>
