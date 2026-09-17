@@ -1,6 +1,88 @@
 /* src/lib/styles/__root.css */
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: false;
+}
+@plugin "daisyui/theme" {
+  name: "hart";
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: #fbf6ef;
+  --color-base-200: #f7f0e8;
+  --color-base-300: #d9cfc3;
+  --color-base-content: #3d342c;
+
+  --color-primary: #e8a4a8;
+  --color-primary-content: #3d342c;
+
+  --color-secondary: #e5d4c8;
+  --color-secondary-content: #3d342c;
+
+  --color-accent: #e8a4a8;
+  --color-accent-content: #3d342c;
+
+  --color-neutral: #3d342c;
+  --color-neutral-content: #fbf6ef;
+
+  --color-info: #edd9c8;
+  --color-info-content: #3d342c;
+  --color-success: #8a9a7b;
+  --color-success-content: #fbf6ef;
+  --color-warning: #d4b483;
+  --color-warning-content: #3d342c;
+  --color-error: #b85c5c;
+  --color-error-content: #fbf6ef;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.4rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+@plugin "daisyui/theme" {
+  name: "hart-dark";
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #322c26;
+  --color-base-200: #3d342c;
+  --color-base-300: #5a4e44;
+  --color-base-content: #f7f0e8;
+
+  --color-primary: #e8a4a8;
+  --color-primary-content: #3d342c;
+
+  --color-secondary: #e5d4c8;
+  --color-secondary-content: #3d342c;
+
+  --color-accent: #e8a4a8;
+  --color-accent-content: #3d342c;
+
+  --color-neutral: #edd9c8;
+  --color-neutral-content: #3d342c;
+
+  --color-info: #edd9c8;
+  --color-info-content: #3d342c;
+  --color-success: #8a9a7b;
+  --color-success-content: #f7f0e8;
+  --color-warning: #d4b483;
+  --color-warning-content: #3d342c;
+  --color-error: #c97b7b;
+  --color-error-content: #f7f0e8;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.4rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
 @import "./globals.css";
 @import "./theme.css";
 @import "./variables.css";

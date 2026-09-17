@@ -2,16 +2,26 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--color-hart-dark-primary);
-    --foreground: var(--color-hart-light-primary);
+    --foreground: var(--color-hart-paper);
 
-    --color-primary: #9381ff;
-    --color-primary-content: var(--color-hart-dark-primary);
+    --color-base-100: #322c26;
+    --color-base-200: var(--color-hart-dark-secondary);
+    --color-base-300: #5a4e44;
+    --color-base-content: var(--color-hart-paper);
 
-    --color-accent: #ff2e63;
-    --color-accent-content: var(--color-hart-light-secondary);
+    --color-primary: var(--color-hart-rose);
+    --color-primary-content: var(--color-hart-ink);
 
-    --color-secondary: #b0b8f7;
+    --color-accent: var(--color-hart-rose);
+    --color-accent-content: var(--color-hart-ink);
 
-    --color-error: #f43f5e;
+    --color-secondary: var(--color-hart-taupe);
+    --color-secondary-content: var(--color-hart-ink);
+
+    --color-neutral: var(--color-hart-peach);
+    --color-neutral-content: var(--color-hart-ink);
+
+    --color-error: #c97b7b;
+    --color-error-content: var(--color-hart-paper);
   }
 }

@@ -20,20 +20,21 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-bold tracking-widest;
+  @apply font-medium tracking-normal;
   font-family: var(--font-secondary), serif;
+  color: var(--foreground);
 }
 
 h1 {
-  @apply text-5xl md:text-6xl;
-}
-
-h2 {
   @apply text-4xl md:text-5xl;
 }
 
-h3 {
+h2 {
   @apply text-3xl md:text-4xl;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl;
 }
 
 section {
@@ -87,18 +88,21 @@ input[type="number"] {
    @apply container mx-auto px-4 py-4 max-w-full md:max-w-2xl lg:max-w-4xl xl:max-w-6xl flex flex-col flex-1 min-h-[90vh];
 }
 
-@keyframes h-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+.h-frame {
+  background-color: var(--color-hart-cream);
+  border: 1px solid var(--color-hart-line);
+  box-shadow: 0 10px 28px rgba(61, 52, 44, 0.08);
 }
 
-.h-animate-float {
-  animation: h-float 6s ease-in-out infinite;
+.h-frame-hover {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.h-frame-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(61, 52, 44, 0.12);
 }
 
 /* Reveal on scroll */
@@ -116,7 +120,8 @@ input[type="number"] {
 
 @media (prefers-reduced-motion: reduce) {
   .h-reveal,
-  .h-animate-float {
+  .h-frame-hover,
+  .h-frame-hover:hover {
     animation: none;
     opacity: 1;
     transform: none;

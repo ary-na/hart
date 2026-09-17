@@ -1,5 +1,13 @@
-/* src/lib/styles/theme.css  */
+/* src/lib/styles/theme.css */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-hart-paper: #f7f0e8;
+  --color-hart-cream: #fbf6ef;
+  --color-hart-ink: #3d342c;
+  --color-hart-line: #d9cfc3;
+  --color-hart-rose: #e8a4a8;
+  --color-hart-peach: #edd9c8;
+  --color-hart-taupe: #e5d4c8;
 }
