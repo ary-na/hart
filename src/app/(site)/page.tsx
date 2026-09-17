@@ -78,11 +78,11 @@ const Home = async () => {
             <h2 className="text-2xl md:text-3xl">About Hilda</h2>
             <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
               Hilda is from Bandung, Indonesia. She’s been painting since she was
-              little, starting with doodles in the margins of her notebooks. She
-              paints animals because she loves them, their honesty, and the quiet
-              way they show up in a room. These days she works slowly, layer by
-              layer, so each piece feels calm enough to hang somewhere you
-              actually spend time.
+              little, starting with tiny animals in the margins of her notebooks.
+              She only paints animals, because she loves them, their honesty, and
+              the quiet way they show up in a room. These days she works slowly,
+              layer by layer, so each piece feels calm enough to hang somewhere
+              you actually spend time.
             </p>
           </article>
 
@@ -90,7 +90,7 @@ const Home = async () => {
             <h2 className="text-2xl md:text-3xl">Commissions</h2>
             <ol className="mt-6 list-decimal space-y-4 pl-5 text-base leading-relaxed opacity-80 md:text-lg">
               <li>
-                Tell her who or what the piece is for, and the mood you want.
+                Tell her which animal the piece is for, and the mood you want.
               </li>
               <li>
                 You’ll get a rough direction and colours to check before she
