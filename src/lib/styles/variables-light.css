@@ -1,17 +1,27 @@
 /* src/lib/styles/variables-light.css */
 @media (prefers-color-scheme: light) {
   :root {
-    --background: var(--color-hart-light-primary);
-    --foreground: var(--color-hart-dark-primary);
+    --background: var(--color-hart-paper);
+    --foreground: var(--color-hart-ink);
 
-    --color-primary: #6a52ff;
-    --color-primary-content: var(--color-hart-light-primary);
+    --color-base-100: var(--color-hart-cream);
+    --color-base-200: var(--color-hart-paper);
+    --color-base-300: var(--color-hart-line);
+    --color-base-content: var(--color-hart-ink);
 
-    --color-accent: #ff2e63;
-    --color-accent-content: var(--color-hart-dark-secondary);
+    --color-primary: var(--color-hart-rose);
+    --color-primary-content: var(--color-hart-ink);
 
-    --color-secondary: #c896a8;
+    --color-accent: var(--color-hart-rose);
+    --color-accent-content: var(--color-hart-ink);
 
-    --color-error: #e03b52;
+    --color-secondary: var(--color-hart-taupe);
+    --color-secondary-content: var(--color-hart-ink);
+
+    --color-neutral: var(--color-hart-ink);
+    --color-neutral-content: var(--color-hart-cream);
+
+    --color-error: #8a4545;
+    --color-error-content: var(--color-hart-cream);
   }
 }

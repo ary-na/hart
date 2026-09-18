@@ -61,7 +61,7 @@ export const useSignup = (): UseSignupReturn => {
           throw new Error(result.message || `Signup failed (${res.status})`);
         }
 
-        router.push("/signin");
+        router.push("/?auth=signin");
         showToast(
           "Account created! We've sent a verification email. Please check your inbox to activate your account.",
           "success",

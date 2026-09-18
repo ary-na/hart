@@ -15,6 +15,10 @@ const DrawingSchema = new Schema(
       trim: true,
       default: "",
     },
+    creditLine: {
+      type: String,
+      trim: true,
+    },
     fileName: {
       type: String,
       required: true,

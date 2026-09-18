@@ -92,6 +92,10 @@ export const authConfig: NextAuthConfig = {
     async authorized({ auth, request }) {
       const pathname = request.nextUrl.pathname;
 
+      if (pathname.startsWith("/user/cart") || pathname.startsWith("/user/checkout")) {
+        return true;
+      }
+
       if (pathname.startsWith("/user")) {
         return !!auth?.user;
       }
@@ -113,19 +117,7 @@ export const authConfig: NextAuthConfig = {
         // Find user by email
         const existingUser = await User.findOne({ email: user.email });
         if (!existingUser) {
-          // Create new user
-          const newUser = await User.create({
-            email: googleProfile.email,
-            firstName:
-              googleProfile.given_name ??
-              googleProfile.name?.split(" ")[0] ??
-              "",
-            lastName: googleProfile.family_name ?? "",
-            role: "customer",
-            verified: true,
-          });
-          user.id = newUser._id.toString();
-          user.role = newUser.role;
+          return false;
         } else {
           // Update existing
           existingUser.firstName =

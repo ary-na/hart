@@ -21,7 +21,7 @@ const Footer = () => {
       links: [
         { label: "How it works", href: "/contact" },
         { label: "Custom piece", href: "/contact" },
-        { label: "The Artist", href: "/about" },
+        { label: "About me", href: "/about" },
       ],
     },
     {
@@ -64,7 +64,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="border-t border-base-300" role="contentinfo">
+    <footer className="border-t border-[#d9cfc3] bg-[#faf8f5]" role="contentinfo">
       {/* Main footer grid */}
       <div className="h-container py-14">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
@@ -72,15 +72,14 @@ const Footer = () => {
           {/* Brand column */}
           <div className="flex flex-col gap-5">
             <Link href="/" aria-label="H♡ART home">
-              <Logo className="w-28 hover:text-accent transition-colors" />
+              <Logo className="w-28 hover:text-accent transition-colors" aria-hidden />
             </Link>
-            <p className="text-sm leading-relaxed opacity-60 max-w-xs">
-              Each piece waits to bring a little color and wonder into your
-              everyday. Thank you for being part of this gentle story.
+            <p className="max-w-xs text-sm leading-relaxed opacity-80">
+              Gentle animal portraits, made to live with.
             </p>
 
             {/* Social links */}
-            <div className="flex items-center gap-3 mt-1">
+            <div className="mt-1 flex items-center gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -88,7 +87,7 @@ const Footer = () => {
                   aria-label={social.label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-base-300 text-base-content/50 transition-all hover:border-accent hover:text-accent hover:bg-accent/5"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-base-300 text-[#3d342c] transition-all hover:border-accent hover:bg-accent/5"
                 >
                   {social.icon}
                 </a>
@@ -97,18 +96,18 @@ const Footer = () => {
           </div>
 
           {/* Nav columns */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          <div>
+            <h2 className="sr-only">Footer</h2>
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {navColumns.map((col) => (
-              <nav key={col.heading}>
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] opacity-45 mb-4">
-                  {col.heading}
-                </p>
+              <nav key={col.heading} aria-label={col.heading}>
+                <h3 className="h-kicker mb-4">{col.heading}</h3>
                 <ul className="space-y-2.5">
                   {col.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-sm opacity-65 transition-opacity hover:opacity-100"
+                        className="text-sm opacity-80 transition-opacity hover:opacity-100"
                       >
                         {link.label}
                       </Link>
@@ -117,6 +116,7 @@ const Footer = () => {
                 </ul>
               </nav>
             ))}
+            </div>
           </div>
         </div>
       </div>
@@ -126,8 +126,7 @@ const Footer = () => {
         <div className="h-container py-6">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
 
-            {/* Copyright */}
-            <p className="text-xs opacity-50 text-center sm:text-left">
+            <p className="text-center text-xs opacity-70 sm:text-left">
               © {currentYear} H♡ART. All rights reserved.{" "}
               <span className="opacity-70">
                 Built with ☕ by{" "}
@@ -135,30 +134,12 @@ const Footer = () => {
                   href="https://arii.dev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link link-accent italic"
+                  className="h-inline-link italic"
                 >
                   Arian Najafi Yamchelo
                 </a>
               </span>
             </p>
-
-            {/* Payment methods */}
-            <div className="flex items-center gap-2" aria-label="Accepted payment methods">
-              {[
-                { src: "https://cdn.simpleicons.org/paypal", alt: "PayPal" },
-                { src: "https://cdn.simpleicons.org/applepay", alt: "Apple Pay" },
-                { src: "https://cdn.simpleicons.org/googlepay", alt: "Google Pay" },
-                { src: "https://cdn.simpleicons.org/visa", alt: "Visa" },
-                { src: "https://cdn.simpleicons.org/mastercard", alt: "Mastercard" },
-              ].map((pm) => (
-                <div
-                  key={pm.alt}
-                  className="flex h-8 w-14 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm"
-                >
-                  <img src={pm.src} alt={pm.alt} className="h-4 w-auto" loading="lazy" />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>

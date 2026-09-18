@@ -1,14 +1,11 @@
-// src/app/signin/page.tsx
-
-import SigninClient from "@hart/components/auth/SigninClient";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Sign in",
-  description: "Securely sign in to your H♡ART account.",
 };
 
 const Signin = () => {
-  return <SigninClient />;
+  redirect("/?auth=signin");
 };
 
 export default Signin;

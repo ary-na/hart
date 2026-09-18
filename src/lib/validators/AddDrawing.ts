@@ -9,6 +9,7 @@ import {
 const baseDrawingSchema = z.object({
   title: z.string().min(1, { message: "Title is required." }),
   description: z.string().min(1, { message: "Description is required." }),
+  creditLine: z.string().optional(),
   price: z
     .preprocess((val) => {
       const num =

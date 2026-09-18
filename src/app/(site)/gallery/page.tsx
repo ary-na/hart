@@ -9,8 +9,7 @@ import AddDrawingModal from "@hart/components/admin/AddDrawingModal";
 
 export const metadata = {
   title: "Gallery",
-  description:
-    "A collection of drawings and creations that tell my story and passion through every stroke.",
+  description: "Gentle animal portraits, made to live with.",
 };
 
 const Gallery = async () => {
@@ -19,45 +18,45 @@ const Gallery = async () => {
 
   return (
     <DrawingsProvider>
-      <section className="h-flex-container my-10 py-20" aria-labelledby="gallery-heading">
-        {/* Section header */}
-        <header className="flex items-center justify-between mb-6">
+      <section
+        className="mx-auto w-full max-w-6xl px-4 pb-20 pt-10 md:pb-28 md:pt-16"
+        aria-labelledby="gallery-heading"
+      >
+        <header className="mb-10 flex items-end justify-between gap-4">
           <div className="h-reveal">
-            <h1 id="gallery-heading">Gallery</h1>
+            <h1 id="gallery-heading" className="h-heading-rose text-3xl md:text-4xl">
+              Gallery
+            </h1>
             {isAdmin ? (
-              <Breadcrumbs
-                items={[
-                  { label: "Home", href: "/" },
-                  { label: "Dashboard", href: "/admin" },
-                  { label: "Gallery" },
-                ]}
-              />
+              <div className="mt-4">
+                <Breadcrumbs
+                  items={[
+                    { label: "Home", href: "/" },
+                    { label: "Dashboard", href: "/admin" },
+                    { label: "Gallery" },
+                  ]}
+                />
+              </div>
             ) : (
               <p
-                className="h-reveal"
-                style={{ ["--reveal-delay" as never]: "120ms" }}
+                className="mt-6 max-w-md text-base leading-relaxed opacity-75"
+                style={{ ["--reveal-delay" as never]: "80ms" }}
               >
-                Raw, real, and deeply felt.
+                Gentle animal portraits, made to live with.
               </p>
             )}
           </div>
-          {/* Admin action */}
           {isAdmin && (
             <ModalController
               trigger="Add Drawing"
-              className="btn-primary btn-sm h-reveal"
+              className="btn-primary btn-sm h-reveal rounded-full"
               ariaLabel="Add a new drawing"
               ModalComponent={AddDrawingModal}
             />
           )}
         </header>
 
-        {/* Gallery grid */}
-        <div
-          role="region"
-          className="flex-1 flex flex-col"
-          aria-label="Gallery of artworks"
-        >
+        <div role="region" aria-label="Gallery of artworks">
           <GalleryGrid />
         </div>
       </section>

@@ -6,7 +6,7 @@ import { Drawing } from "@hart/server/models";
 import { getPresignedUrl } from "@hart/server/upload";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 
-const DEFAULT_LIMIT = 12;
+const DEFAULT_LIMIT = 48;
 
 export async function GET(req: Request) {
   try {
@@ -23,7 +23,7 @@ export async function GET(req: Request) {
     const filter = tag ? { tags: tag } : {};
 
     const drawings = await Drawing.find(filter)
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: -1, _id: -1 })
       .skip(skip)
       .limit(limit)
       .lean();
@@ -43,11 +43,17 @@ export async function GET(req: Request) {
           _id: drawing._id.toString(),
           title: drawing.title,
           description: drawing.description,
+          creditLine: drawing.creditLine || undefined,
           fileName: drawing.fileName,
           thumbnailName: drawing.thumbnailName,
           price: drawing.price,
           tags: drawing.tags || [],
-          createdAt: drawing.createdAt.toISOString(),
+          createdAt: new Date(
+            drawing.createdAt ??
+              (typeof drawing._id?.getTimestamp === "function"
+                ? drawing._id.getTimestamp()
+                : 0)
+          ).toISOString(),
           thumbnailUrl,
           fileUrl,
         };

@@ -52,6 +52,7 @@ export async function PUT(
 
     const title = formData.get("title") as string | null;
     const description = formData.get("description") as string | null;
+    const creditLine = (formData.get("creditLine") as string | null)?.trim();
     const file = formData.get("file") as File | null;
     const priceStr = formData.get("price") as string | null;
     const tagsStr = formData.get("tags") as string | null;
@@ -141,6 +142,7 @@ export async function PUT(
 
     drawing.title = title.trim();
     drawing.description = description.trim();
+    drawing.creditLine = creditLine || undefined;
     drawing.price = price;
     drawing.tags = tags;
 
@@ -153,6 +155,7 @@ export async function PUT(
           id: drawing._id.toString(),
           title: drawing.title,
           description: drawing.description,
+          creditLine: drawing.creditLine,
           price: drawing.price,
           tags: drawing.tags,
           createdAt: drawing.createdAt,

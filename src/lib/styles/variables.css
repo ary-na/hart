@@ -1,10 +1,23 @@
 /* src/lib/styles/variables.css */
-:root {
-  --color-hart-dark-primary: #181824;
-  --color-hart-dark-secondary: #1e202f;
-  --color-hart-dark-accent: #237c78;
 
-  --color-hart-light-primary: #eff1f5;
-  --color-hart-light-secondary: #e7e9ef;
-  --color-hart-light-accent: #3aafa9;
+:root {
+  /* Locked warm-pastel gallery palette */
+  --color-hart-paper: #faf8f5; /* soft porcelain page ground */
+  --color-hart-cream: #fbf6ef;
+  --color-hart-ink: #3d342c;
+  --color-hart-line: #d9cfc3;
+  --color-hart-rose: #e8a4a8;
+  --color-hart-peach: #edd9c8;
+  --color-hart-taupe: #e5d4c8;
+
+  --color-hart-dark-primary: #2c2621;
+  --color-hart-dark-secondary: #3d342c;
+  --color-hart-dark-accent: #e8a4a8;
+
+  --color-hart-light-primary: var(--color-hart-paper);
+  --color-hart-light-secondary: var(--color-hart-cream);
+  --color-hart-light-accent: var(--color-hart-rose);
+
+  --background: var(--color-hart-paper);
+  --foreground: var(--color-hart-ink);
 }
