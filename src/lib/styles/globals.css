@@ -108,8 +108,10 @@ input[type="number"] {
   background-color: #fbf6ef;
   padding: var(--h-stretcher);
   border: 0;
+  outline: 0;
   border-radius: 2px;
   box-shadow: var(--h-canvas-wrap), var(--h-canvas-lift);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .h-frame-hero {
@@ -167,15 +169,27 @@ input[type="number"] {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  background-color: color-mix(
-    in srgb,
-    var(--color-hart-peach) 42%,
-    var(--color-hart-cream)
-  );
-  /* Darker inner lip where the painting meets the cream wrap, not a 1px UI border. */
+  line-height: 0;
+  background-color: #e5d4c8;
+  /* Warm taupe inner lip; never white or chalky cream. */
   box-shadow:
-    0 0 0 3px color-mix(in srgb, #fbf6ef 58%, #e5d4c8 42%),
-    inset 0 1px 3px rgba(61, 52, 44, 0.14);
+    0 0 0 2px color-mix(in srgb, #e5d4c8 78%, #3d342c 22%),
+    inset 0 1px 2px rgba(61, 52, 44, 0.18);
+}
+
+.h-frame-face img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  background-color: transparent;
+}
+
+.h-frame-face p {
+  line-height: 1.5;
 }
 
 .h-frame-hover {
