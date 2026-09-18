@@ -1,5 +1,3 @@
-// src/components/NavBar.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -17,9 +15,8 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const { user, isLoading } = useCurrentUser();
-  const userRole = user?.role;
-  const isAdmin = userRole === "admin";
+  const { user } = useCurrentUser();
+  const isAdmin = user?.role === "admin";
   const handleSignout = useSignout();
   const isHome = pathname === "/";
 
@@ -48,80 +45,37 @@ const NavBar = () => {
           : "bg-[#faf8f5]/30 backdrop-blur-[2px] border-b border-transparent"
       )}
     >
-      <div className="navbar container mx-auto px-4 max-w-6xl min-h-14">
-        <div className="navbar-start gap-2">
-          <div className={cn("dropdown lg:hidden", isMenuOpen && "dropdown-open")}>
-            <button
-              tabIndex={0}
-              className="btn btn-ghost btn-circle"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMenuOpen}
-              onClick={() => setIsMenuOpen((p) => !p)}
-            >
-              {isMenuOpen ? (
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 6h16M4 12h16M4 18h7" />
-                </svg>
-              )}
-            </button>
+      <div className="container mx-auto flex min-h-14 max-w-6xl items-center justify-between gap-4 px-4">
+        <Link href="/" aria-label="H♡ART home" className="shrink-0">
+          <Logo
+            className="cursor-pointer transition-colors hover:text-accent"
+            width={128}
+            height={56}
+            title="H♡ART, Hilda loves Art"
+          />
+        </Link>
 
-            <div className="dropdown-content mt-3 w-72 rounded-2xl border border-base-300 bg-base-100 p-4 shadow-xl z-50">
-              <nav className="flex flex-col gap-0.5">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={closeMenu}
-                    className="rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-          </div>
-
-          <nav className="hidden lg:flex items-center gap-0.5">
+        <div className="flex items-center gap-1">
+          <nav className="hidden items-center gap-0.5 lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium opacity-80 transition-all hover:opacity-100 hover:bg-base-200"
+                className="rounded-lg px-3 py-2 text-sm font-medium opacity-80 transition-all hover:bg-base-200 hover:opacity-100"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
-        </div>
-
-        <div className="navbar-center">
-          <Link href="/" aria-label="H♡ART home">
-            <Logo
-              className="cursor-pointer transition-colors hover:text-accent"
-              width={128}
-              height={56}
-              title="H♡ART – Hilda loves Art"
-            />
-          </Link>
-        </div>
-
-        <div className="navbar-end flex items-center gap-1">
-          {isLoading && (
-            <span className="loading loading-ring loading-sm opacity-40" />
-          )}
 
           {isAdmin && (
-            <div className="dropdown dropdown-end">
+            <div className="dropdown dropdown-end ml-1 hidden lg:block">
               <button
                 tabIndex={0}
-                className="btn btn-ghost btn-circle"
+                className="btn btn-ghost btn-circle btn-sm opacity-40 hover:opacity-100"
                 aria-label="Studio menu"
               >
-                <FontAwesomeIcon icon={faUser} width={18} />
+                <FontAwesomeIcon icon={faUser} width={14} />
               </button>
               <ul
                 tabIndex={-1}
@@ -152,6 +106,72 @@ const NavBar = () => {
               </ul>
             </div>
           )}
+
+          <div className={cn("dropdown dropdown-end lg:hidden", isMenuOpen && "dropdown-open")}>
+            <button
+              tabIndex={0}
+              className="btn btn-ghost btn-circle"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuOpen}
+              onClick={() => setIsMenuOpen((p) => !p)}
+            >
+              {isMenuOpen ? (
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 6h16M4 12h16M4 18h7" />
+                </svg>
+              )}
+            </button>
+
+            <div className="dropdown-content mt-3 w-64 rounded-2xl border border-[#d9cfc3] bg-[#faf8f5] p-4 shadow-xl z-50">
+              <nav className="flex flex-col gap-0.5">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={closeMenu}
+                    className="rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+              {isAdmin && (
+                <div className="mt-3 border-t border-[#d9cfc3] pt-3">
+                  <p className="px-3 pb-1 text-[10px] uppercase tracking-[0.3em] opacity-40">
+                    Studio
+                  </p>
+                  <Link
+                    href="/admin"
+                    onClick={closeMenu}
+                    className="block rounded-xl px-3 py-2 text-sm opacity-70 hover:bg-base-200"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/user/profile"
+                    onClick={closeMenu}
+                    className="block rounded-xl px-3 py-2 text-sm opacity-70 hover:bg-base-200"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    type="button"
+                    className="block w-full rounded-xl px-3 py-2 text-left text-sm text-error"
+                    onClick={(e) => {
+                      handleSignout(e);
+                      closeMenu();
+                    }}
+                  >
+                    Sign out
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </header>
