@@ -294,16 +294,31 @@ input[type="number"] {
   background: #e8a4a8;
 }
 
+.h-studio-card,
+.h-step-plaque,
+.h-social-card,
+.h-invite {
+  border: 1px solid #E8A4A8;
+  box-shadow: 0 1px 0 rgba(61, 52, 44, 0.04);
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+  .h-studio-card,
+  .h-step-plaque,
+  .h-social-card,
+  .h-invite {
+    border-width: 1.5px;
+  }
+}
+
 .h-studio-card {
   background: #fbf6ef;
-  border: 1.25px solid #e8a4a8;
   border-radius: 1.15rem;
   padding: 2.25rem 1.85rem 2.5rem;
 }
 
 .h-step-plaque {
   background: #faf8f5;
-  border: 1.25px solid #e8a4a8;
   border-radius: 1.15rem;
   padding: 1.5rem 1.35rem;
 }
@@ -323,7 +338,6 @@ input[type="number"] {
   min-height: 8.5rem;
   flex-direction: column;
   justify-content: space-between;
-  border: 1.25px solid #e8a4a8;
   border-radius: 1.15rem;
   background: #fbf6ef;
   padding: 1.75rem 1.5rem;
@@ -339,11 +353,11 @@ input[type="number"] {
 .h-invite {
   position: relative;
   background-color: var(--color-hart-cream);
-  border: 1.25px solid #e8a4a8;
   border-radius: 1.15rem;
   padding: 2rem 1.75rem;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 1px 0 rgba(61, 52, 44, 0.04),
     0 8px 22px rgba(61, 52, 44, 0.07),
     0 2px 6px rgba(61, 52, 44, 0.04);
 }
