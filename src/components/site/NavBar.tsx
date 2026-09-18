@@ -45,10 +45,10 @@ const NavBar = () => {
           : "bg-[#faf8f5]/30 backdrop-blur-[2px] border-b border-transparent"
       )}
     >
-      <div className="container mx-auto flex min-h-20 max-w-6xl items-center justify-between gap-4 px-4 py-5 md:min-h-24 md:py-6">
-        <Link href="/" aria-label="H♡ART home" className="shrink-0">
+      <div className="container mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-[22px]">
+        <Link href="/" aria-label="H♡ART home" className="flex shrink-0 items-center">
           <Logo
-            className="cursor-pointer transition-colors hover:text-accent"
+            className="h-12 w-auto cursor-pointer transition-colors hover:text-accent"
             width={128}
             height={56}
             title="H♡ART, Hilda loves Art"
@@ -61,7 +61,7 @@ const NavBar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium opacity-80 transition-all hover:bg-base-200 hover:opacity-100"
+                className="inline-flex items-center rounded-lg px-3 py-1.5 text-sm font-medium leading-none opacity-80 transition-all hover:bg-base-200 hover:opacity-100"
               >
                 {link.label}
               </Link>
