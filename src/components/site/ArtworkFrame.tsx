@@ -7,6 +7,8 @@ export type ShowcaseDrawing = {
   title: string;
   thumbnailUrl: string;
   fileUrl: string;
+  price?: number;
+  tags?: string[];
 };
 
 type ArtworkFrameProps = {
@@ -16,6 +18,7 @@ type ArtworkFrameProps = {
   imageClassName?: string;
   priority?: boolean;
   showTitle?: boolean;
+  whisper?: boolean;
   hero?: boolean;
 };
 
@@ -25,12 +28,17 @@ const ArtworkFrame = ({
   className,
   imageClassName = "aspect-[4/5]",
   priority = false,
-  showTitle = true,
+  showTitle = false,
+  whisper = false,
   hero = false,
 }: ArtworkFrameProps) => {
   const destination =
     href ?? (drawing ? `/gallery?drawing=${drawing._id}` : "/gallery");
   const src = drawing?.fileUrl || drawing?.thumbnailUrl;
+  const price =
+    typeof drawing?.price === "number" && drawing.price > 0
+      ? `$${drawing.price.toLocaleString()}`
+      : null;
 
   return (
     <div className={className}>
@@ -59,6 +67,12 @@ const ArtworkFrame = ({
               <p className="text-sm leading-relaxed opacity-60">
                 An animal portrait will hang here soon.
               </p>
+            </div>
+          )}
+          {whisper && drawing && (
+            <div className="h-frame-whisper">
+              <span>{drawing.title}</span>
+              {price ? <span>{price}</span> : null}
             </div>
           )}
         </div>

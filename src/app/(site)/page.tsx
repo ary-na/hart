@@ -5,44 +5,61 @@ import { getPresignedUrl } from "@hart/server/upload";
 import ArtworkFrame, {
   type ShowcaseDrawing,
 } from "@hart/components/site/ArtworkFrame";
+import HomeGalleryWall from "@hart/components/site/HomeGalleryWall";
 
 export const dynamic = "force-dynamic";
 
-const getShowcaseDrawings = async (): Promise<ShowcaseDrawing[]> => {
+const getHomeShowcase = async (): Promise<{
+  drawings: ShowcaseDrawing[];
+  tags: string[];
+}> => {
   try {
     await connectToDatabase();
 
-    const latestDrawings = await Drawing.find({})
-      .sort({ createdAt: -1 })
-      .limit(7)
-      .lean();
+    const [latestDrawings, distinctTags] = await Promise.all([
+      Drawing.find({}).sort({ createdAt: -1 }).limit(10).lean(),
+      Drawing.distinct("tags"),
+    ]);
 
-    return Promise.all(
+    const drawings = await Promise.all(
       latestDrawings.map(async (drawing) => ({
         _id: drawing._id.toString(),
         title: drawing.title,
         thumbnailUrl: await getPresignedUrl(drawing.thumbnailName),
         fileUrl: await getPresignedUrl(drawing.fileName),
+        price: drawing.price,
+        tags: drawing.tags || [],
       }))
     );
+
+    return {
+      drawings,
+      tags: (distinctTags as string[]).filter(Boolean).sort(),
+    };
   } catch {
-    return [];
+    return { drawings: [], tags: [] };
   }
 };
 
 const Home = async () => {
-  const showcaseDrawings = await getShowcaseDrawings();
-  const heroDrawing = showcaseDrawings[0] ?? null;
-  const featuredDrawings = showcaseDrawings.slice(1, 7);
+  const { drawings, tags } = await getHomeShowcase();
+  const heroDrawing = drawings[0] ?? null;
+  const wallDrawings = drawings.slice(1, 10);
+  const studioDrawing = heroDrawing;
 
   return (
     <>
-      <section className="h-container pb-16 pt-10 md:pb-24 md:pt-16">
-        <div className="mx-auto flex max-w-2xl flex-col items-center text-center lg:max-w-3xl">
-          <div className="h-reveal w-full max-w-md md:max-w-xl lg:max-w-2xl">
-            <ArtworkFrame drawing={heroDrawing} priority hero showTitle={false} />
+      <section className="px-4 pb-14 pt-6 md:pb-20 md:pt-8">
+        <div className="mx-auto flex w-[min(92vw,36rem)] flex-col items-center text-center">
+          <div className="h-reveal w-full">
+            <ArtworkFrame
+              drawing={heroDrawing}
+              priority
+              hero
+              showTitle={false}
+              imageClassName="aspect-[4/5]"
+            />
           </div>
-
           <h1 className="h-reveal mt-10 max-w-xl text-3xl leading-snug md:mt-12 md:text-4xl">
             Gentle animal portraits, made to live with.
           </h1>
@@ -56,25 +73,11 @@ const Home = async () => {
         </div>
       </section>
 
-      {featuredDrawings.length > 0 && (
-        <section className="h-container pb-16 pt-2 md:pb-24">
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-            {featuredDrawings.map((drawing, index) => (
-              <div
-                key={drawing._id}
-                className="h-reveal"
-                style={{ ["--reveal-delay" as never]: `${index * 70}ms` }}
-              >
-                <ArtworkFrame drawing={drawing} />
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      <HomeGalleryWall drawings={wallDrawings} tags={tags} />
 
-      <section className="h-container pb-24 pt-4 md:pb-32">
-        <div className="mx-auto flex max-w-2xl flex-col gap-8 md:gap-10">
-          <article className="h-invite h-reveal">
+      <section className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <article className="h-reveal max-w-xl">
             <h2 className="text-2xl md:text-3xl">About me</h2>
             <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
               I’m Hilda, from Bandung, Indonesia. I’ve been painting since I was
@@ -85,38 +88,52 @@ const Home = async () => {
               actually spend time.
             </p>
           </article>
-
-          <article className="h-invite h-reveal">
-            <h2 className="text-2xl md:text-3xl">Commissions</h2>
-            <ol className="mt-6 list-decimal space-y-4 pl-5 text-base leading-relaxed opacity-80 md:text-lg">
-              <li>
-                Tell me which animal the piece is for, and the mood you want.
-              </li>
-              <li>
-                You’ll get a rough direction and colours to check before I paint.
-              </li>
-              <li>
-                I finish it carefully, then get it ready to come home to you.
-              </li>
-            </ol>
-            <Link href="/contact" className="btn btn-primary mt-8">
-              Start a commission
-            </Link>
-          </article>
-
-          <article className="h-invite h-reveal px-8 py-12 text-center md:px-12 md:py-14">
-            <p className="mx-auto max-w-xl text-base leading-relaxed md:text-lg">
-              Take a quiet look through the gallery. Something might already feel
-              like yours.
-            </p>
-            <Link
-              href="/gallery"
-              className="mt-6 inline-block text-sm underline decoration-hart-rose/80 underline-offset-8 hover:opacity-80"
+          {studioDrawing && (
+            <div
+              className="h-reveal mx-auto w-full max-w-md lg:max-w-none"
+              style={{ ["--reveal-delay" as never]: "90ms" }}
             >
-              Explore the gallery
-            </Link>
-          </article>
+              <ArtworkFrame
+                drawing={studioDrawing}
+                imageClassName="aspect-[4/5]"
+              />
+            </div>
+          )}
         </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-5xl px-4 pb-16 md:pb-24">
+        <article className="h-invite h-reveal px-8 py-12 md:px-14 md:py-16">
+          <h2 className="text-2xl md:text-3xl">Commissions</h2>
+          <ol className="mt-8 list-decimal space-y-5 pl-5 text-base leading-relaxed opacity-80 md:text-lg">
+            <li>
+              Tell me which animal the piece is for, and the mood you want.
+            </li>
+            <li>
+              You’ll get a rough direction and colours to check before I paint.
+            </li>
+            <li>
+              I finish it carefully, then get it ready to come home to you.
+            </li>
+          </ol>
+          <Link href="/contact" className="btn btn-primary mt-10">
+            Start a commission
+          </Link>
+        </article>
+      </section>
+
+      <section className="px-4 py-16 text-center md:py-20">
+        <p className="h-reveal mx-auto max-w-xl text-base leading-relaxed md:text-lg">
+          Take a quiet look through the gallery. Something might already feel
+          like yours.
+        </p>
+        <Link
+          href="/gallery"
+          className="h-reveal mt-6 inline-block text-sm underline decoration-hart-rose/80 underline-offset-8 hover:opacity-80"
+          style={{ ["--reveal-delay" as never]: "80ms" }}
+        >
+          Explore the gallery
+        </Link>
       </section>
     </>
   );

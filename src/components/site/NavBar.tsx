@@ -52,11 +52,11 @@ const NavBar = () => {
       className={cn(
         "sticky top-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-base-100/90 backdrop-blur-xl border-b border-base-300 shadow-sm"
-          : "bg-base-100/60 backdrop-blur-md border-b border-transparent"
+          ? "bg-[#faf8f5]/92 backdrop-blur-xl border-b border-[#d9cfc3]/80"
+          : "bg-[#faf8f5]/80 backdrop-blur-md border-b border-transparent"
       )}
     >
-      <div className="navbar container mx-auto px-4 max-w-6xl min-h-16">
+      <div className="navbar container mx-auto px-4 max-w-6xl min-h-14">
 
         {/* Left: hamburger + desktop nav */}
         <div className="navbar-start gap-2">
