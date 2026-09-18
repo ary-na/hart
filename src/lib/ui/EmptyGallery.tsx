@@ -1,19 +1,12 @@
-// src/lib/ui/gallery/EmptyGallery.tsx
-
-import { EmptyGalleryCanvas } from "./svgs/EmptyGalleryCanvas";
-
 export function EmptyGallery({ ...props }) {
   return (
     <div
-      className="flex flex-col flex-1 items-center justify-center text-center"
+      className="flex flex-col flex-1 items-center justify-center py-24 text-center"
       {...props}
     >
-      <EmptyGalleryCanvas className="mb-6 w-20" />
-
-      <h2>NOTHING here… YET.</h2>
-
-      <p className="mt-2 max-w-md">
-        No drawings have found their way here yet.
+      <h2 className="text-2xl">No animal portraits here yet.</h2>
+      <p className="mt-3 max-w-md text-base leading-relaxed opacity-70">
+        New work will hang here when it is ready.
       </p>
     </div>
   );

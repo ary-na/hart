@@ -55,10 +55,10 @@ const About = () => {
             you’d like me to paint.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/gallery" className="btn btn-primary">
+            <Link href="/gallery" className="btn btn-primary rounded-full px-6">
               Explore the gallery
             </Link>
-            <Link href="/contact" className="btn btn-ghost">
+            <Link href="/contact" className="btn btn-ghost rounded-full px-6">
               Start a commission
             </Link>
           </div>

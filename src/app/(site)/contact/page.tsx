@@ -8,25 +8,22 @@ export const metadata = {
 
 const Contact = () => {
   return (
-    <section className="my-10">
-      <header className="h-container py-20 h-reveal">
-        <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.4em] opacity-50">Contact me</p>
-          <h1>Send a Note, Say Hello!</h1>
-          <p
-            className="h-reveal"
-            style={{ ["--reveal-delay" as never]: "120ms" }}
-          >
-            Whether it&apos;s a collaboration or a simple hello, I look forward
-            to hearing from you.
-          </p>
-        </div>
+    <section className="mx-auto w-full max-w-3xl px-4 py-16 md:py-24">
+      <header className="h-reveal max-w-xl">
+        <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
+          Contact
+        </p>
+        <h1 className="h-heading-rose mt-3 text-3xl md:text-4xl">
+          I’d love to paint your animal.
+        </h1>
+        <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
+          Tell me who they are, and the mood you want in the piece. A clear
+          photo, a name, and a mood is a good place to start.
+        </p>
       </header>
 
-      <div className="h-container py-20">
-        <div className="rounded-2xl bg-base-100 p-8 shadow-sm border border-base-300 h-reveal">
-          <ContactMeForm />
-        </div>
+      <div className="h-studio-card mt-10 p-6 md:p-10">
+        <ContactMeForm />
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ const Footer = () => {
       links: [
         { label: "How it works", href: "/contact" },
         { label: "Custom piece", href: "/contact" },
-        { label: "The Artist", href: "/about" },
+        { label: "About me", href: "/about" },
       ],
     },
     {
@@ -64,7 +64,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="border-t border-base-300" role="contentinfo">
+    <footer className="border-t border-[#d9cfc3] bg-[#faf8f5]" role="contentinfo">
       {/* Main footer grid */}
       <div className="h-container py-14">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
@@ -75,8 +75,7 @@ const Footer = () => {
               <Logo className="w-28 hover:text-accent transition-colors" />
             </Link>
             <p className="text-sm leading-relaxed opacity-60 max-w-xs">
-              Each piece waits to bring a little color and wonder into your
-              everyday. Thank you for being part of this gentle story.
+              Gentle animal portraits, made to live with.
             </p>
 
             {/* Social links */}

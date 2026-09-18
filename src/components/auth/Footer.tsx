@@ -1,18 +1,16 @@
-// src/components/auth/Footer.tsx
-
 import Link from "next/link";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="h-container text-xs" role="contentinfo">
-      <div className="flex flex-col gap-2 justify-between items-center lg:flex-row">
-        <p>Copyright © {currentYear} – All rights reserved by H♡ART</p>
-        <p>
+    <footer className="border-t border-[#d9cfc3] bg-[#faf8f5] px-4 py-6 text-xs text-[#3d342c]" role="contentinfo">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 lg:flex-row">
+        <p className="opacity-60">© {currentYear} H♡ART. All rights reserved.</p>
+        <p className="opacity-60">
           Built with ☕ by{" "}
           <Link
-            href="https://ariannyamchelo.netlify.app"
+            href="https://arii.dev"
             target="_blank"
             rel="noopener noreferrer"
             className="link link-accent italic"

@@ -45,7 +45,7 @@ const NavBar = () => {
           : "bg-[#faf8f5]/30 backdrop-blur-[2px] border-b border-transparent"
       )}
     >
-      <div className="container mx-auto flex min-h-14 max-w-6xl items-center justify-between gap-4 px-4">
+      <div className="container mx-auto flex min-h-20 max-w-6xl items-center justify-between gap-4 px-4 py-5 md:min-h-24 md:py-6">
         <Link href="/" aria-label="H♡ART home" className="shrink-0">
           <Logo
             className="cursor-pointer transition-colors hover:text-accent"

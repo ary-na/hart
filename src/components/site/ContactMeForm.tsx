@@ -96,7 +96,7 @@ export default function ContactMeForm() {
       <FormField
         id="enquiry"
         label="Enquiry"
-        placeholder="Tell me about your project, timeline, budget..."
+        placeholder="Tell me which animal, and the mood you want."
         registerProps={register("enquiry")}
         error={errors.enquiry?.message}
         as="textarea"
@@ -128,7 +128,7 @@ export default function ContactMeForm() {
         )}
 
         {previewUrl && (
-          <div className="mt-6 overflow-hidden rounded-xl border border-white/10">
+          <div className="mt-6 overflow-hidden rounded-xl bg-[#faf8f5]">
             <Image
               src={previewUrl}
               alt="Reference preview"
@@ -145,6 +145,7 @@ export default function ContactMeForm() {
         isLoading={isLoading}
         text="Send"
         loadingText="Sending..."
+        className="rounded-full px-6"
       />
     </form>
   );

@@ -1,33 +1,30 @@
-// src/app/forgot-password/page.tsx
-
 import Link from "next/link";
 import ForgotPasswordForm from "@hart/components/auth/ForgotPasswordForm";
 
 export const metadata = {
   title: "Forgot Password",
-  description:
-    "Forgot your password? Reset it securely and regain access to your account.",
 };
 
 const ForgotPassword = async () => {
   return (
-    <section
-      className="h-auth-container flex flex-col justify-center w-full"
-      aria-labelledby="forgot-password-heading"
-    >
+    <section className="mx-auto flex w-full max-w-md flex-col justify-center px-4 py-16">
       <header>
-        <h1 id="forgot-password-heading">FORGOT PASSWORD</h1>
-        <p className="mb-4!">
-          Enter your email and I&apos;ll help you reset your password.
+        <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
+          Studio
+        </p>
+        <h1 className="mt-3 text-3xl">Forgot password</h1>
+        <p className="mt-3 text-sm leading-relaxed opacity-70">
+          Enter your email and I’ll help you reset your password.
         </p>
       </header>
-      <ForgotPasswordForm />
-       <p className="text-center mt-8">
-          <span className="opacity-75">Don&apos;t need this? </span>{" "}
-          <Link className="link link-primary" href="/?auth=signin">
-            Sign in
-          </Link>
-        </p>
+      <div className="h-studio-card mt-8 p-6">
+        <ForgotPasswordForm />
+      </div>
+      <p className="mt-8 text-center text-sm">
+        <Link className="link link-primary" href="/?auth=signin">
+          Back to sign in
+        </Link>
+      </p>
     </section>
   );
 };

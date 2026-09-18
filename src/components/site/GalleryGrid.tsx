@@ -99,7 +99,7 @@ const GalleryGrid = () => {
           <button
             onClick={() => fetchDrawings({ append: true, limit: 12 })}
             disabled={loading}
-            className="btn btn-outline min-w-36"
+            className="btn btn-outline min-w-36 rounded-full"
           >
             {loading ? (
               <span className="loading loading-spinner loading-sm" />
