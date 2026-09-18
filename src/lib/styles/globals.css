@@ -84,6 +84,7 @@ body {
   text-underline-offset: 0.2em;
 }
 
+.btn-primary,
 .btn.btn-primary,
 a.btn-primary,
 button.btn-primary,
@@ -97,6 +98,7 @@ button.btn-primary,
   color: #3d342c;
   background-color: #e8a4a8;
   border-color: #e8a4a8;
+  text-shadow: none;
 }
 
 .btn-ghost,

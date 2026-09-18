@@ -28,7 +28,7 @@ const GalleryGrid = () => {
   const selectedDrawingId = searchParams.get("drawing");
 
   useEffect(() => {
-    fetchDrawings({ limit: 12 });
+    fetchDrawings({ limit: 48 });
   // fetchDrawings is a stable callback
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -102,7 +102,7 @@ const GalleryGrid = () => {
         <div className="mt-12 flex justify-center">
           <button
             type="button"
-            onClick={() => fetchDrawings({ append: true, limit: 12 })}
+            onClick={() => fetchDrawings({ append: true, limit: 48 })}
             disabled={loading}
             className="btn btn-outline min-w-36 rounded-full"
           >

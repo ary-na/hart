@@ -2,6 +2,7 @@ export function EmptyGallery({ ...props }) {
   return (
     <div
       className="flex flex-col flex-1 items-center justify-center py-24 text-center"
+      role="status"
       {...props}
     >
       <h2 className="text-2xl">No animal portraits here yet.</h2>

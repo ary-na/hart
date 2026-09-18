@@ -6,7 +6,7 @@ import { Drawing, FetchOptions, UseDrawingsReturn } from "@hart/lib/types";
 import { AddDrawingInput, UpdateDrawingInput } from "@hart/lib/validators";
 import { sortNewestFirst } from "@hart/lib/utils";
 
-const LIMIT = 12;
+const LIMIT = 48;
 
 export const useDrawings = (): UseDrawingsReturn => {
   const [drawings, setDrawings] = useState<Drawing[]>([]);

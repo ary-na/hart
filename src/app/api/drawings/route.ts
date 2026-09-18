@@ -6,7 +6,7 @@ import { Drawing } from "@hart/server/models";
 import { getPresignedUrl } from "@hart/server/upload";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 
-const DEFAULT_LIMIT = 12;
+const DEFAULT_LIMIT = 48;
 
 export async function GET(req: Request) {
   try {
