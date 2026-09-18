@@ -232,24 +232,6 @@ input[type="number"] {
   }
 }
 
-.h-series-pill {
-  flex: 0 0 auto;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  padding: 0.4rem 1rem;
-  color: #3d342c;
-  font-size: 0.875rem;
-  opacity: 0.7;
-  cursor: pointer;
-}
-
-.h-series-pill:hover,
-.h-series-pill.is-active {
-  background: #fbf6ef;
-  opacity: 1;
-}
-
 .h-wall {
   display: grid;
   grid-template-columns: 1fr;

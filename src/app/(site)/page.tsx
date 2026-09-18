@@ -12,15 +12,14 @@ export const dynamic = "force-dynamic";
 
 const getHomeShowcase = async (): Promise<{
   drawings: ShowcaseDrawing[];
-  tags: string[];
 }> => {
   try {
     await connectToDatabase();
 
-    const [latestDrawings, distinctTags] = await Promise.all([
-      Drawing.find({}).sort({ createdAt: -1 }).limit(10).lean(),
-      Drawing.distinct("tags"),
-    ]);
+    const latestDrawings = await Drawing.find({})
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .lean();
 
     const drawings = await Promise.all(
       latestDrawings.map(async (drawing) => ({
@@ -28,21 +27,17 @@ const getHomeShowcase = async (): Promise<{
         title: drawing.title,
         thumbnailUrl: await getPresignedUrl(drawing.thumbnailName),
         fileUrl: await getPresignedUrl(drawing.fileName),
-        tags: drawing.tags || [],
       }))
     );
 
-    return {
-      drawings,
-      tags: (distinctTags as string[]).filter(Boolean).sort(),
-    };
+    return { drawings };
   } catch {
-    return { drawings: [], tags: [] };
+    return { drawings: [] };
   }
 };
 
 const Home = async () => {
-  const { drawings, tags } = await getHomeShowcase();
+  const { drawings } = await getHomeShowcase();
   const heroDrawing = drawings[0] ?? null;
   const wallDrawings = drawings.slice(1, 10);
   const studioDrawing = heroDrawing;
@@ -51,7 +46,7 @@ const Home = async () => {
     <>
       <HomeHero drawing={heroDrawing} />
 
-      <HomeGalleryWall drawings={wallDrawings} tags={tags} />
+      <HomeGalleryWall drawings={wallDrawings} />
 
       <section className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
