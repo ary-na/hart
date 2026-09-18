@@ -12,6 +12,13 @@ const WelcomeToast = () => {
   const { showToast } = useToast();
 
   useEffect(() => {
+    if (sessionStorage.getItem("signed-out-toast")) {
+      showToast("We hope to see you again soon.", "info");
+      sessionStorage.removeItem("signed-out-toast");
+    }
+  }, [showToast]);
+
+  useEffect(() => {
     if (!isAuthenticated || !user) return;
 
     if (sessionStorage.getItem(TOAST_KEY)) return;

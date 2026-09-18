@@ -4,7 +4,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
-import CartProvider from "@hart/context/CartContext";
+import AuthModalProvider from "@hart/context/AuthModalContext";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -16,7 +16,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         enableSystem={false}
         disableTransitionOnChange
       >
-        <CartProvider>{children}</CartProvider>
+        <AuthModalProvider>{children}</AuthModalProvider>
       </ThemeProvider>
     </SessionProvider>
   );

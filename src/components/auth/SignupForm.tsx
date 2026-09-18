@@ -3,7 +3,6 @@
 
 import Link from "next/link";
 import { useSignup } from "@hart/hooks";
-import { signIn } from "next-auth/react";
 import { FormField, SubmitButton } from "@hart/lib/ui";
 
 export default function SignupForm() {

@@ -31,7 +31,7 @@ const HomeGalleryWall = ({ drawings, tags }: HomeGalleryWallProps) => {
   if (drawings.length === 0) return null;
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 pb-20 pt-6 md:pb-28">
+    <section className="mx-auto w-full max-w-6xl px-4 pb-20 pt-10 md:pb-28 md:pt-16">
       {tags.length > 0 && (
         <div className="h-reveal mb-10 flex gap-2 overflow-x-auto pb-1 md:flex-wrap md:justify-center">
           <button

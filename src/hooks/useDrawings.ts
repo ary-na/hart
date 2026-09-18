@@ -97,6 +97,9 @@ export const useDrawings = (): UseDrawingsReturn => {
         const formData = new FormData();
         formData.append("title", data.title.trim());
         formData.append("description", data.description.trim());
+        if (data.creditLine?.trim()) {
+          formData.append("creditLine", data.creditLine.trim());
+        }
         const file = data.file instanceof File ? data.file : data.file?.[0];
         formData.append("file", file);
 
@@ -153,6 +156,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         const formData = new FormData();
         formData.append("title", data.title.trim());
         formData.append("description", data.description.trim());
+        formData.append("creditLine", data.creditLine?.trim() ?? "");
 
         const file = data.file instanceof File ? data.file : data.file?.[0];
         if (file) formData.append("file", file);

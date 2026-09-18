@@ -98,49 +98,20 @@ input[type="number"] {
 }
 
 .h-frame {
-  --h-stretcher: 13px;
-  --h-canvas-lift:
-    0 3px 8px rgba(61, 52, 44, 0.08),
-    0 14px 28px rgba(61, 52, 44, 0.11);
   position: relative;
   isolation: isolate;
-  overflow: visible;
-  background-color: #fbf6ef;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(61, 52, 44, 0.025) 0px,
-      rgba(61, 52, 44, 0.025) 1px,
-      transparent 1px,
-      transparent 4px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(61, 52, 44, 0.018) 0px,
-      rgba(61, 52, 44, 0.018) 1px,
-      transparent 1px,
-      transparent 4px
-    );
-  padding: var(--h-stretcher);
+  overflow: hidden;
+  background: transparent;
+  padding: 0;
   border: 0;
   outline: 0;
-  border-radius: 2px;
-  box-shadow: var(--h-canvas-lift);
+  border-radius: 0;
+  box-shadow: none;
   -webkit-tap-highlight-color: transparent;
 }
 
 .h-frame-hero {
-  --h-stretcher: 16px;
-}
-
-@media (min-width: 768px) {
-  .h-frame {
-    --h-stretcher: 14px;
-  }
-
-  .h-frame-hero {
-    --h-stretcher: 16px;
-  }
+  background: transparent;
 }
 
 .h-frame-face {
@@ -148,9 +119,10 @@ input[type="number"] {
   z-index: 1;
   overflow: hidden;
   line-height: 0;
-  background-color: #fbf6ef;
-  /* Optional warmer taupe inner lip only — never white. */
-  box-shadow: inset 0 0 0 2px color-mix(in srgb, #e5d4c8 72%, #3d342c 28%);
+  background: transparent;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
 }
 
 .h-frame-face img {
@@ -162,7 +134,10 @@ input[type="number"] {
   max-width: none;
   object-fit: cover;
   object-position: center;
-  background-color: #fbf6ef;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
 }
 
 .h-frame-face p {
@@ -170,16 +145,11 @@ input[type="number"] {
 }
 
 .h-frame-hover {
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: opacity 0.35s ease;
 }
 
 .h-frame-hover:hover {
-  transform: translateY(-5px);
-  box-shadow:
-    0 5px 12px rgba(61, 52, 44, 0.1),
-    0 18px 34px rgba(61, 52, 44, 0.13);
+  opacity: 0.96;
 }
 
 .h-frame-whisper {
@@ -201,6 +171,65 @@ input[type="number"] {
 
 .h-frame-hover:hover .h-frame-whisper {
   opacity: 1;
+}
+
+.h-hero {
+  position: relative;
+  width: 100%;
+  height: 78vh;
+  min-height: 28rem;
+  overflow: hidden;
+  background: #faf8f5;
+}
+
+@media (min-width: 768px) {
+  .h-hero {
+    height: 82vh;
+  }
+}
+
+.h-hero img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.h-hero-veil {
+  pointer-events: none;
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 33.333%;
+  background: linear-gradient(
+    to top,
+    #faf8f5 0%,
+    rgb(250 248 245 / 0.72) 42%,
+    rgb(250 248 245 / 0) 100%
+  );
+}
+
+.h-hero-copy {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.25rem 2.75rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .h-hero-copy {
+    padding-bottom: 3.25rem;
+  }
 }
 
 .h-series-pill {

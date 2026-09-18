@@ -35,10 +35,6 @@ const ArtworkFrame = ({
   const destination =
     href ?? (drawing ? `/gallery?drawing=${drawing._id}` : "/gallery");
   const src = drawing?.fileUrl || drawing?.thumbnailUrl;
-  const price =
-    typeof drawing?.price === "number" && drawing.price > 0
-      ? `$${drawing.price.toLocaleString()}`
-      : null;
 
   return (
     <div className={className}>
@@ -58,7 +54,7 @@ const ArtworkFrame = ({
               alt={drawing?.title ?? "Animal portrait"}
               width={1200}
               height={1500}
-              className="absolute inset-0 h-full w-full object-cover bg-[#fbf6ef]"
+              className="absolute inset-0 h-full w-full object-cover"
               priority={priority}
               unoptimized
             />
@@ -72,7 +68,6 @@ const ArtworkFrame = ({
           {whisper && drawing && (
             <div className="h-frame-whisper">
               <span>{drawing.title}</span>
-              {price ? <span>{price}</span> : null}
             </div>
           )}
         </div>

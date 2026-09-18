@@ -6,6 +6,7 @@ import ArtworkFrame, {
   type ShowcaseDrawing,
 } from "@hart/components/site/ArtworkFrame";
 import HomeGalleryWall from "@hart/components/site/HomeGalleryWall";
+import HomeHero from "@hart/components/site/HomeHero";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +28,6 @@ const getHomeShowcase = async (): Promise<{
         title: drawing.title,
         thumbnailUrl: await getPresignedUrl(drawing.thumbnailName),
         fileUrl: await getPresignedUrl(drawing.fileName),
-        price: drawing.price,
         tags: drawing.tags || [],
       }))
     );
@@ -49,29 +49,7 @@ const Home = async () => {
 
   return (
     <>
-      <section className="px-4 pb-14 pt-6 md:pb-20 md:pt-8">
-        <div className="mx-auto flex w-[min(92vw,36rem)] flex-col items-center text-center">
-          <div className="h-reveal w-full">
-            <ArtworkFrame
-              drawing={heroDrawing}
-              priority
-              hero
-              showTitle={false}
-              imageClassName="aspect-[4/5]"
-            />
-          </div>
-          <h1 className="h-reveal mt-10 max-w-xl text-3xl leading-snug md:mt-12 md:text-4xl">
-            Gentle animal portraits, made to live with.
-          </h1>
-          <Link
-            href="/gallery"
-            className="btn btn-primary h-reveal mt-7"
-            style={{ ["--reveal-delay" as never]: "80ms" }}
-          >
-            Explore the gallery
-          </Link>
-        </div>
-      </section>
+      <HomeHero drawing={heroDrawing} />
 
       <HomeGalleryWall drawings={wallDrawings} tags={tags} />
 

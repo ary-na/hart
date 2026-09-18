@@ -24,7 +24,7 @@ const ForgotPassword = async () => {
       <ForgotPasswordForm />
        <p className="text-center mt-8">
           <span className="opacity-75">Don&apos;t need this? </span>{" "}
-          <Link className="link link-primary" href="/signin">
+          <Link className="link link-primary" href="/?auth=signin">
             Sign in
           </Link>
         </p>

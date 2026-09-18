@@ -1,51 +1,11 @@
-// src/app/signin/page.tsx
-
-import Link from "next/link";
-import { Logomark } from "@hart/lib/ui";
-import { GoogleSignInButton } from "@hart/lib/ui";
-import SignupForm from "@hart/components/auth/SignupForm";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Sign up",
 };
 
-const Signup = async () => {
-  return (
-    <section
-      className="h-auth-container grid lg:grid-cols-2 lg:gap-24 xl:gap-40 items-center"
-      aria-labelledby="signup-heading"
-    >
-      <div>
-        <header>
-          <h1 id="signup-heading">SIGN UP</h1>
-          <p className="mb-4!">
-            Welcome, I&apos;m happy you found your way here.
-          </p>
-        </header>
-        <SignupForm />
-        <div className="divider text-xs opacity-75">OR</div>
-        <GoogleSignInButton title="Sign up with Google" />
-        <p className="text-center mt-8">
-          <span className="opacity-75">Already have an account?</span>{" "}
-          <Link className="link link-primary" href="/signin">
-            Sign in
-          </Link>
-        </p>
-      </div>
-      <div className="hidden lg:flex flex-col justify-center items-center gap-10">
-        <Logomark className="h-auto w-full hover:text-primary" />
-
-        <div>
-          <h2 className="mb-2 text-center lg:text-4xl!">
-            JOIN the love STORY
-          </h2>
-          <p className="text-center italic opacity-75">
-            Lines and pigment: my heart laid across the canvas.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
+const Signup = () => {
+  redirect("/");
 };
 
 export default Signup;

@@ -7,6 +7,7 @@ export interface Drawing {
   _id: string;
   title: string;
   description: string;
+  creditLine?: string;
   fileName: string;
   thumbnailName: string;
   price: number;

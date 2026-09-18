@@ -43,6 +43,7 @@ export async function GET(req: Request) {
           _id: drawing._id.toString(),
           title: drawing.title,
           description: drawing.description,
+          creditLine: drawing.creditLine || undefined,
           fileName: drawing.fileName,
           thumbnailName: drawing.thumbnailName,
           price: drawing.price,

@@ -126,7 +126,6 @@ const Footer = () => {
         <div className="h-container py-6">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
 
-            {/* Copyright */}
             <p className="text-xs opacity-50 text-center sm:text-left">
               © {currentYear} H♡ART. All rights reserved.{" "}
               <span className="opacity-70">
@@ -141,24 +140,6 @@ const Footer = () => {
                 </a>
               </span>
             </p>
-
-            {/* Payment methods */}
-            <div className="flex items-center gap-2" aria-label="Accepted payment methods">
-              {[
-                { src: "https://cdn.simpleicons.org/paypal", alt: "PayPal" },
-                { src: "https://cdn.simpleicons.org/applepay", alt: "Apple Pay" },
-                { src: "https://cdn.simpleicons.org/googlepay", alt: "Google Pay" },
-                { src: "https://cdn.simpleicons.org/visa", alt: "Visa" },
-                { src: "https://cdn.simpleicons.org/mastercard", alt: "Mastercard" },
-              ].map((pm) => (
-                <div
-                  key={pm.alt}
-                  className="flex h-8 w-14 items-center justify-center rounded-lg border border-base-300 bg-base-100 shadow-sm"
-                >
-                  <img src={pm.src} alt={pm.alt} className="h-4 w-auto" loading="lazy" />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
