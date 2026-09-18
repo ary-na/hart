@@ -3,20 +3,14 @@
 import ArtworkFrame, {
   type ShowcaseDrawing,
 } from "@hart/components/site/ArtworkFrame";
-
-const wallAspect = (index: number) => {
-  if (index === 0) return "aspect-[4/5]";
-  if (index === 5 || index === 6) return "aspect-[5/6]";
-  if (index === 8) return "aspect-[4/5]";
-  return "aspect-[3/4]";
-};
+import { cn, sortNewestFirst } from "@hart/lib/utils";
 
 type HomeGalleryWallProps = {
   drawings: ShowcaseDrawing[];
 };
 
 const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
-  const visible = drawings.slice(0, 9);
+  const visible = sortNewestFirst(drawings);
 
   if (visible.length === 0) return null;
 
@@ -26,13 +20,16 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
         {visible.map((drawing, index) => (
           <div
             key={drawing._id}
-            className="h-wall-item h-reveal"
+            className={cn(
+              "h-wall-item h-reveal",
+              index === 0 && visible.length >= 3 && "h-wall-feature"
+            )}
             style={{ ["--reveal-delay" as never]: `${index * 60}ms` }}
           >
             <ArtworkFrame
               drawing={drawing}
               whisper
-              imageClassName={wallAspect(index)}
+              imageClassName="size-full"
             />
           </div>
         ))}

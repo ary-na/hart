@@ -11,7 +11,7 @@ const sections = [
   },
   {
     title: "Who we are",
-    body: "H♡ART (Hart) is operated from Australia. The site is hlovesart.com.au (and any preview or temporary hosting we use while the domain is connected).",
+    body: "H♡ART (Hart) is operated from Melbourne, Australia. The site is hlovesart.com.au (and any preview or temporary hosting we use while the domain is connected).",
   },
   {
     title: "What we collect",

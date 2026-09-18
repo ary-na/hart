@@ -38,14 +38,17 @@ const getHomeShowcase = async (): Promise<{
     await connectToDatabase();
 
     const latestDrawings = await Drawing.find({})
-      .sort({ createdAt: -1 })
-      .limit(10)
+      .sort({ createdAt: -1, _id: -1 })
+      .limit(48)
       .lean();
 
     const drawings = await Promise.all(
       latestDrawings.map(async (drawing) => ({
         _id: drawing._id.toString(),
         title: drawing.title,
+        createdAt: drawing.createdAt
+          ? new Date(drawing.createdAt).toISOString()
+          : undefined,
         thumbnailUrl: await getPresignedUrl(drawing.thumbnailName),
         fileUrl: await getPresignedUrl(drawing.fileName),
       }))
@@ -60,7 +63,7 @@ const getHomeShowcase = async (): Promise<{
 const Home = async () => {
   const { drawings } = await getHomeShowcase();
   const heroDrawing = drawings[0] ?? null;
-  const wallDrawings = drawings.slice(1, 10);
+  const wallDrawings = drawings.slice(1);
 
   return (
     <>
@@ -69,12 +72,13 @@ const Home = async () => {
       <HomeGalleryWall drawings={wallDrawings} />
 
       <section className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
-        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-stretch gap-10 lg:grid-cols-2 lg:gap-16">
           <article className="h-reveal max-w-xl">
             <h2 className="h-heading-rose text-2xl md:text-3xl">About me</h2>
             <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
-              I’m Hilda, from Bandung, Indonesia. I’ve been painting since I was
-              little, starting with tiny animals in the margins of my notebooks.
+              I’m Hilda. I’m from Bandung, Indonesia, and my studio is in
+              Melbourne, Australia. I’ve been painting since I was little,
+              starting with tiny animals in the margins of my notebooks.
               Painting was my safe place when things felt hard. A way to say
               what I couldn’t put into words.
             </p>
@@ -85,14 +89,15 @@ const Home = async () => {
             </p>
           </article>
           <aside
-            className="h-studio-card h-reveal"
+            className="h-studio-card flex h-full min-h-[18rem] flex-col justify-center h-reveal"
             style={{ ["--reveal-delay" as never]: "90ms" }}
           >
             <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
               Studio
             </p>
-            <ul className="mt-6 list-none space-y-4 pl-0 text-base leading-relaxed md:text-lg">
-              <li>Bandung, Indonesia</li>
+            <ul className="mt-8 list-none space-y-5 pl-0 text-base leading-relaxed md:text-lg">
+              <li>From Bandung, Indonesia</li>
+              <li>Studio in Melbourne, Australia</li>
               <li>Animals only</li>
               <li>Painted slow, layer by layer</li>
             </ul>

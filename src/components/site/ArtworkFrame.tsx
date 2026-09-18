@@ -5,6 +5,7 @@ import { cn } from "@hart/lib/utils";
 export type ShowcaseDrawing = {
   _id: string;
   title: string;
+  createdAt?: string;
   thumbnailUrl: string;
   fileUrl: string;
   price?: number;

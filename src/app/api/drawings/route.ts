@@ -23,7 +23,7 @@ export async function GET(req: Request) {
     const filter = tag ? { tags: tag } : {};
 
     const drawings = await Drawing.find(filter)
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: -1, _id: -1 })
       .skip(skip)
       .limit(limit)
       .lean();
@@ -48,7 +48,12 @@ export async function GET(req: Request) {
           thumbnailName: drawing.thumbnailName,
           price: drawing.price,
           tags: drawing.tags || [],
-          createdAt: drawing.createdAt.toISOString(),
+          createdAt: new Date(
+            drawing.createdAt ??
+              (typeof drawing._id?.getTimestamp === "function"
+                ? drawing._id.getTimestamp()
+                : 0)
+          ).toISOString(),
           thumbnailUrl,
           fileUrl,
         };

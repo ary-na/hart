@@ -4,6 +4,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Drawing, FetchOptions, UseDrawingsReturn } from "@hart/lib/types";
 import { AddDrawingInput, UpdateDrawingInput } from "@hart/lib/validators";
+import { sortNewestFirst } from "@hart/lib/utils";
 
 const LIMIT = 12;
 
@@ -57,14 +58,15 @@ export const useDrawings = (): UseDrawingsReturn => {
 
         setDrawings((prev) => {
           if (!append) {
-            skipRef.current = data.length;
-            return data;
+            const sorted = sortNewestFirst(data);
+            skipRef.current = sorted.length;
+            return sorted;
           }
 
           const existingIds = new Set(prev.map((d) => d._id));
           const newUniqueDrawings = data.filter((d) => !existingIds.has(d._id));
           skipRef.current += newUniqueDrawings.length;
-          return [...prev, ...newUniqueDrawings];
+          return sortNewestFirst([...prev, ...newUniqueDrawings]);
         });
       } catch (err) {
         const e = err instanceof Error ? err : new Error("Unknown error");

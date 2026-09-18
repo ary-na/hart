@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "@hart/lib/ui";
 import { Drawing } from "@hart/lib/types";
+import { cn, sortNewestFirst } from "@hart/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { EmptyGallery } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
@@ -32,11 +33,13 @@ const GalleryGrid = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const listed = useMemo(() => sortNewestFirst(drawings), [drawings]);
+
   const selectedDrawing = useMemo(() => {
     if (manualSelectedDrawing) return manualSelectedDrawing;
     if (!selectedDrawingId) return null;
-    return drawings.find((d) => d._id === selectedDrawingId) ?? null;
-  }, [drawings, manualSelectedDrawing, selectedDrawingId]);
+    return listed.find((d) => d._id === selectedDrawingId) ?? null;
+  }, [listed, manualSelectedDrawing, selectedDrawingId]);
 
   const handleCloseDrawingModal = () => {
     setManualSelectedDrawing(null);
@@ -49,34 +52,37 @@ const GalleryGrid = () => {
 
   return (
     <>
-      {loading && drawings.length === 0 && (
+      {loading && listed.length === 0 && (
         <Loader size="xl" message="Loading gallery..." />
       )}
 
-      {!loading && drawings.length === 0 && <EmptyGallery />}
+      {!loading && listed.length === 0 && <EmptyGallery />}
 
-      {drawings.length > 0 && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {drawings.map((drawing, index) => (
+      {listed.length > 0 && (
+        <div className="h-wall">
+          {listed.map((drawing, index) => (
             <div
               key={drawing._id}
-              className="group h-reveal"
+              className={cn(
+                "h-wall-item h-reveal",
+                index === 0 && listed.length >= 3 && "h-wall-feature"
+              )}
               style={{ ["--reveal-delay" as never]: `${(index % 6) * 60}ms` }}
             >
-              <div className="h-frame h-frame-hover relative">
+              <div className="h-frame h-frame-hover relative h-full">
                 <button
                   onClick={() => setManualSelectedDrawing(drawing)}
                   className="absolute inset-0 z-10 text-left"
                   aria-label={`View details for ${drawing.title}`}
                 />
 
-                <figure className="h-frame-face aspect-square w-full">
+                <figure className="h-frame-face h-full w-full">
                   {drawing.thumbnailUrl ? (
                     <Image
                       src={drawing.thumbnailUrl}
                       alt={drawing.title}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 66vw"
                       className="absolute inset-0 object-cover"
                     />
                   ) : (
@@ -85,16 +91,16 @@ const GalleryGrid = () => {
                     </div>
                   )}
                 </figure>
+                <div className="h-frame-whisper">
+                  <span>{drawing.title}</span>
+                </div>
               </div>
-              <p className="mt-2.5 text-center text-sm font-medium opacity-70">
-                {drawing.title}
-              </p>
             </div>
           ))}
         </div>
       )}
 
-      {drawings.length > 0 && (
+      {listed.length > 0 && (
         <div className="mt-12 flex justify-center">
           <button
             onClick={() => fetchDrawings({ append: true, limit: 12 })}
