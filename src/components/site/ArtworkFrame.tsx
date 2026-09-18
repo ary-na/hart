@@ -50,7 +50,7 @@ const ArtworkFrame = ({
               alt={drawing?.title ?? "Animal portrait"}
               width={1200}
               height={1500}
-              className="absolute inset-0 h-full w-full object-cover bg-transparent"
+              className="absolute inset-0 h-full w-full object-cover bg-[#fbf6ef]"
               priority={priority}
               unoptimized
             />

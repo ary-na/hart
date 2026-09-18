@@ -3,14 +3,19 @@
 /* ==========================================
    Globals
    ========================================== */
-html {
+html,
+html.light,
+html.dark,
+html[data-theme="hart"],
+html[data-theme="hart-dark"] {
   scroll-behavior: smooth;
-  background-color: var(--background);
+  color-scheme: light;
+  background-color: #faf8f5;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #faf8f5;
+  color: #3d342c;
   font-family: var(--font-primary), Arial, Helvetica, sans-serif;
 }
 
@@ -97,20 +102,30 @@ input[type="number"] {
   --h-canvas-lift:
     0 3px 8px rgba(61, 52, 44, 0.08),
     0 14px 28px rgba(61, 52, 44, 0.11);
-  --h-canvas-wrap:
-    inset 0 7px 9px -7px rgba(61, 52, 44, 0.12),
-    inset 0 -5px 7px -6px rgba(61, 52, 44, 0.09),
-    inset 7px 0 9px -7px rgba(61, 52, 44, 0.1),
-    inset -7px 0 9px -7px rgba(61, 52, 44, 0.1);
   position: relative;
   isolation: isolate;
   overflow: visible;
   background-color: #fbf6ef;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(61, 52, 44, 0.025) 0px,
+      rgba(61, 52, 44, 0.025) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(61, 52, 44, 0.018) 0px,
+      rgba(61, 52, 44, 0.018) 1px,
+      transparent 1px,
+      transparent 4px
+    );
   padding: var(--h-stretcher);
   border: 0;
   outline: 0;
   border-radius: 2px;
-  box-shadow: var(--h-canvas-wrap), var(--h-canvas-lift);
+  box-shadow: var(--h-canvas-lift);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -128,53 +143,14 @@ input[type="number"] {
   }
 }
 
-/* Linen grain on the cream wrap only, never over the painting. */
-.h-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  padding: var(--h-stretcher);
-  pointer-events: none;
-  border-radius: inherit;
-  background-image:
-    var(--h-canvas-grain),
-    repeating-linear-gradient(
-      0deg,
-      rgba(61, 52, 44, 0.03) 0px,
-      rgba(61, 52, 44, 0.03) 1px,
-      transparent 1px,
-      transparent 4px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(61, 52, 44, 0.02) 0px,
-      rgba(61, 52, 44, 0.02) 1px,
-      transparent 1px,
-      transparent 4px
-    );
-  opacity: 0.28;
-  mix-blend-mode: multiply;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-}
-
 .h-frame-face {
   position: relative;
   z-index: 1;
   overflow: hidden;
   line-height: 0;
-  background-color: #e5d4c8;
-  /* Warm taupe inner lip; never white or chalky cream. */
-  box-shadow:
-    0 0 0 2px color-mix(in srgb, #e5d4c8 78%, #3d342c 22%),
-    inset 0 1px 2px rgba(61, 52, 44, 0.18);
+  background-color: #fbf6ef;
+  /* Optional warmer taupe inner lip only — never white. */
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, #e5d4c8 72%, #3d342c 28%);
 }
 
 .h-frame-face img {
@@ -183,9 +159,10 @@ input[type="number"] {
   display: block;
   width: 100%;
   height: 100%;
+  max-width: none;
   object-fit: cover;
   object-position: center;
-  background-color: transparent;
+  background-color: #fbf6ef;
 }
 
 .h-frame-face p {
@@ -201,7 +178,6 @@ input[type="number"] {
 .h-frame-hover:hover {
   transform: translateY(-5px);
   box-shadow:
-    var(--h-canvas-wrap),
     0 5px 12px rgba(61, 52, 44, 0.1),
     0 18px 34px rgba(61, 52, 44, 0.13);
 }
@@ -231,28 +207,6 @@ input[type="number"] {
 @media (min-width: 768px) {
   .h-invite {
     padding: 2.5rem 2.5rem;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .h-frame {
-    --h-canvas-lift:
-      0 10px 24px rgba(0, 0, 0, 0.3),
-      0 24px 48px -12px rgba(0, 0, 0, 0.42);
-    box-shadow: var(--h-canvas-wrap), var(--h-canvas-lift);
-  }
-
-  .h-frame-hover:hover {
-    box-shadow:
-      var(--h-canvas-wrap),
-      0 14px 30px rgba(0, 0, 0, 0.36),
-      0 32px 52px -12px rgba(0, 0, 0, 0.46);
-  }
-
-  .h-invite {
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      0 10px 26px rgba(0, 0, 0, 0.28);
   }
 }
 

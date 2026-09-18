@@ -45,7 +45,7 @@
 }
 @plugin "daisyui/theme" {
   name: "hart-dark";
-  prefersdark: true;
+  prefersdark: false;
   color-scheme: dark;
 
   --color-base-100: #322c26;

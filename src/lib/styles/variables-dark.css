@@ -1,13 +1,14 @@
 /* src/lib/styles/variables-dark.css */
+/* Gallery is locked to Soft porcelain even when the OS prefers dark. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--color-hart-dark-primary);
-    --foreground: var(--color-hart-paper);
+    --background: var(--color-hart-paper);
+    --foreground: var(--color-hart-ink);
 
-    --color-base-100: #322c26;
-    --color-base-200: var(--color-hart-dark-secondary);
-    --color-base-300: #5a4e44;
-    --color-base-content: var(--color-hart-paper);
+    --color-base-100: var(--color-hart-cream);
+    --color-base-200: var(--color-hart-paper);
+    --color-base-300: var(--color-hart-line);
+    --color-base-content: var(--color-hart-ink);
 
     --color-primary: var(--color-hart-rose);
     --color-primary-content: var(--color-hart-ink);
@@ -18,10 +19,10 @@
     --color-secondary: var(--color-hart-taupe);
     --color-secondary-content: var(--color-hart-ink);
 
-    --color-neutral: var(--color-hart-peach);
-    --color-neutral-content: var(--color-hart-ink);
+    --color-neutral: var(--color-hart-ink);
+    --color-neutral-content: var(--color-hart-cream);
 
-    --color-error: #c97b7b;
-    --color-error-content: var(--color-hart-paper);
+    --color-error: #b85c5c;
+    --color-error-content: var(--color-hart-cream);
   }
 }

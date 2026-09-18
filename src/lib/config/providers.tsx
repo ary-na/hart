@@ -11,8 +11,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <SessionProvider>
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
-        enableSystem
+        forcedTheme="light"
+        defaultTheme="light"
+        enableSystem={false}
         disableTransitionOnChange
       >
         <CartProvider>{children}</CartProvider>
