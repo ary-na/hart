@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "@hart/lib/ui";
 import { Drawing } from "@hart/lib/types";
-import { cn, sortNewestFirst } from "@hart/lib/utils";
+import { sortNewestFirst } from "@hart/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { EmptyGallery } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
@@ -63,10 +63,7 @@ const GalleryGrid = () => {
           {listed.map((drawing, index) => (
             <div
               key={drawing._id}
-              className={cn(
-                "h-wall-item h-reveal",
-                index === 0 && listed.length >= 3 && "h-wall-feature"
-              )}
+              className="h-wall-item h-reveal"
               style={{ ["--reveal-delay" as never]: `${(index % 6) * 60}ms` }}
             >
               <div className="h-frame h-frame-hover relative h-full">
@@ -82,7 +79,7 @@ const GalleryGrid = () => {
                       src={drawing.thumbnailUrl}
                       alt={drawing.title}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 66vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="absolute inset-0 object-cover"
                     />
                   ) : (

@@ -3,7 +3,7 @@
 import ArtworkFrame, {
   type ShowcaseDrawing,
 } from "@hart/components/site/ArtworkFrame";
-import { cn, sortNewestFirst } from "@hart/lib/utils";
+import { sortNewestFirst } from "@hart/lib/utils";
 
 type HomeGalleryWallProps = {
   drawings: ShowcaseDrawing[];
@@ -20,10 +20,7 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
         {visible.map((drawing, index) => (
           <div
             key={drawing._id}
-            className={cn(
-              "h-wall-item h-reveal",
-              index === 0 && visible.length >= 3 && "h-wall-feature"
-            )}
+            className="h-wall-item h-reveal"
             style={{ ["--reveal-delay" as never]: `${index * 60}ms` }}
           >
             <ArtworkFrame

@@ -63,7 +63,7 @@ const getHomeShowcase = async (): Promise<{
 const Home = async () => {
   const { drawings } = await getHomeShowcase();
   const heroDrawing = drawings[0] ?? null;
-  const wallDrawings = drawings.slice(1);
+  const wallDrawings = drawings;
 
   return (
     <>
