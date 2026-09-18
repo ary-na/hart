@@ -58,7 +58,7 @@ const About = () => {
             <Link href="/gallery" className="btn btn-primary rounded-full px-6">
               Explore the gallery
             </Link>
-            <Link href="/contact" className="btn btn-ghost rounded-full px-6">
+            <Link href="/contact" className="btn btn-ghost rounded-full px-6 text-[#3d342c]">
               Start a commission
             </Link>
           </div>

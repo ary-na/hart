@@ -13,6 +13,16 @@ html[data-theme="hart-dark"] {
   scroll-padding-top: 6.75rem;
 }
 
+html,
+html.light,
+html.dark,
+html[data-theme="hart"],
+html[data-theme="hart-dark"],
+:root {
+  --color-primary: #e8a4a8;
+  --color-primary-content: #3d342c;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html,
   html.light,
@@ -81,6 +91,9 @@ button.btn-primary,
 .btn-primary:active,
 .btn-primary:focus-visible,
 .btn-primary:disabled {
+  --btn-color: #e8a4a8;
+  --btn-fg: #3d342c;
+  --btn-bg: #e8a4a8;
   color: #3d342c;
   background-color: #e8a4a8;
   border-color: #e8a4a8;
@@ -88,6 +101,7 @@ button.btn-primary,
 
 .btn-ghost,
 .btn-outline {
+  --btn-fg: #3d342c;
   color: #3d342c;
 }
 
@@ -298,6 +312,11 @@ input[type="number"] {
   align-items: center;
   padding: 0 1.25rem 2.75rem;
   text-align: center;
+  color: #3d342c;
+}
+
+.h-hero-copy h1 {
+  color: #3d342c;
 }
 
 @media (min-width: 768px) {
