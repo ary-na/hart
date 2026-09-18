@@ -7,31 +7,44 @@ export const metadata = {
 const About = () => {
   return (
     <>
-      <section className="mx-auto w-full max-w-2xl px-4 py-16 md:py-24">
-        <article className="h-reveal">
-          <h1 className="text-3xl leading-snug md:text-4xl">About me</h1>
-          <p className="mt-8 text-base leading-8 opacity-80 md:text-lg">
-            I’m Hilda, from Bandung, Indonesia. I’ve been painting since I was
-            little, starting with tiny animals in the margins of my notebooks. I
-            only paint animals, because I love them, their honesty, and the
-            quiet way they show up in a room. These days I work slowly, layer by
-            layer, so each piece feels calm enough to hang somewhere you
-            actually spend time.
-          </p>
-          <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
-            I still start the same way I did as a child: a small animal, a
-            feeling, a bit of quiet. I love their honesty, the way they don’t
-            pretend, and how a portrait can make a room feel softer without
-            asking for attention. I build colour slowly, then add only the
-            detail that serves the mood.
-          </p>
-          <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
-            I paint because it lets me tell the truth gently. Animals keep me
-            grounded, and colour helps me translate feelings that are too big
-            to name. I want each animal portrait to be lived with, not just
-            looked at once.
-          </p>
-        </article>
+      <section className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
+        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+          <article className="h-reveal max-w-xl">
+            <h1 className="h-heading-rose text-3xl leading-snug md:text-4xl">
+              About me
+            </h1>
+            <p className="mt-8 text-base leading-8 opacity-80 md:text-lg">
+              I’m Hilda, from Bandung, Indonesia. I’ve been painting since I was
+              little, starting with tiny animals in the margins of my notebooks.
+              Painting was my safe place when things felt hard. A way to say
+              what I couldn’t put into words.
+            </p>
+            <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
+              I only paint animals. I love their honesty, and the quiet way they
+              sit with you in a room. I work slowly, layer by layer, until a
+              piece feels calm enough to hang somewhere you actually spend time.
+            </p>
+            <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
+              I still start the same way I did as a child: a small animal, a
+              feeling, a bit of quiet. I add only the detail that serves the
+              mood. I want each animal portrait to be lived with, not just
+              looked at once.
+            </p>
+          </article>
+          <aside
+            className="h-studio-card h-reveal"
+            style={{ ["--reveal-delay" as never]: "90ms" }}
+          >
+            <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
+              Studio
+            </p>
+            <ul className="mt-6 list-none space-y-4 pl-0 text-base leading-relaxed md:text-lg">
+              <li>Bandung, Indonesia</li>
+              <li>Animals only</li>
+              <li>Painted slow, layer by layer</li>
+            </ul>
+          </aside>
+        </div>
       </section>
 
       <section className="mx-auto w-full max-w-3xl px-4 pb-20 md:pb-28">

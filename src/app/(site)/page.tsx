@@ -2,13 +2,34 @@ import Link from "next/link";
 import { connectToDatabase } from "@hart/server/db/mongodb";
 import { Drawing } from "@hart/server/models";
 import { getPresignedUrl } from "@hart/server/upload";
-import ArtworkFrame, {
-  type ShowcaseDrawing,
-} from "@hart/components/site/ArtworkFrame";
+import { type ShowcaseDrawing } from "@hart/components/site/ArtworkFrame";
 import HomeGalleryWall from "@hart/components/site/HomeGalleryWall";
 import HomeHero from "@hart/components/site/HomeHero";
 
 export const dynamic = "force-dynamic";
+
+const INSTAGRAM_HREF =
+  "https://www.instagram.com/hart_hilda_art?igsh=ZWt6ajFkaHVtaW45&utm_source=qr";
+const TIKTOK_HREF =
+  "https://www.tiktok.com/@hildaokara_art?_r=1&_t=ZS-929hPONm9g7";
+
+const commissionSteps = [
+  {
+    n: "01",
+    title: "Share the animal",
+    body: "Tell me who they are, and the mood you want in the piece.",
+  },
+  {
+    n: "02",
+    title: "Shape it together",
+    body: "You’ll get a rough direction and colours to check before I paint.",
+  },
+  {
+    n: "03",
+    title: "Made for your wall",
+    body: "I finish it carefully, then get it ready to come home to you.",
+  },
+];
 
 const getHomeShowcase = async (): Promise<{
   drawings: ShowcaseDrawing[];
@@ -40,7 +61,6 @@ const Home = async () => {
   const { drawings } = await getHomeShowcase();
   const heroDrawing = drawings[0] ?? null;
   const wallDrawings = drawings.slice(1, 10);
-  const studioDrawing = heroDrawing;
 
   return (
     <>
@@ -49,50 +69,115 @@ const Home = async () => {
       <HomeGalleryWall drawings={wallDrawings} />
 
       <section className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
           <article className="h-reveal max-w-xl">
-            <h2 className="text-2xl md:text-3xl">About me</h2>
+            <h2 className="h-heading-rose text-2xl md:text-3xl">About me</h2>
             <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
               I’m Hilda, from Bandung, Indonesia. I’ve been painting since I was
-              little, starting with tiny animals in the margins of my notebooks. I
-              only paint animals, because I love them, their honesty, and the
-              quiet way they show up in a room. These days I work slowly, layer by
-              layer, so each piece feels calm enough to hang somewhere you
-              actually spend time.
+              little, starting with tiny animals in the margins of my notebooks.
+              Painting was my safe place when things felt hard. A way to say
+              what I couldn’t put into words.
+            </p>
+            <p className="mt-6 text-base leading-8 opacity-80 md:text-lg">
+              I only paint animals. I love their honesty, and the quiet way they
+              sit with you in a room. I work slowly, layer by layer, until a
+              piece feels calm enough to hang somewhere you actually spend time.
             </p>
           </article>
-          {studioDrawing && (
-            <div
-              className="h-reveal mx-auto w-full max-w-md lg:max-w-none"
-              style={{ ["--reveal-delay" as never]: "90ms" }}
-            >
-              <ArtworkFrame
-                drawing={studioDrawing}
-                imageClassName="aspect-[4/5]"
-              />
-            </div>
-          )}
+          <aside
+            className="h-studio-card h-reveal"
+            style={{ ["--reveal-delay" as never]: "90ms" }}
+          >
+            <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
+              Studio
+            </p>
+            <ul className="mt-6 list-none space-y-4 pl-0 text-base leading-relaxed md:text-lg">
+              <li>Bandung, Indonesia</li>
+              <li>Animals only</li>
+              <li>Painted slow, layer by layer</li>
+            </ul>
+          </aside>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-5xl px-4 pb-16 md:pb-24">
-        <article className="h-invite h-reveal px-8 py-12 md:px-14 md:py-16">
-          <h2 className="text-2xl md:text-3xl">Commissions</h2>
-          <ol className="mt-8 list-decimal space-y-5 pl-5 text-base leading-relaxed opacity-80 md:text-lg">
-            <li>
-              Tell me which animal the piece is for, and the mood you want.
-            </li>
-            <li>
-              You’ll get a rough direction and colours to check before I paint.
-            </li>
-            <li>
-              I finish it carefully, then get it ready to come home to you.
-            </li>
-          </ol>
-          <Link href="/contact" className="btn btn-primary mt-10">
-            Start a commission
-          </Link>
-        </article>
+      <section className="bg-[#fbf6ef]">
+        <div className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
+          <div className="h-reveal max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
+              Commissions
+            </p>
+            <h2 className="mt-3 text-2xl md:text-3xl">
+              I’d love to paint your animal.
+            </h2>
+          </div>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {commissionSteps.map((step, index) => (
+              <article
+                key={step.n}
+                className="h-step-plaque h-reveal"
+                style={{ ["--reveal-delay" as never]: `${index * 70}ms` }}
+              >
+                <p className="text-sm tracking-[0.2em] text-[#e8a4a8]">{step.n}</p>
+                <h3 className="mt-3 text-xl">{step.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed opacity-75 md:text-base">
+                  {step.body}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="h-reveal mt-10">
+            <p className="text-xs uppercase tracking-[0.35em] opacity-50">
+              What you’ll send
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="h-send-pill">Clear photo</span>
+              <span className="h-send-pill">Name</span>
+              <span className="h-send-pill">Mood</span>
+            </div>
+            <Link href="/contact" className="btn btn-primary mt-8 rounded-full px-6">
+              Start a commission
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#faf8f5]">
+        <div className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
+          <div className="h-reveal max-w-2xl">
+            <h2 className="text-2xl md:text-3xl">Stay close to the work.</h2>
+            <p className="mt-5 text-base leading-8 opacity-80 md:text-lg">
+              I share works in progress, new pieces, and quiet studio moments on
+              Instagram and TikTok.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            <a
+              href={INSTAGRAM_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-social-card h-reveal"
+            >
+              <p className="text-xs uppercase tracking-[0.35em] opacity-45">
+                Follow the studio
+              </p>
+              <p className="text-2xl">Instagram</p>
+            </a>
+            <a
+              href={TIKTOK_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-social-card h-reveal"
+              style={{ ["--reveal-delay" as never]: "80ms" }}
+            >
+              <p className="text-xs uppercase tracking-[0.35em] opacity-45">
+                Follow the studio
+              </p>
+              <p className="text-2xl">TikTok</p>
+            </a>
+          </div>
+        </div>
       </section>
 
       <section className="px-4 py-16 text-center md:py-20">
