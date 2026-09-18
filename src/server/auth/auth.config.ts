@@ -92,6 +92,10 @@ export const authConfig: NextAuthConfig = {
     async authorized({ auth, request }) {
       const pathname = request.nextUrl.pathname;
 
+      if (pathname.startsWith("/user/cart") || pathname.startsWith("/user/checkout")) {
+        return true;
+      }
+
       if (pathname.startsWith("/user")) {
         return !!auth?.user;
       }

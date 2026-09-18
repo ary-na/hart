@@ -10,8 +10,7 @@
  */
 import { config as loadEnv } from "dotenv";
 import { resolve } from "node:path";
-import mongoose from "mongoose";
-import { Drawing } from "../src/server/models/Drawing";
+import mongoose, { Schema } from "mongoose";
 
 loadEnv({ path: resolve(process.cwd(), ".env.local") });
 loadEnv({ path: resolve(process.cwd(), ".env") });
@@ -72,6 +71,18 @@ const RENAMES: RenameSpec[] = [
   },
 ];
 
+const DrawingSchema = new Schema(
+  {
+    title: String,
+    description: String,
+    creditLine: String,
+  },
+  { timestamps: true, strict: false }
+);
+
+const getDrawingModel = () =>
+  mongoose.models.Drawing || mongoose.model("Drawing", DrawingSchema);
+
 const normalize = (value: string) =>
   value
     .toLowerCase()
@@ -85,6 +96,7 @@ const escapeRegex = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const findDrawing = async (spec: RenameSpec) => {
+  const Drawing = getDrawingModel();
   const titles = [...spec.oldTitles, spec.newTitle];
 
   for (const title of titles) {
@@ -98,7 +110,7 @@ const findDrawing = async (spec: RenameSpec) => {
   const wanted = titles.map(normalize);
 
   const close = drawings.find((drawing) => {
-    const current = normalize(drawing.title);
+    const current = normalize(String(drawing.title ?? ""));
     return wanted.some(
       (title) =>
         current === title ||
