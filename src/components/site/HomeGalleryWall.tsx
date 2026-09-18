@@ -15,7 +15,13 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
   if (visible.length === 0) return null;
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 pb-20 pt-10 md:pb-28 md:pt-16">
+    <section
+      className="mx-auto w-full max-w-6xl px-4 pb-20 pt-10 md:pb-28 md:pt-16"
+      aria-labelledby="home-gallery-heading"
+    >
+      <h2 id="home-gallery-heading" className="sr-only">
+        Gallery
+      </h2>
       <div className="h-wall">
         {visible.map((drawing, index) => (
           <div

@@ -181,11 +181,11 @@ export default function SignupForm() {
 
       <div className="text-xs my-1 opacity-75">
         By signing up, you agree to our{" "}
-        <Link href="/privacy" className="link link-primary underline">
+        <Link href="/privacy" className="h-inline-link">
           Privacy Policy
         </Link>{" "}
         and{" "}
-        <Link href="/terms" className="link link-primary underline">
+        <Link href="/terms" className="h-inline-link">
           Terms of Service
         </Link>
         .

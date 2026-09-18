@@ -36,9 +36,7 @@ const About = () => {
             className="h-studio-card flex h-full min-h-[18rem] flex-col justify-center h-reveal"
             style={{ ["--reveal-delay" as never]: "90ms" }}
           >
-            <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
-              Studio
-            </p>
+            <p className="h-kicker">Studio</p>
             <ul className="mt-8 list-none space-y-5 pl-0 text-base leading-relaxed md:text-lg">
               <li>From Bandung, Indonesia</li>
               <li>Studio in Melbourne, Australia</li>

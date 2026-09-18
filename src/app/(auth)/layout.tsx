@@ -4,6 +4,7 @@ import { auth } from "@hart/server/auth/auth";
 import { redirect } from "next/navigation";
 import NavBar from "@hart/components/auth/NavBar";
 import Footer from "@hart/components/auth/Footer";
+import SkipLink from "@hart/components/site/SkipLink";
 import { getRedirectPath } from "@hart/server/auth";
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
@@ -14,9 +15,12 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   if (redirectTo) redirect(redirectTo);
 
   return (
-    <div className="flex flex-col min-h-svh">
+    <div className="flex min-h-svh flex-col">
+      <SkipLink />
       <NavBar />
-      <main className="flex-1 flex">{children}</main>
+      <main id="main-content" className="flex flex-1">
+        {children}
+      </main>
       <Footer />
     </div>
   );

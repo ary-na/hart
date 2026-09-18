@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "@hart/lib/ui";
 import { Drawing } from "@hart/lib/types";
-import { sortNewestFirst } from "@hart/lib/utils";
+import { paintingAlt, sortNewestFirst } from "@hart/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { EmptyGallery } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
@@ -68,16 +68,17 @@ const GalleryGrid = () => {
             >
               <div className="h-frame h-frame-hover relative h-full">
                 <button
+                  type="button"
                   onClick={() => setManualSelectedDrawing(drawing)}
                   className="absolute inset-0 z-10 text-left"
-                  aria-label={`View details for ${drawing.title}`}
+                  aria-label={`View ${paintingAlt(drawing.title)}`}
                 />
 
                 <figure className="h-frame-face h-full w-full">
                   {drawing.thumbnailUrl ? (
                     <Image
                       src={drawing.thumbnailUrl}
-                      alt={drawing.title}
+                      alt=""
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="absolute inset-0 object-cover"
@@ -100,6 +101,7 @@ const GalleryGrid = () => {
       {listed.length > 0 && (
         <div className="mt-12 flex justify-center">
           <button
+            type="button"
             onClick={() => fetchDrawings({ append: true, limit: 12 })}
             disabled={loading}
             className="btn btn-outline min-w-36 rounded-full"

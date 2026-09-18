@@ -8,15 +8,87 @@ html.light,
 html.dark,
 html[data-theme="hart"],
 html[data-theme="hart-dark"] {
-  scroll-behavior: smooth;
   color-scheme: light;
   background-color: #faf8f5;
+  scroll-padding-top: 6.75rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html,
+  html.light,
+  html.dark,
+  html[data-theme="hart"],
+  html[data-theme="hart-dark"] {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
   background: #faf8f5;
   color: #3d342c;
   font-family: var(--font-primary), Arial, Helvetica, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid #3d342c;
+  outline-offset: 2px;
+}
+
+.input:focus-within,
+.textarea:focus-visible,
+.file-input:focus-visible,
+.checkbox:focus-visible,
+.select:focus-visible {
+  outline: 2px solid #3d342c;
+  outline-offset: 2px;
+}
+
+.h-skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  z-index: 100;
+  transform: translateY(-150%);
+  border: 1px solid #e8a4a8;
+  border-radius: 999px;
+  background: #fbf6ef;
+  color: #3d342c;
+  padding: 0.5rem 1rem;
+}
+
+.h-skip-link:focus {
+  transform: translateY(0.85rem);
+}
+
+.h-kicker {
+  color: #3d342c;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+.h-inline-link {
+  color: #3d342c;
+  text-decoration-line: underline;
+  text-decoration-color: #e8a4a8;
+  text-underline-offset: 0.2em;
+}
+
+.btn.btn-primary,
+a.btn-primary,
+button.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus-visible,
+.btn-primary:disabled {
+  color: #3d342c;
+  background-color: #e8a4a8;
+  border-color: #e8a4a8;
+}
+
+.btn-ghost,
+.btn-outline {
+  color: #3d342c;
 }
 
 h1,
@@ -160,7 +232,7 @@ input[type="number"] {
   justify-content: space-between;
   gap: 0.75rem;
   padding: 2.25rem 0.85rem 0.7rem;
-  background: linear-gradient(180deg, transparent, rgba(61, 52, 44, 0.42));
+  background: linear-gradient(180deg, transparent, rgba(61, 52, 44, 0.82));
   color: #fbf6ef;
   font-size: 0.8rem;
   line-height: 1.3;
@@ -169,7 +241,8 @@ input[type="number"] {
   transition: opacity 0.35s ease;
 }
 
-.h-frame-hover:hover .h-frame-whisper {
+.h-frame-hover:hover .h-frame-whisper,
+.h-frame-hover:focus-within .h-frame-whisper {
   opacity: 1;
 }
 
@@ -210,7 +283,8 @@ input[type="number"] {
   background: linear-gradient(
     to top,
     #faf8f5 0%,
-    rgb(250 248 245 / 0.72) 42%,
+    #faf8f5 28%,
+    rgb(250 248 245 / 0.9) 58%,
     rgb(250 248 245 / 0) 100%
   );
 }
@@ -374,23 +448,39 @@ input[type="number"] {
 
 /* Reveal on scroll */
 .h-reveal {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  transition-delay: var(--reveal-delay, 0ms);
+  opacity: 1;
+  transform: none;
 }
 
-.h-reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+@media (prefers-reduced-motion: no-preference) {
+  .h-reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .h-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .h-wall-item.h-reveal,
+  .h-wall-item.h-reveal.is-visible {
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .h-reveal,
   .h-frame-hover,
   .h-frame-hover:hover,
+  .h-frame-hover:focus-within .h-frame-whisper,
   .h-frame-hover:hover .h-frame-whisper,
-  .h-frame-whisper {
+  .h-frame-whisper,
+  .h-social-card,
+  .h-social-card:hover,
+  header {
     animation: none;
     opacity: 1;
     transform: none;

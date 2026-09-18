@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ShowcaseDrawing } from "@hart/components/site/ArtworkFrame";
+import { paintingAlt } from "@hart/lib/utils";
 
 type HomeHeroProps = {
   drawing?: ShowcaseDrawing | null;
@@ -14,7 +15,7 @@ const HomeHero = ({ drawing }: HomeHeroProps) => {
       {src ? (
         <Image
           src={src}
-          alt={drawing?.title ?? "Animal portrait"}
+          alt={paintingAlt(drawing?.title)}
           width={2400}
           height={1600}
           className="absolute inset-0 h-full w-full object-cover"

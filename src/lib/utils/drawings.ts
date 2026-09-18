@@ -24,3 +24,8 @@ export const compareNewestFirst = (a: NewestFirstItem, b: NewestFirstItem) => {
 
 export const sortNewestFirst = <T extends NewestFirstItem>(items: T[]) =>
   [...items].sort(compareNewestFirst);
+
+export const paintingAlt = (title?: string | null) =>
+  title?.trim()
+    ? `Original animal portrait: ${title.trim()}`
+    : "Original animal portrait";

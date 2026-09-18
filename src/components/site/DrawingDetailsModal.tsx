@@ -1,10 +1,10 @@
-// src/components/site/DrawingDetailsModal.tsx
-
 "use client";
 
 import Image from "next/image";
+import { useId } from "react";
 import { Drawing } from "@hart/lib/types";
 import { AppModal } from "@hart/lib/ui";
+import { paintingAlt } from "@hart/lib/utils";
 
 type Props = {
   open: boolean;
@@ -21,16 +21,18 @@ const DrawingDetailsModal = ({
   onClose,
   onEdit,
 }: Props) => {
+  const titleId = useId();
+
   if (!open || !drawing) return null;
 
   return (
-    <AppModal open={open} onClose={onClose} className="max-w-5xl">
+    <AppModal open={open} onClose={onClose} labelledBy={titleId} className="max-w-5xl">
       <div className="grid items-start gap-0 lg:grid-cols-[1fr_300px]">
         <div className="relative flex min-h-64 items-center justify-center overflow-hidden bg-[#faf8f5] p-0">
           {drawing.fileUrl ? (
             <Image
               src={drawing.fileUrl}
-              alt={drawing.title}
+              alt={paintingAlt(drawing.title)}
               width={1200}
               height={1200}
               className="relative z-10 max-h-[65vh] w-auto max-w-full object-contain"
@@ -39,21 +41,23 @@ const DrawingDetailsModal = ({
             />
           ) : (
             <div className="flex min-h-48 w-full items-center justify-center">
-              <span className="text-sm opacity-40">Loading image…</span>
+              <span className="text-sm opacity-70">Loading image…</span>
             </div>
           )}
         </div>
 
         <div className="flex flex-col gap-6 border-t border-[#d9cfc3] bg-[#faf8f5] p-6 lg:min-h-full lg:border-l lg:border-t-0">
           <div className="flex flex-col gap-3">
-            <h2 className="text-2xl font-medium leading-snug">{drawing.title}</h2>
+            <h2 id={titleId} className="text-2xl font-medium leading-snug">
+              {drawing.title}
+            </h2>
             {drawing.description && (
-              <p className="text-sm leading-relaxed opacity-70">
+              <p className="text-sm leading-relaxed opacity-80">
                 {drawing.description}
               </p>
             )}
             {drawing.creditLine && (
-              <p className="text-xs leading-relaxed italic opacity-55">
+              <p className="text-xs leading-relaxed italic opacity-80">
                 {drawing.creditLine}
               </p>
             )}
@@ -71,7 +75,7 @@ const DrawingDetailsModal = ({
             </div>
           )}
 
-          <p className="text-xs leading-relaxed opacity-35">
+          <p className="text-xs leading-relaxed opacity-70">
             All works are original pieces. Each painting is hand-made and one of a kind.
           </p>
         </div>

@@ -1,5 +1,3 @@
-// src/lib/ui/AppModal.tsx
-
 "use client";
 
 import { ReactNode, useEffect, useId, useLayoutEffect, useRef } from "react";
@@ -8,6 +6,7 @@ import { ModalProps } from "@hart/lib/types";
 
 type AppModalProps = ModalProps & {
   title?: ReactNode;
+  labelledBy?: string;
   children: ReactNode;
   footer?: ReactNode;
   className?: string;
@@ -18,23 +17,37 @@ export const AppModal = ({
   open,
   onClose,
   title,
+  labelledBy,
   children,
   footer,
   className,
   showClose = true,
 }: AppModalProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
+  const labelId = title ? titleId : labelledBy;
 
   useLayoutEffect(() => {
+    if (!open) return;
+
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    if (open && !dialog.open) {
-      dialog.showModal();
-    } else if (!open && dialog.open) {
-      dialog.close();
+    if (document.activeElement instanceof HTMLElement) {
+      previousFocusRef.current = document.activeElement;
     }
+
+    if (!dialog.open) {
+      dialog.showModal();
+    }
+
+    return () => {
+      if (dialog.open) dialog.close();
+      const restore = previousFocusRef.current;
+      previousFocusRef.current = null;
+      queueMicrotask(() => restore?.focus?.());
+    };
   }, [open]);
 
   useEffect(() => {
@@ -66,7 +79,7 @@ export const AppModal = ({
       ref={dialogRef}
       className="modal"
       aria-modal="true"
-      aria-labelledby={title ? titleId : undefined}
+      aria-labelledby={labelId}
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
@@ -90,9 +103,9 @@ export const AppModal = ({
         )}
 
         {title && (
-          <h3 id={titleId} className="mb-6 text-lg font-semibold">
+          <h2 id={titleId} className="mb-6 text-lg font-semibold">
             {title}
-          </h3>
+          </h2>
         )}
 
         {children}

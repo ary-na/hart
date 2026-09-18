@@ -101,28 +101,34 @@ export default function ContactMeForm() {
         error={errors.enquiry?.message}
         as="textarea"
         rows={6}
+        hint="The more details you give, the better I can help."
       />
-      <p className="label opacity-80">
-        The more details you give, the better I can help.
-      </p>
 
       <div className="form-control w-full">
-        <label className="label mb-2">
+        <label htmlFor="contact-file" className="label mb-2">
           <span className="label-text">Upload image (optional)</span>
         </label>
         <input
+          id="contact-file"
           type="file"
           accept="image/*"
           onChange={handleFileChange}
           disabled={isLoading}
+          aria-invalid={!!errors.file}
+          aria-describedby={
+            errors.file?.message
+              ? "contact-file-hint contact-file-error"
+              : "contact-file-hint"
+          }
+          aria-errormessage={errors.file?.message ? "contact-file-error" : undefined}
           className="file-input w-full"
         />
-        <p className="label mt-2 text-sm opacity-75">
+        <p id="contact-file-hint" className="label mt-2 text-sm opacity-80">
           Max 20 MB • JPG, PNG, GIF, WebP
         </p>
 
         {errors.file?.message && (
-          <p className="label-text-alt text-error mt-1">
+          <p id="contact-file-error" role="alert" className="label-text-alt mt-1 text-error">
             {errors.file.message as string}
           </p>
         )}

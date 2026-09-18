@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@hart/lib/utils";
+import { cn, paintingAlt } from "@hart/lib/utils";
 
 export type ShowcaseDrawing = {
   _id: string;
@@ -44,7 +44,7 @@ const ArtworkFrame = ({
         className={cn("h-frame h-frame-hover group block", hero && "h-frame-hero")}
         aria-label={
           drawing
-            ? `View animal portrait ${drawing.title}`
+            ? `View ${paintingAlt(drawing.title)}`
             : "Explore animal portraits in the gallery"
         }
       >
@@ -52,7 +52,7 @@ const ArtworkFrame = ({
           {src ? (
             <Image
               src={src}
-              alt={drawing?.title ?? "Animal portrait"}
+              alt=""
               width={1200}
               height={1500}
               className="absolute inset-0 h-full w-full object-cover"
@@ -61,7 +61,7 @@ const ArtworkFrame = ({
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center px-6 text-center">
-              <p className="text-sm leading-relaxed opacity-60">
+              <p className="text-sm leading-relaxed opacity-80">
                 An animal portrait will hang here soon.
               </p>
             </div>

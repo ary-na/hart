@@ -17,6 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="hart" className="light" suppressHydrationWarning>
       <body className={cn(fontClassName)} suppressHydrationWarning>
+        <noscript>
+          <style>{`.h-reveal{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <Providers>{children}</Providers>
         <Analytics />
       </body>

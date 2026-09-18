@@ -19,7 +19,12 @@ const SigninForm = () => {
   } = useSignin();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" noValidate>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid gap-4"
+      noValidate
+      aria-describedby={serverError ? "signin-server-error" : undefined}
+    >
       <fieldset className="space-y-4">
         <legend className="sr-only">Sign-in credentials</legend>
 
@@ -87,14 +92,15 @@ const SigninForm = () => {
       </fieldset>
 
       {serverError && (
-        <p className="text-error" role="alert">
+        <p id="signin-server-error" className="text-error" role="alert">
           {serverError}
         </p>
       )}
 
       <div className="flex items-center justify-between">
-        <label className="flex items-center gap-2 cursor-pointer">
+        <label htmlFor="remember-me" className="flex items-center gap-2 cursor-pointer">
           <input
+            id="remember-me"
             type="checkbox"
             className="checkbox checkbox-sm"
             {...register("rememberMe")}
@@ -102,7 +108,7 @@ const SigninForm = () => {
           <span className="text-sm">Remember me</span>
         </label>
 
-        <Link href="/forgot-password" className="link link-primary text-sm">
+        <Link href="/forgot-password" className="h-inline-link text-sm">
           Forgot password?
         </Link>
       </div>

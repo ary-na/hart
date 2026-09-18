@@ -11,6 +11,17 @@ const ScrollReveal = () => {
       node.classList.add("is-visible");
     };
 
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reducedMotion) {
+      document
+        .querySelectorAll<HTMLElement>(".h-reveal")
+        .forEach(revealNow);
+      return;
+    }
+
     const revealInView = () => {
       const viewport = window.innerHeight * 0.95;
       const nodes = Array.from(

@@ -63,11 +63,9 @@ const Privacy = () => {
   return (
     <article className="mx-auto w-full max-w-[65ch] px-4 py-16 md:py-24">
       <header className="h-reveal">
-        <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
-          Legal
-        </p>
+        <p className="h-kicker">Legal</p>
         <h1 className="mt-3 text-3xl md:text-4xl">Privacy Policy</h1>
-        <p className="mt-3 text-sm opacity-60">Last updated: 18 September 2026</p>
+        <p className="mt-3 text-sm opacity-70">Last updated: 18 September 2026</p>
       </header>
 
       <div className="h-studio-card mt-10 space-y-10 px-6 py-8 md:px-10 md:py-12">
@@ -82,7 +80,7 @@ const Privacy = () => {
           <h2 className="text-xl">Contact</h2>
           <p className="mt-3 text-base leading-8 opacity-80">
             Questions about privacy: use the{" "}
-            <Link href="/contact" className="link link-primary">
+            <Link href="/contact" className="h-inline-link">
               Contact form
             </Link>{" "}
             on this site.

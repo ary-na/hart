@@ -92,9 +92,7 @@ const Home = async () => {
             className="h-studio-card flex h-full min-h-[18rem] flex-col justify-center h-reveal"
             style={{ ["--reveal-delay" as never]: "90ms" }}
           >
-            <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
-              Studio
-            </p>
+            <p className="h-kicker">Studio</p>
             <ul className="mt-8 list-none space-y-5 pl-0 text-base leading-relaxed md:text-lg">
               <li>From Bandung, Indonesia</li>
               <li>Studio in Melbourne, Australia</li>
@@ -108,9 +106,7 @@ const Home = async () => {
       <section className="bg-[#fbf6ef]">
         <div className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
           <div className="h-reveal max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
-              Commissions
-            </p>
+            <p className="h-kicker">Commissions</p>
             <h2 className="mt-3 text-2xl md:text-3xl">
               I’d love to paint your animal.
             </h2>
@@ -123,7 +119,7 @@ const Home = async () => {
                 className="h-step-plaque h-reveal"
                 style={{ ["--reveal-delay" as never]: `${index * 70}ms` }}
               >
-                <p className="text-sm tracking-[0.2em] text-[#e8a4a8]">{step.n}</p>
+                <p className="text-sm tracking-[0.2em] text-[#3d342c]">{step.n}</p>
                 <h3 className="mt-3 text-xl">{step.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed opacity-75 md:text-base">
                   {step.body}
@@ -133,9 +129,7 @@ const Home = async () => {
           </div>
 
           <div className="h-reveal mt-10">
-            <p className="text-xs uppercase tracking-[0.35em] opacity-50">
-              What you’ll send
-            </p>
+            <p className="h-kicker opacity-80">What you’ll send</p>
             <div className="mt-3 flex flex-wrap gap-2">
               <span className="h-send-pill">Clear photo</span>
               <span className="h-send-pill">Name</span>
@@ -163,10 +157,9 @@ const Home = async () => {
               target="_blank"
               rel="noopener noreferrer"
               className="h-social-card h-reveal"
+              aria-label="Hart on Instagram, opens in a new tab"
             >
-              <p className="text-xs uppercase tracking-[0.35em] opacity-45">
-                Follow the studio
-              </p>
+              <p className="h-kicker opacity-80">Follow the studio</p>
               <p className="text-2xl">Instagram</p>
             </a>
             <a
@@ -175,10 +168,9 @@ const Home = async () => {
               rel="noopener noreferrer"
               className="h-social-card h-reveal"
               style={{ ["--reveal-delay" as never]: "80ms" }}
+              aria-label="Hart on TikTok, opens in a new tab"
             >
-              <p className="text-xs uppercase tracking-[0.35em] opacity-45">
-                Follow the studio
-              </p>
+              <p className="h-kicker opacity-80">Follow the studio</p>
               <p className="text-2xl">TikTok</p>
             </a>
           </div>
@@ -192,7 +184,7 @@ const Home = async () => {
         </p>
         <Link
           href="/gallery"
-          className="h-reveal mt-6 inline-block text-sm underline decoration-hart-rose/80 underline-offset-8 hover:opacity-80"
+          className="h-inline-link h-reveal mt-6 inline-block text-sm"
           style={{ ["--reveal-delay" as never]: "80ms" }}
         >
           Explore the gallery

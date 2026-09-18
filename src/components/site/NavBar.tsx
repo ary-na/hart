@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Logo } from "@hart/lib/ui";
 import { cn } from "@hart/lib/utils";
 import { useCurrentUser } from "@hart/hooks";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useSignout } from "@hart/hooks";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,17 +14,40 @@ const NavBar = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [menuPath, setMenuPath] = useState(pathname);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const menuId = useId();
 
   const { user } = useCurrentUser();
   const isAdmin = user?.role === "admin";
   const handleSignout = useSignout();
   const isHome = pathname === "/";
 
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    setIsMenuOpen(false);
+  }
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    firstLinkRef.current?.focus();
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setIsMenuOpen(false);
+      menuButtonRef.current?.focus();
+    };
+
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -51,12 +74,12 @@ const NavBar = () => {
             className="h-12 w-auto cursor-pointer transition-colors hover:text-accent"
             width={128}
             height={56}
-            title="H♡ART, Hilda loves Art"
+            aria-hidden
           />
         </Link>
 
         <div className="flex items-center gap-1">
-          <nav className="hidden items-center gap-0.5 lg:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -72,14 +95,14 @@ const NavBar = () => {
             <div className="dropdown dropdown-end ml-1 hidden lg:block">
               <button
                 tabIndex={0}
-                className="btn btn-ghost btn-circle btn-sm opacity-40 hover:opacity-100"
+                className="btn btn-ghost btn-circle btn-sm"
                 aria-label="Studio menu"
               >
                 <FontAwesomeIcon icon={faUser} width={14} />
               </button>
               <ul
                 tabIndex={-1}
-                className="dropdown-content menu z-50 mt-3 w-44 rounded-2xl border border-base-300 bg-base-100 p-2 shadow-xl [&_a]:outline-none"
+                className="dropdown-content menu z-50 mt-3 w-44 rounded-2xl border border-base-300 bg-base-100 p-2 shadow-xl"
               >
                 <li>
                   <Link href="/admin" onClick={closeMenu}>
@@ -107,12 +130,14 @@ const NavBar = () => {
             </div>
           )}
 
-          <div className={cn("dropdown dropdown-end lg:hidden", isMenuOpen && "dropdown-open")}>
+          <div className={cn("relative lg:hidden", isMenuOpen && "dropdown-open")}>
             <button
-              tabIndex={0}
+              ref={menuButtonRef}
+              type="button"
               className="btn btn-ghost btn-circle"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
+              aria-controls={menuId}
               onClick={() => setIsMenuOpen((p) => !p)}
             >
               {isMenuOpen ? (
@@ -126,51 +151,58 @@ const NavBar = () => {
               )}
             </button>
 
-            <div className="dropdown-content mt-3 w-64 rounded-2xl border border-[#d9cfc3] bg-[#faf8f5] p-4 shadow-xl z-50">
-              <nav className="flex flex-col gap-0.5">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={closeMenu}
-                    className="rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-              {isAdmin && (
-                <div className="mt-3 border-t border-[#d9cfc3] pt-3">
-                  <p className="px-3 pb-1 text-[10px] uppercase tracking-[0.3em] opacity-40">
-                    Studio
-                  </p>
-                  <Link
-                    href="/admin"
-                    onClick={closeMenu}
-                    className="block rounded-xl px-3 py-2 text-sm opacity-70 hover:bg-base-200"
-                  >
-                    Dashboard
-                  </Link>
-                  <Link
-                    href="/user/profile"
-                    onClick={closeMenu}
-                    className="block rounded-xl px-3 py-2 text-sm opacity-70 hover:bg-base-200"
-                  >
-                    Profile
-                  </Link>
-                  <button
-                    type="button"
-                    className="block w-full rounded-xl px-3 py-2 text-left text-sm text-error"
-                    onClick={(e) => {
-                      handleSignout(e);
-                      closeMenu();
-                    }}
-                  >
-                    Sign out
-                  </button>
-                </div>
-              )}
-            </div>
+            {isMenuOpen && (
+              <div
+                id={menuId}
+                className="absolute right-0 z-50 mt-3 w-64 rounded-2xl border border-[#d9cfc3] bg-[#faf8f5] p-4 shadow-xl"
+              >
+                <nav aria-label="Primary">
+                  <ul className="flex flex-col gap-0.5">
+                    {navLinks.map((link, index) => (
+                      <li key={link.href}>
+                        <Link
+                          ref={index === 0 ? firstLinkRef : undefined}
+                          href={link.href}
+                          onClick={closeMenu}
+                          className="block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors hover:bg-base-200"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+                {isAdmin && (
+                  <div className="mt-3 border-t border-[#d9cfc3] pt-3">
+                    <p className="h-kicker px-3 pb-1">Studio</p>
+                    <Link
+                      href="/admin"
+                      onClick={closeMenu}
+                      className="block rounded-xl px-3 py-2 text-sm hover:bg-base-200"
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      href="/user/profile"
+                      onClick={closeMenu}
+                      className="block rounded-xl px-3 py-2 text-sm hover:bg-base-200"
+                    >
+                      Profile
+                    </Link>
+                    <button
+                      type="button"
+                      className="block w-full rounded-xl px-3 py-2 text-left text-sm text-error"
+                      onClick={(e) => {
+                        handleSignout(e);
+                        closeMenu();
+                      }}
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

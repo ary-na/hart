@@ -21,7 +21,7 @@
     --color-neutral: var(--color-hart-ink);
     --color-neutral-content: var(--color-hart-cream);
 
-    --color-error: #b85c5c;
+    --color-error: #8a4545;
     --color-error-content: var(--color-hart-cream);
   }
 }

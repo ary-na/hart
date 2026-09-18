@@ -10,9 +10,7 @@ const Contact = () => {
   return (
     <section className="mx-auto w-full max-w-3xl px-4 py-16 md:py-24">
       <header className="h-reveal max-w-xl">
-        <p className="text-xs uppercase tracking-[0.35em] text-[#e8a4a8]">
-          Contact
-        </p>
+        <p className="h-kicker">Contact</p>
         <h1 className="h-heading-rose mt-3 text-3xl md:text-4xl">
           I’d love to paint your animal.
         </h1>
