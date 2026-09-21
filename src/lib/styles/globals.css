@@ -328,33 +328,40 @@ input[type="number"] {
 }
 
 .h-wall {
-  column-count: 1;
-  column-gap: 1.25rem;
-  column-fill: balance;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow: dense;
+  gap: 1.25rem;
 }
 
 @media (min-width: 640px) {
   .h-wall {
-    column-count: 2;
-    column-gap: 1.35rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.35rem;
   }
 }
 
 @media (min-width: 1024px) {
   .h-wall {
-    column-count: 3;
-    column-gap: 1.5rem;
+    gap: 1.5rem;
   }
 }
 
 .h-wall-item {
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
-  display: inline-block;
-  width: 100%;
-  margin: 0 0 1.5rem;
+  position: relative;
   min-width: 0;
+}
+
+/* Square tiles from width so frames keep height before images load. */
+.h-wall-item::before {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.h-wall-item > * {
+  position: absolute;
+  inset: 0;
 }
 
 .h-wall-item.h-reveal,
@@ -365,8 +372,45 @@ input[type="number"] {
 .h-wall-item .h-frame,
 .h-wall-item .h-frame-face {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1;
+  height: 100%;
+}
+
+/*
+  Fill leftover tracks so 7 (etc.) tiles never leave empty cells.
+  12-col: 2-across = span 6, 3-across = span 4, 4-across = span 3.
+  remainder 1 at 2-col → last 3 sit 3-across; at 3-col → last 4 sit 4-across.
+  remainder 2 at 3-col → last 2 sit half-width.
+*/
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .h-wall-item {
+    grid-column: span 6;
+  }
+
+  .h-wall[data-pack-sm="1"]:not([data-count="1"]) .h-wall-item:nth-last-child(-n + 3) {
+    grid-column: span 4;
+  }
+
+  .h-wall[data-count="1"] .h-wall-item {
+    grid-column: span 12;
+  }
+}
+
+@media (min-width: 1024px) {
+  .h-wall-item {
+    grid-column: span 4;
+  }
+
+  .h-wall[data-pack-lg="2"] .h-wall-item:nth-last-child(-n + 2) {
+    grid-column: span 6;
+  }
+
+  .h-wall[data-pack-lg="1"]:not([data-count="1"]) .h-wall-item:nth-last-child(-n + 4) {
+    grid-column: span 3;
+  }
+
+  .h-wall[data-count="1"] .h-wall-item {
+    grid-column: span 12;
+  }
 }
 
 .h-heading-rose {

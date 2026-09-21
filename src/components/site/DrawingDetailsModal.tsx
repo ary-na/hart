@@ -26,16 +26,22 @@ const DrawingDetailsModal = ({
   if (!open || !drawing) return null;
 
   return (
-    <AppModal open={open} onClose={onClose} labelledBy={titleId} className="max-w-5xl">
-      <div className="grid items-start gap-0 lg:grid-cols-[1fr_300px]">
-        <div className="relative flex min-h-64 items-center justify-center overflow-hidden bg-[#faf8f5] p-0">
-          {drawing.fileUrl ? (
+    <AppModal
+      open={open}
+      onClose={onClose}
+      labelledBy={titleId}
+      className="w-[min(96vw,72rem)] max-w-5xl p-0"
+      bodyClassName="p-0"
+    >
+      <div className="grid grid-cols-1 items-stretch lg:grid-cols-[minmax(0,1fr)_minmax(16rem,19rem)]">
+        <div className="relative bg-[#faf8f5]">
+          {drawing.fileUrl || drawing.thumbnailUrl ? (
             <Image
-              src={drawing.fileUrl}
+              src={drawing.fileUrl || drawing.thumbnailUrl || ""}
               alt={paintingAlt(drawing.title)}
               width={1200}
               height={1200}
-              className="relative z-10 max-h-[65vh] w-auto max-w-full object-contain"
+              className="relative z-10 h-auto w-full max-h-[min(52dvh,28rem)] object-contain lg:max-h-[min(80dvh,44rem)]"
               priority
               unoptimized
             />
@@ -46,19 +52,19 @@ const DrawingDetailsModal = ({
           )}
         </div>
 
-        <div className="flex flex-col gap-6 border-t border-[#d9cfc3] bg-[#faf8f5] p-6 lg:min-h-full lg:border-l lg:border-t-0">
-          <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-6 border-t border-[#d9cfc3] bg-[#faf8f5] p-6 lg:border-l lg:border-t-0">
+          <div className="flex min-w-0 flex-col">
             <h2 id={titleId} className="text-2xl font-medium leading-snug">
               {drawing.title}
             </h2>
-            {drawing.description && (
-              <p className="text-sm leading-relaxed opacity-80">
-                {drawing.description}
+            {drawing.creditLine && (
+              <p className="mt-1.5 text-xs italic leading-relaxed text-[#3d342c]/60">
+                {drawing.creditLine}
               </p>
             )}
-            {drawing.creditLine && (
-              <p className="text-xs leading-relaxed italic opacity-80">
-                {drawing.creditLine}
+            {drawing.description && (
+              <p className="mt-4 text-sm leading-relaxed opacity-80">
+                {drawing.description}
               </p>
             )}
           </div>

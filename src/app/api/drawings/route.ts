@@ -32,33 +32,43 @@ export async function GET(req: Request) {
       return NextResponse.json([]);
     }
 
-    const hydratedDrawings = await Promise.all(
-      drawings.map(async (drawing) => {
-        const [thumbnailUrl, fileUrl] = await Promise.all([
-          getPresignedUrl(drawing.thumbnailName),
-          getPresignedUrl(drawing.fileName),
-        ]);
+    const hydratedDrawings = (
+      await Promise.all(
+        drawings.map(async (drawing) => {
+          if (!drawing.thumbnailName && !drawing.fileName) return null;
 
-        return {
-          _id: drawing._id.toString(),
-          title: drawing.title,
-          description: drawing.description,
-          creditLine: drawing.creditLine || undefined,
-          fileName: drawing.fileName,
-          thumbnailName: drawing.thumbnailName,
-          price: drawing.price,
-          tags: drawing.tags || [],
-          createdAt: new Date(
-            drawing.createdAt ??
-              (typeof drawing._id?.getTimestamp === "function"
-                ? drawing._id.getTimestamp()
-                : 0)
-          ).toISOString(),
-          thumbnailUrl,
-          fileUrl,
-        };
-      })
-    );
+          const [thumbnailUrl, fileUrl] = await Promise.all([
+            drawing.thumbnailName
+              ? getPresignedUrl(drawing.thumbnailName)
+              : Promise.resolve(""),
+            drawing.fileName
+              ? getPresignedUrl(drawing.fileName)
+              : Promise.resolve(""),
+          ]);
+
+          if (!thumbnailUrl && !fileUrl) return null;
+
+          return {
+            _id: drawing._id.toString(),
+            title: drawing.title,
+            description: drawing.description,
+            creditLine: drawing.creditLine || undefined,
+            fileName: drawing.fileName,
+            thumbnailName: drawing.thumbnailName,
+            price: drawing.price,
+            tags: drawing.tags || [],
+            createdAt: new Date(
+              drawing.createdAt ??
+                (typeof drawing._id?.getTimestamp === "function"
+                  ? drawing._id.getTimestamp()
+                  : 0)
+            ).toISOString(),
+            thumbnailUrl,
+            fileUrl,
+          };
+        })
+      )
+    ).filter((drawing) => drawing !== null);
 
     return NextResponse.json(hydratedDrawings);
   } catch (error) {

@@ -42,17 +42,27 @@ const getHomeShowcase = async (): Promise<{
       .limit(48)
       .lean();
 
-    const drawings = await Promise.all(
-      latestDrawings.map(async (drawing) => ({
-        _id: drawing._id.toString(),
-        title: drawing.title,
-        createdAt: drawing.createdAt
-          ? new Date(drawing.createdAt).toISOString()
-          : undefined,
-        thumbnailUrl: await getPresignedUrl(drawing.thumbnailName),
-        fileUrl: await getPresignedUrl(drawing.fileName),
-      }))
+    const withFiles = latestDrawings.filter(
+      (drawing) => drawing.thumbnailName || drawing.fileName
     );
+
+    const drawings = (
+      await Promise.all(
+        withFiles.map(async (drawing) => ({
+          _id: drawing._id.toString(),
+          title: drawing.title,
+          createdAt: drawing.createdAt
+            ? new Date(drawing.createdAt).toISOString()
+            : undefined,
+          thumbnailUrl: drawing.thumbnailName
+            ? await getPresignedUrl(drawing.thumbnailName)
+            : "",
+          fileUrl: drawing.fileName
+            ? await getPresignedUrl(drawing.fileName)
+            : "",
+        }))
+      )
+    ).filter((drawing) => drawing.thumbnailUrl || drawing.fileUrl);
 
     return { drawings };
   } catch {

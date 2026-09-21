@@ -6,7 +6,12 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "@hart/lib/ui";
 import { Drawing } from "@hart/lib/types";
-import { paintingAlt, sortNewestFirst } from "@hart/lib/utils";
+import {
+  paintingAlt,
+  sortNewestFirst,
+  wallPackProps,
+  withPublicArtworkImage,
+} from "@hart/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { EmptyGallery } from "@hart/lib/ui";
 import { useCurrentUser } from "@hart/hooks";
@@ -33,7 +38,10 @@ const GalleryGrid = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const listed = useMemo(() => sortNewestFirst(drawings), [drawings]);
+  const listed = useMemo(
+    () => sortNewestFirst(withPublicArtworkImage(drawings)),
+    [drawings]
+  );
 
   const selectedDrawing = useMemo(() => {
     if (manualSelectedDrawing) return manualSelectedDrawing;
@@ -59,7 +67,7 @@ const GalleryGrid = () => {
       {!loading && listed.length === 0 && <EmptyGallery />}
 
       {listed.length > 0 && (
-        <div className="h-wall">
+        <div className="h-wall" {...wallPackProps(listed.length)}>
           {listed.map((drawing, index) => (
             <div
               key={drawing._id}
