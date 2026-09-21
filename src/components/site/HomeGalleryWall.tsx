@@ -3,14 +3,18 @@
 import ArtworkFrame, {
   type ShowcaseDrawing,
 } from "@hart/components/site/ArtworkFrame";
-import { sortNewestFirst } from "@hart/lib/utils";
+import {
+  sortNewestFirst,
+  wallPackProps,
+  withPublicArtworkImage,
+} from "@hart/lib/utils";
 
 type HomeGalleryWallProps = {
   drawings: ShowcaseDrawing[];
 };
 
 const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
-  const visible = sortNewestFirst(drawings);
+  const visible = sortNewestFirst(withPublicArtworkImage(drawings));
 
   if (visible.length === 0) return null;
 
@@ -22,7 +26,7 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
       <h2 id="home-gallery-heading" className="sr-only">
         Gallery
       </h2>
-      <div className="h-wall">
+      <div className="h-wall" {...wallPackProps(visible.length)}>
         {visible.map((drawing, index) => (
           <div
             key={drawing._id}
@@ -32,6 +36,7 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
             <ArtworkFrame
               drawing={drawing}
               whisper
+              className="size-full"
               imageClassName="size-full"
             />
           </div>

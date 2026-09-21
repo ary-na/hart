@@ -10,6 +10,7 @@ type AppModalProps = ModalProps & {
   children: ReactNode;
   footer?: ReactNode;
   className?: string;
+  bodyClassName?: string;
   showClose?: boolean;
 };
 
@@ -21,6 +22,7 @@ export const AppModal = ({
   children,
   footer,
   className,
+  bodyClassName,
   showClose = true,
 }: AppModalProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -86,7 +88,7 @@ export const AppModal = ({
     >
       <div
         className={cn(
-          "modal-box overflow-visible px-6 pb-6 pt-14 md:px-8 md:pb-8 md:pt-16",
+          "modal-box relative flex max-h-[min(92dvh,100%)] flex-col overflow-hidden p-0",
           className
         )}
         onClick={(event) => event.stopPropagation()}
@@ -95,22 +97,30 @@ export const AppModal = ({
           <button
             type="button"
             onClick={onClose}
-            className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 z-20 border border-base-300/60 bg-base-100/90 shadow-sm backdrop-blur-sm"
+            className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 z-30 border border-base-300/60 bg-base-100/90 shadow-sm backdrop-blur-sm"
             aria-label="Close dialog"
           >
             ✕
           </button>
         )}
 
-        {title && (
-          <h2 id={titleId} className="mb-6 text-lg font-semibold">
-            {title}
-          </h2>
-        )}
+        <div
+          className={cn(
+            "min-h-0 flex-1 overflow-y-auto overscroll-contain",
+            bodyClassName ??
+              "px-6 pb-6 pt-14 md:px-8 md:pb-8 md:pt-16"
+          )}
+        >
+          {title && (
+            <h2 id={titleId} className="mb-6 text-lg font-semibold">
+              {title}
+            </h2>
+          )}
 
-        {children}
+          {children}
 
-        {footer && <div className="modal-action">{footer}</div>}
+          {footer && <div className="modal-action">{footer}</div>}
+        </div>
       </div>
     </dialog>
   );

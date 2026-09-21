@@ -29,3 +29,21 @@ export const paintingAlt = (title?: string | null) =>
   title?.trim()
     ? `Original animal portrait: ${title.trim()}`
     : "Original animal portrait";
+
+export type PublicArtworkImage = {
+  thumbnailUrl?: string | null;
+  fileUrl?: string | null;
+};
+
+export const hasPublicArtworkImage = (drawing: PublicArtworkImage) =>
+  Boolean(drawing.thumbnailUrl?.trim() || drawing.fileUrl?.trim());
+
+export const withPublicArtworkImage = <T extends PublicArtworkImage>(items: T[]) =>
+  items.filter(hasPublicArtworkImage);
+
+/** Data attrs so CSS can fill leftover tracks instead of leaving empty grid holes. */
+export const wallPackProps = (count: number) => ({
+  "data-count": String(count),
+  "data-pack-sm": String(count % 2),
+  "data-pack-lg": String(count % 3),
+});
