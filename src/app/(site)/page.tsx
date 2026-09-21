@@ -51,6 +51,7 @@ const getHomeShowcase = async (): Promise<{
         withFiles.map(async (drawing) => ({
           _id: drawing._id.toString(),
           title: drawing.title,
+          creditLine: drawing.creditLine?.trim() || undefined,
           createdAt: drawing.createdAt
             ? new Date(drawing.createdAt).toISOString()
             : undefined,

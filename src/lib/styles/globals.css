@@ -413,6 +413,233 @@ input[type="number"] {
   }
 }
 
+/* Home wall carousel — peeking, snap-to-centre, plaque on the active painting only. */
+.h-carousel-section {
+  --h-carousel-gap: 12px;
+  --h-carousel-slide: 85vw;
+  --h-carousel-peek: 0.07;
+  width: 100%;
+  padding: 2.5rem 0 4.5rem;
+}
+
+@media (min-width: 768px) {
+  .h-carousel-section {
+    --h-carousel-gap: 16px;
+    --h-carousel-slide: 70vw;
+    --h-carousel-peek: 0.135;
+    padding: 3.5rem 0 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .h-carousel-section {
+    --h-carousel-gap: 22px;
+    --h-carousel-slide: min(60vw, 720px);
+    --h-carousel-peek: 0.2;
+  }
+}
+
+.h-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.h-carousel-window {
+  width: min(
+    100%,
+    calc(
+      var(--h-carousel-slide) * (1 + 2 * var(--h-carousel-peek)) +
+        2 * var(--h-carousel-gap)
+    )
+  );
+  margin-inline: auto;
+}
+
+.h-carousel-track {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--h-carousel-gap);
+  margin: 0;
+  padding-block: 1.35rem 0.35rem;
+  padding-inline: calc((100% - var(--h-carousel-slide)) / 2);
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: calc((100% - var(--h-carousel-slide)) / 2);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.h-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.h-carousel-slide {
+  position: relative;
+  z-index: 0;
+  flex: 0 0 var(--h-carousel-slide);
+  min-width: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.h-carousel-slide.is-active {
+  z-index: 1;
+}
+
+.h-carousel-figure {
+  margin: 0;
+}
+
+.h-carousel-art {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: #fbf6ef;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.75;
+  transform: scale(0.9);
+  transform-origin: center center;
+  box-shadow:
+    0 18px 40px rgba(61, 52, 44, 0.14),
+    0 4px 12px rgba(61, 52, 44, 0.08);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.h-carousel-slide.is-active .h-carousel-art {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.h-carousel-art img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.h-carousel-plaque {
+  min-height: 3.4rem;
+  padding-top: 0.9rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.h-carousel-slide.is-active .h-carousel-plaque {
+  opacity: 1;
+}
+
+.h-carousel-plaque-title {
+  margin: 0;
+  font-family: var(--font-secondary), serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #3d342c;
+}
+
+.h-carousel-plaque-credit {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: #3d342c;
+  opacity: 0.58;
+}
+
+.h-carousel-nav {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  top: calc(1.35rem + (var(--h-carousel-slide) * 5 / 8));
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  appearance: none;
+  padding: 0;
+  border: 1px solid rgb(232 164 168 / 0.55);
+  border-radius: 999px;
+  background: rgb(251 246 239 / 0.92);
+  color: #3d342c;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.h-carousel-nav svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.h-carousel-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.h-carousel-nav-prev {
+  left: max(0.5rem, calc(50% - (var(--h-carousel-slide) / 2) - 3.25rem));
+}
+
+.h-carousel-nav-next {
+  right: max(0.5rem, calc(50% - (var(--h-carousel-slide) / 2) - 3.25rem));
+}
+
+.h-carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.h-carousel-dot {
+  appearance: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #e8a4a8;
+  opacity: 0.28;
+  cursor: pointer;
+}
+
+.h-carousel-dot.is-active {
+  opacity: 0.72;
+}
+
+@media (min-width: 768px) {
+  .h-carousel-nav {
+    display: grid;
+  }
+
+  .h-carousel-dots {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .h-carousel-art {
+    transition: transform 0.45s ease, opacity 0.45s ease;
+  }
+
+  .h-carousel-plaque {
+    transition: opacity 0.35s ease;
+  }
+}
+
 .h-heading-rose {
   display: inline-block;
 }
@@ -545,10 +772,24 @@ input[type="number"] {
   .h-frame-whisper,
   .h-social-card,
   .h-social-card:hover,
-  header {
+  header,
+  .h-carousel-art,
+  .h-carousel-plaque,
+  .h-carousel-slide.is-active .h-carousel-art {
     animation: none;
+    transition: none;
+  }
+
+  .h-reveal,
+  .h-frame-hover,
+  .h-frame-hover:hover,
+  .h-frame-hover:focus-within .h-frame-whisper,
+  .h-frame-hover:hover .h-frame-whisper,
+  .h-frame-whisper,
+  .h-social-card,
+  .h-social-card:hover,
+  header {
     opacity: 1;
     transform: none;
-    transition: none;
   }
 }

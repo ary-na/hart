@@ -5,6 +5,7 @@ import { cn, paintingAlt } from "@hart/lib/utils";
 export type ShowcaseDrawing = {
   _id: string;
   title: string;
+  creditLine?: string;
   createdAt?: string;
   thumbnailUrl: string;
   fileUrl: string;
