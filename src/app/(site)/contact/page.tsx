@@ -5,13 +5,16 @@ import PageHeader from "@hart/components/site/PageHeader";
 
 export const metadata = {
   title: "Contact me",
-  description: "Tell me about your animal.",
+  description: "Tell me about the animal you’d like painted.",
 };
 
 const Contact = () => {
   return (
-    <section className="mx-auto w-full max-w-3xl px-4 pb-16 pt-16 md:pb-24 md:pt-24">
-      <PageHeader title="Contact" lede="Tell me about your animal." />
+    <section className="h-page-shell mx-auto w-full max-w-3xl px-4 pb-16 md:pb-24">
+      <PageHeader
+        title="Contact"
+        lede="Tell me about the animal you’d like painted."
+      />
 
       <div className="h-studio-card p-6 md:p-10">
         <ContactMeForm />

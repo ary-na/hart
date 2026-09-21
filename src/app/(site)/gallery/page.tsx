@@ -10,7 +10,7 @@ import AddDrawingModal from "@hart/components/admin/AddDrawingModal";
 
 export const metadata = {
   title: "Gallery",
-  description: "Gentle animal portraits.",
+  description: "Gentle animal portraits, made to live with.",
 };
 
 const Gallery = async () => {
@@ -20,13 +20,13 @@ const Gallery = async () => {
   return (
     <DrawingsProvider>
       <section
-        className="mx-auto w-full max-w-6xl px-4 pb-20 pt-16 md:pb-28 md:pt-24"
+        className="h-page-shell mx-auto w-full max-w-6xl px-4 pb-20 md:pb-28"
         aria-labelledby="gallery-heading"
       >
         <PageHeader
           id="gallery-heading"
           title="Gallery"
-          lede="Gentle animal portraits."
+          lede="Gentle animal portraits, made to live with."
         >
           {isAdmin ? (
             <div className="mt-8 flex flex-col items-center gap-4">

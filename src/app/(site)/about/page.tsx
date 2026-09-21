@@ -3,16 +3,16 @@ import PageHeader from "@hart/components/site/PageHeader";
 
 export const metadata = {
   title: "About me",
-  description: "From Bandung to Melbourne, animals only.",
+  description: "From Bandung, painting in Melbourne.",
 };
 
 const About = () => {
   return (
     <>
-      <section className="mx-auto w-full max-w-6xl px-4 pb-16 pt-16 md:pb-24 md:pt-24">
+      <section className="h-page-shell mx-auto w-full max-w-6xl px-4 pb-16 md:pb-24">
         <PageHeader
           title="About me"
-          lede="From Bandung to Melbourne, animals only."
+          lede="From Bandung, painting in Melbourne."
         />
         <div className="grid items-stretch gap-10 lg:grid-cols-2 lg:gap-16">
           <article className="h-reveal max-w-xl">

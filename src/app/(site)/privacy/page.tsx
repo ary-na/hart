@@ -62,10 +62,14 @@ const sections = [
 
 const Privacy = () => {
   return (
-    <article className="mx-auto w-full max-w-[65ch] px-4 pb-16 pt-16 md:pb-24 md:pt-24">
-      <PageHeader title="Privacy Policy" lede="Last updated: 18 September 2026" />
+    <article className="h-page-shell mx-auto w-full max-w-[65ch] px-4 pb-16 md:pb-24">
+      <PageHeader
+        title="Privacy Policy"
+        lede="How I look after your information."
+      />
 
       <div className="h-studio-card space-y-10 px-6 py-8 md:px-10 md:py-12">
+        <p className="text-left text-sm opacity-60">Last updated: 18 September 2026</p>
         {sections.map((section) => (
           <section key={section.title}>
             <h2 className="text-xl">{section.title}</h2>
