@@ -29,7 +29,13 @@ const centredScrollLeft = (scroller: HTMLElement, slide: HTMLElement) => {
   const side = (scroller.clientWidth - slideRect.width) / 2;
   const left = scroller.scrollLeft + (slideRect.left - scrollerRect.left) - side;
   const maxLeft = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+  // First and last slides cannot reach a geometric centre. Clamping parks
+  // them flush with the outer edge so the empty side is not a porcelain gutter.
   return Math.min(Math.max(0, left), maxLeft);
+};
+
+const publishScroll = (scroller: HTMLElement) => {
+  scroller.parentElement?.style.setProperty("--h-scroll", `${scroller.scrollLeft}px`);
 };
 
 const closestSlideIndex = (scroller: HTMLElement, slides: (HTMLElement | null)[]) => {
@@ -69,12 +75,16 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
     if (prefersReducedMotion()) {
       scroller.style.scrollSnapType = "";
       scroller.scrollLeft = left;
+      publishScroll(scroller);
       return;
     }
 
     const start = scroller.scrollLeft;
     const change = left - start;
-    if (Math.abs(change) < 1) return;
+    if (Math.abs(change) < 1) {
+      publishScroll(scroller);
+      return;
+    }
 
     const started = performance.now();
     programmaticUntilRef.current = started + EASE_MS + 48;
@@ -83,11 +93,13 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
     const step = (now: number) => {
       const t = Math.min(1, (now - started) / EASE_MS);
       scroller.scrollLeft = start + change * easeInOutCubic(t);
+      publishScroll(scroller);
       if (t < 1) {
         animationRef.current = requestAnimationFrame(step);
         return;
       }
       scroller.scrollLeft = left;
+      publishScroll(scroller);
       scroller.style.scrollSnapType = "";
     };
 
@@ -151,6 +163,7 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
     let frame = 0;
     let settleTimer = 0;
     const onScroll = () => {
+      publishScroll(scroller);
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(syncActiveFromScroll);
       window.clearTimeout(settleTimer);
@@ -208,6 +221,7 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
         <div
           ref={scrollerRef}
           className="h-carousel-window"
+          data-count={visible.length}
           tabIndex={0}
           aria-label="Paintings"
           onKeyDown={(event) => {
@@ -245,7 +259,7 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
                   }
                   aria-roledescription="slide"
                   aria-current={isActive ? "true" : undefined}
-                  aria-label={`${index + 1} of ${visible.length}`}
+                  aria-label={`${drawing.title}, ${index + 1} of ${visible.length}`}
                 >
                   <figure className="h-carousel-figure">
                     <div className="h-carousel-art">
@@ -275,19 +289,38 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
                         }}
                       />
                     </div>
-
-                    <figcaption
-                      className="h-carousel-plaque"
-                      aria-hidden={!isActive}
-                    >
-                      <p className="h-carousel-plaque-title">{drawing.title}</p>
-                      {drawing.creditLine ? (
-                        <p className="h-carousel-plaque-credit">
-                          {drawing.creditLine}
-                        </p>
-                      ) : null}
-                    </figcaption>
                   </figure>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <div className="h-carousel-plaques">
+          <p className="sr-only" aria-live="polite">
+            {visible[activeIndex]
+              ? `${visible[activeIndex].title}${
+                  visible[activeIndex].creditLine
+                    ? `. ${visible[activeIndex].creditLine}`
+                    : ""
+                }`
+              : ""}
+          </p>
+          <ul className="h-carousel-plaque-track">
+            {visible.map((drawing, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <li
+                  key={drawing._id}
+                  className={
+                    isActive ? "h-carousel-plaque is-active" : "h-carousel-plaque"
+                  }
+                  aria-hidden="true"
+                >
+                  <p className="h-carousel-plaque-title">{drawing.title}</p>
+                  {drawing.creditLine ? (
+                    <p className="h-carousel-plaque-credit">{drawing.creditLine}</p>
+                  ) : null}
                 </li>
               );
             })}

@@ -383,12 +383,16 @@ input[type="number"] {
 }
 
 /* Home wall carousel — full-bleed track, snap-to-centre, plaque on the active painting only.
-   The scroller is the viewport width so side peeks run to the browser edges and clip there.
-   Snap uses start + scroll-padding (not align:center on a padded scroller) so
-   drag, dots, and buttons land on a true centre slot. */
+   The scroller is the viewport width so side peeks run to the browser edges.
+   Slides snap to centre. There is no leading/trailing gutter, so the first and
+   last slides rest flush with the outer edge instead of sitting in an empty
+   porcelain void. Mid slides still centre, with a peek on both sides.
+   The title plaque is a twin of the art track, translated with scroll, so it
+   sits under the active piece and is not clipped by the horizontal scroller. */
 .h-carousel-section {
   --h-carousel-gap: 12px;
   --h-carousel-slide: 85vw;
+  --h-scroll: 0px;
   width: 100%;
   max-width: 100%;
   padding: 2.5rem 0 4.5rem;
@@ -414,14 +418,14 @@ input[type="number"] {
 .h-carousel {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .h-carousel-window {
-  --h-carousel-side: max(0px, calc((100% - var(--h-carousel-slide)) / 2));
   box-sizing: border-box;
   width: 100%;
+  min-width: 0;
   max-width: none;
   margin-inline: 0;
   background: #faf8f5;
@@ -429,7 +433,7 @@ input[type="number"] {
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--h-carousel-side);
+  scroll-padding-inline: 0;
   scroll-behavior: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
@@ -446,8 +450,8 @@ input[type="number"] {
   width: max-content;
   max-width: none;
   margin: 0;
-  padding-block: 1.35rem 0.35rem;
-  padding-inline: var(--h-carousel-side);
+  padding-block: 1.35rem 2.75rem;
+  padding-inline: 0;
   list-style: none;
 }
 
@@ -458,7 +462,7 @@ input[type="number"] {
   flex: 0 0 var(--h-carousel-slide);
   width: var(--h-carousel-slide);
   min-width: var(--h-carousel-slide);
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   scroll-snap-stop: normal;
   scroll-margin-inline: 0;
   background: #faf8f5;
@@ -514,16 +518,58 @@ input[type="number"] {
   backface-visibility: hidden;
 }
 
-.h-carousel-plaque {
-  min-height: 3.4rem;
-  padding-top: 0.9rem;
-  text-align: center;
-  opacity: 0;
+.h-carousel-plaques {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  margin-top: -1.85rem;
   pointer-events: none;
 }
 
-.h-carousel-slide.is-active .h-carousel-plaque {
+.h-carousel-plaque-track {
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translateX(calc(-1 * var(--h-scroll)));
+}
+
+.h-carousel-plaque {
+  box-sizing: border-box;
+  flex: 0 0 var(--h-carousel-slide);
+  width: var(--h-carousel-slide);
+  min-height: 3.6rem;
+  padding: 0 0.75rem;
+  text-align: center;
+  opacity: 0;
+}
+
+.h-carousel-plaque.is-active {
+  position: relative;
+  z-index: 2;
   opacity: 1;
+}
+
+.h-carousel-plaque:not(:last-child) {
+  margin-inline-end: var(--h-carousel-gap);
+}
+
+.h-carousel:has(.h-carousel-window[data-count="1"]) .h-carousel-track,
+.h-carousel:has(.h-carousel-window[data-count="1"]) .h-carousel-plaque-track {
+  width: 100%;
+  justify-content: center;
+}
+
+.h-carousel:has(.h-carousel-window[data-count="1"]) .h-carousel-plaque-track {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .h-carousel-plaque {
+    transition: opacity 0.35s ease;
+  }
 }
 
 .h-carousel-plaque-title {
@@ -547,37 +593,45 @@ input[type="number"] {
 .h-carousel-nav {
   display: none;
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   top: calc(1.35rem + (var(--h-carousel-slide) * 5 / 8));
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   place-items: center;
   appearance: none;
   padding: 0;
-  border: 1px solid rgb(232 164 168 / 0.55);
+  border: 1px solid rgb(232 164 168 / 0.4);
   border-radius: 999px;
-  background: rgb(251 246 239 / 0.92);
+  background: rgb(250 248 245 / 0.55);
   color: #3d342c;
+  opacity: 0.45;
   transform: translateY(-50%);
   cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
 }
 
 .h-carousel-nav svg {
-  width: 0.85rem;
-  height: 0.85rem;
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.h-carousel-nav:hover:not(:disabled),
+.h-carousel-nav:focus-visible:not(:disabled) {
+  opacity: 1;
+  background: rgb(250 248 245 / 0.92);
 }
 
 .h-carousel-nav:disabled {
-  opacity: 0.35;
-  cursor: default;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .h-carousel-nav-prev {
-  left: max(0.5rem, calc(50% - (var(--h-carousel-slide) / 2) - 3.25rem));
+  left: 0.85rem;
 }
 
 .h-carousel-nav-next {
-  right: max(0.5rem, calc(50% - (var(--h-carousel-slide) / 2) - 3.25rem));
+  right: 0.85rem;
 }
 
 .h-carousel-dots {
@@ -819,6 +873,7 @@ input[type="number"] {
   header,
   .h-carousel-art,
   .h-carousel-plaque,
+  .h-carousel-nav,
   .h-carousel-slide.is-active .h-carousel-art {
     animation: none;
     transition: none;
