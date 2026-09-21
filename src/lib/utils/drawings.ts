@@ -40,10 +40,3 @@ export const hasPublicArtworkImage = (drawing: PublicArtworkImage) =>
 
 export const withPublicArtworkImage = <T extends PublicArtworkImage>(items: T[]) =>
   items.filter(hasPublicArtworkImage);
-
-/** Data attrs so CSS can fill leftover tracks instead of leaving empty grid holes. */
-export const wallPackProps = (count: number) => ({
-  "data-count": String(count),
-  "data-pack-sm": String(count % 2),
-  "data-pack-lg": String(count % 3),
-});

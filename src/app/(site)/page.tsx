@@ -42,9 +42,10 @@ const getHomeShowcase = async (): Promise<{
       .limit(48)
       .lean();
 
-    const withFiles = latestDrawings.filter(
-      (drawing) => drawing.thumbnailName || drawing.fileName
-    );
+    // Carousel shows the six newest artworks that have a public image.
+    const withFiles = latestDrawings
+      .filter((drawing) => drawing.thumbnailName || drawing.fileName)
+      .slice(0, 6);
 
     const drawings = (
       await Promise.all(

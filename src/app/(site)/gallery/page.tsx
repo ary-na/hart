@@ -4,6 +4,7 @@ import { auth } from "@hart/server/auth";
 import { Breadcrumbs } from "@hart/lib/ui";
 import { ModalController } from "@hart/lib/ui";
 import GalleryGrid from "@hart/components/site/GalleryGrid";
+import PageHeader from "@hart/components/site/PageHeader";
 import DrawingsProvider from "@hart/context/DrawingsContext";
 import AddDrawingModal from "@hart/components/admin/AddDrawingModal";
 
@@ -19,42 +20,33 @@ const Gallery = async () => {
   return (
     <DrawingsProvider>
       <section
-        className="mx-auto w-full max-w-6xl px-4 pb-20 pt-10 md:pb-28 md:pt-16"
+        className="h-page-shell mx-auto w-full max-w-6xl px-4 pb-20 md:pb-28"
         aria-labelledby="gallery-heading"
       >
-        <header className="mb-10 flex items-end justify-between gap-4">
-          <div className="h-reveal">
-            <h1 id="gallery-heading" className="h-heading-rose text-3xl md:text-4xl">
-              Gallery
-            </h1>
-            {isAdmin ? (
-              <div className="mt-4">
-                <Breadcrumbs
-                  items={[
-                    { label: "Home", href: "/" },
-                    { label: "Dashboard", href: "/admin" },
-                    { label: "Gallery" },
-                  ]}
-                />
-              </div>
-            ) : (
-              <p
-                className="mt-6 max-w-md text-base leading-relaxed opacity-75"
-                style={{ ["--reveal-delay" as never]: "80ms" }}
-              >
-                Gentle animal portraits, made to live with.
-              </p>
-            )}
-          </div>
-          {isAdmin && (
-            <ModalController
-              trigger="Add Drawing"
-              className="btn-primary btn-sm h-reveal rounded-full"
-              ariaLabel="Add a new drawing"
-              ModalComponent={AddDrawingModal}
-            />
-          )}
-        </header>
+        <PageHeader
+          id="gallery-heading"
+          title="Gallery"
+          lede="Gentle animal portraits, made to live with."
+        >
+          {isAdmin ? (
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <Breadcrumbs
+                className="mb-0 w-fit"
+                items={[
+                  { label: "Home", href: "/" },
+                  { label: "Dashboard", href: "/admin" },
+                  { label: "Gallery" },
+                ]}
+              />
+              <ModalController
+                trigger="Add Drawing"
+                className="btn-primary btn-sm rounded-full"
+                ariaLabel="Add a new drawing"
+                ModalComponent={AddDrawingModal}
+              />
+            </div>
+          ) : null}
+        </PageHeader>
 
         <div role="region" aria-label="Gallery of artworks">
           <GalleryGrid />

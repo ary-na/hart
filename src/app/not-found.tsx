@@ -13,11 +13,11 @@ const NotFound = () => {
           className="flex flex-1 flex-col items-center justify-center gap-8 px-4 py-20"
           aria-labelledby="not-found-heading"
         >
-          <header className="flex max-w-md flex-col items-center gap-3 text-center">
-            <h1 id="not-found-heading" className="text-3xl md:text-4xl">
+          <header className="h-page-header">
+            <h1 id="not-found-heading" className="h-page-title">
               This page wandered off.
             </h1>
-            <p className="leading-relaxed opacity-75">
+            <p className="h-page-lede">
               The page you’re looking for isn’t here. Take a quiet look through
               the gallery instead.
             </p>

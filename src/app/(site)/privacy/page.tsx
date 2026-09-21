@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageHeader from "@hart/components/site/PageHeader";
 
 export const metadata = {
   title: "Privacy Policy",
@@ -61,14 +62,14 @@ const sections = [
 
 const Privacy = () => {
   return (
-    <article className="mx-auto w-full max-w-[65ch] px-4 py-16 md:py-24">
-      <header className="h-reveal">
-        <p className="h-kicker">Legal</p>
-        <h1 className="mt-3 text-3xl md:text-4xl">Privacy Policy</h1>
-        <p className="mt-3 text-sm opacity-70">Last updated: 18 September 2026</p>
-      </header>
+    <article className="h-page-shell mx-auto w-full max-w-[65ch] px-4 pb-16 md:pb-24">
+      <PageHeader
+        title="Privacy Policy"
+        lede="How I look after your information."
+      />
 
-      <div className="h-studio-card mt-10 space-y-10 px-6 py-8 md:px-10 md:py-12">
+      <div className="h-studio-card space-y-10 px-6 py-8 md:px-10 md:py-12">
+        <p className="text-left text-sm opacity-60">Last updated: 18 September 2026</p>
         {sections.map((section) => (
           <section key={section.title}>
             <h2 className="text-xl">{section.title}</h2>
