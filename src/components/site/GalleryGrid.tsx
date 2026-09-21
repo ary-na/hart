@@ -9,7 +9,6 @@ import { Drawing } from "@hart/lib/types";
 import {
   paintingAlt,
   sortNewestFirst,
-  wallPackProps,
   withPublicArtworkImage,
 } from "@hart/lib/utils";
 import { useEffect, useMemo, useState } from "react";
@@ -67,7 +66,7 @@ const GalleryGrid = () => {
       {!loading && listed.length === 0 && <EmptyGallery />}
 
       {listed.length > 0 && (
-        <div className="h-wall" {...wallPackProps(listed.length)}>
+        <div className="h-wall">
           {listed.map((drawing, index) => (
             <div
               key={drawing._id}

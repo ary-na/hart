@@ -1,19 +1,22 @@
 import Link from "next/link";
+import PageHeader from "@hart/components/site/PageHeader";
 
 export const metadata = {
   title: "About me",
+  description: "From Bandung to Melbourne, animals only.",
 };
 
 const About = () => {
   return (
     <>
-      <section className="mx-auto w-full max-w-6xl px-4 py-16 md:py-24">
+      <section className="mx-auto w-full max-w-6xl px-4 pb-16 pt-16 md:pb-24 md:pt-24">
+        <PageHeader
+          title="About me"
+          lede="From Bandung to Melbourne, animals only."
+        />
         <div className="grid items-stretch gap-10 lg:grid-cols-2 lg:gap-16">
           <article className="h-reveal max-w-xl">
-            <h1 className="h-heading-rose text-3xl leading-snug md:text-4xl">
-              About me
-            </h1>
-            <p className="mt-8 text-base leading-8 opacity-80 md:text-lg">
+            <p className="text-base leading-8 opacity-80 md:text-lg">
               I’m Hilda. I’m from Bandung, Indonesia, and my studio is in
               Melbourne, Australia. I’ve been painting since I was little,
               starting with tiny animals in the margins of my notebooks.

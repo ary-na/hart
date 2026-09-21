@@ -12,6 +12,8 @@ type HomeGalleryWallProps = {
   drawings: ShowcaseDrawing[];
 };
 
+const HOME_CAROUSEL_COUNT = 6;
+
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -50,7 +52,10 @@ const closestSlideIndex = (scroller: HTMLElement, slides: (HTMLElement | null)[]
 };
 
 const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
-  const visible = sortNewestFirst(withPublicArtworkImage(drawings));
+  const visible = sortNewestFirst(withPublicArtworkImage(drawings)).slice(
+    0,
+    HOME_CAROUSEL_COUNT
+  );
   const headingId = useId();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLLIElement | null)[]>([]);
@@ -206,43 +211,33 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
                   aria-label={`${index + 1} of ${visible.length}`}
                 >
                   <figure className="h-carousel-figure">
-                    {isActive ? (
+                    <div className="h-carousel-art">
+                      {src ? (
+                        <Image
+                          src={src}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1024px) min(60vw, 720px), (min-width: 768px) 70vw, 85vw"
+                          className="object-cover"
+                          priority={index < 2}
+                          unoptimized
+                        />
+                      ) : null}
                       <Link
                         href={`/gallery?drawing=${drawing._id}`}
-                        className="h-carousel-art"
-                        aria-label={`View ${paintingAlt(drawing.title)}`}
-                      >
-                        {src ? (
-                          <Image
-                            src={src}
-                            alt=""
-                            fill
-                            sizes="(min-width: 1024px) min(60vw, 720px), (min-width: 768px) 70vw, 85vw"
-                            className="object-cover"
-                            priority={index < 2}
-                            unoptimized
-                          />
-                        ) : null}
-                      </Link>
-                    ) : (
-                      <button
-                        type="button"
-                        className="h-carousel-art"
-                        aria-label={`Show ${paintingAlt(drawing.title)}`}
-                        onClick={() => scrollToIndex(index)}
-                      >
-                        {src ? (
-                          <Image
-                            src={src}
-                            alt=""
-                            fill
-                            sizes="(min-width: 1024px) min(60vw, 720px), (min-width: 768px) 70vw, 85vw"
-                            className="object-cover"
-                            unoptimized
-                          />
-                        ) : null}
-                      </button>
-                    )}
+                        className="h-carousel-hit"
+                        aria-label={
+                          isActive
+                            ? `View ${paintingAlt(drawing.title)}`
+                            : `Show ${paintingAlt(drawing.title)}`
+                        }
+                        onClick={(event) => {
+                          if (isActive) return;
+                          event.preventDefault();
+                          scrollToIndex(index);
+                        }}
+                      />
+                    </div>
 
                     <figcaption
                       className="h-carousel-plaque"
