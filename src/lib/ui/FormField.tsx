@@ -21,6 +21,7 @@ interface FormFieldProps {
   showToggle?: boolean;
   as?: "input" | "textarea";
   rows?: number;
+  hint?: string;
 }
 
 export function FormField({
@@ -38,10 +39,13 @@ export function FormField({
   showToggle = false,
   as = "input",
   rows = 4,
+  hint,
 }: FormFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const errorId = error ? `${id}-error` : undefined;
+  const hintId = hint ? `${id}-hint` : undefined;
+  const describedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
   const inputType = showToggle ? (showPassword ? "text" : "password") : type;
 
   return (
@@ -58,7 +62,8 @@ export function FormField({
           required={required}
           aria-required={required}
           aria-invalid={!!error}
-          aria-describedby={errorId}
+          aria-describedby={describedBy}
+          aria-errormessage={errorId}
           rows={rows}
           {...registerProps}
           className={cn(
@@ -84,7 +89,8 @@ export function FormField({
               required={required}
               aria-required={required}
               aria-invalid={!!error}
-              aria-describedby={errorId}
+              aria-describedby={describedBy}
+              aria-errormessage={errorId}
               enterKeyHint={enterKeyHint}
               {...registerProps}
               className="w-full bg-transparent outline-none pr-10"
@@ -136,8 +142,14 @@ export function FormField({
         </div>
       )}
 
+      {hint && (
+        <p id={hintId} className="label mt-2 text-sm opacity-80">
+          {hint}
+        </p>
+      )}
+
       {error && (
-        <p id={errorId} role="alert" className="label-text-alt text-error mt-1">
+        <p id={errorId} role="alert" className="label-text-alt mt-1 text-error">
           {error}
         </p>
       )}

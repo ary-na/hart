@@ -7,6 +7,6 @@ export const useSignout = () => {
     if (e?.preventDefault) e.preventDefault();
     sessionStorage.removeItem("welcome-toast-shown");
     sessionStorage.setItem("signed-out-toast", "1");
-    await signOut({ redirectTo: "/signin" });
+    await signOut({ redirectTo: "/" });
   };
 };

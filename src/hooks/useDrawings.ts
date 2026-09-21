@@ -4,8 +4,9 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Drawing, FetchOptions, UseDrawingsReturn } from "@hart/lib/types";
 import { AddDrawingInput, UpdateDrawingInput } from "@hart/lib/validators";
+import { sortNewestFirst } from "@hart/lib/utils";
 
-const LIMIT = 12;
+const LIMIT = 48;
 
 export const useDrawings = (): UseDrawingsReturn => {
   const [drawings, setDrawings] = useState<Drawing[]>([]);
@@ -57,14 +58,15 @@ export const useDrawings = (): UseDrawingsReturn => {
 
         setDrawings((prev) => {
           if (!append) {
-            skipRef.current = data.length;
-            return data;
+            const sorted = sortNewestFirst(data);
+            skipRef.current = sorted.length;
+            return sorted;
           }
 
           const existingIds = new Set(prev.map((d) => d._id));
           const newUniqueDrawings = data.filter((d) => !existingIds.has(d._id));
           skipRef.current += newUniqueDrawings.length;
-          return [...prev, ...newUniqueDrawings];
+          return sortNewestFirst([...prev, ...newUniqueDrawings]);
         });
       } catch (err) {
         const e = err instanceof Error ? err : new Error("Unknown error");
@@ -97,6 +99,9 @@ export const useDrawings = (): UseDrawingsReturn => {
         const formData = new FormData();
         formData.append("title", data.title.trim());
         formData.append("description", data.description.trim());
+        if (data.creditLine?.trim()) {
+          formData.append("creditLine", data.creditLine.trim());
+        }
         const file = data.file instanceof File ? data.file : data.file?.[0];
         formData.append("file", file);
 
@@ -153,6 +158,7 @@ export const useDrawings = (): UseDrawingsReturn => {
         const formData = new FormData();
         formData.append("title", data.title.trim());
         formData.append("description", data.description.trim());
+        formData.append("creditLine", data.creditLine?.trim() ?? "");
 
         const file = data.file instanceof File ? data.file : data.file?.[0];
         if (file) formData.append("file", file);

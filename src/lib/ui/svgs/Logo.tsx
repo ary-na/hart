@@ -1,14 +1,15 @@
 // src/lib/ui/Logo.tsx
 
+import { useId } from "react";
 import { SvgIconProps } from "@hart/lib/types";
 
 export const Logo = ({
   className = "",
-  label = "Hilda loves Art Logo",
-  title = "Hilda loves Art Logo",
+  label,
+  title,
   ...rest
 }: SvgIconProps) => {
-  const titleId = "logo";
+  const titleId = useId();
   return (
     <svg
       focusable={false}

@@ -45,7 +45,7 @@ const SigninClient = () => {
 
         <p className="text-center mt-8">
           <span className="opacity-75">Don&apos;t have an account?</span>{" "}
-          <Link className="link link-primary" href="/signup">
+          <Link className="h-inline-link" href="/signup">
             Sign up
           </Link>
         </p>

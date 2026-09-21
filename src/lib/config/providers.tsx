@@ -4,18 +4,19 @@
 
 import { ThemeProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
-import CartProvider from "@hart/context/CartContext";
+import AuthModalProvider from "@hart/context/AuthModalContext";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <SessionProvider>
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
-        enableSystem
+        forcedTheme="light"
+        defaultTheme="light"
+        enableSystem={false}
         disableTransitionOnChange
       >
-        <CartProvider>{children}</CartProvider>
+        <AuthModalProvider>{children}</AuthModalProvider>
       </ThemeProvider>
     </SessionProvider>
   );

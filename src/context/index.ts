@@ -2,3 +2,4 @@
 
 export * from "./DrawingsContext";
 export * from "./CartContext";
+export * from "./AuthModalContext";

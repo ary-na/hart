@@ -4,7 +4,6 @@
 import { FormField } from "@hart/lib/ui";
 import { SubmitButton } from "@hart/lib/ui";
 import { useSignin } from "@hart/hooks";
-import Link from "next/link";
 
 export default function ForgotPasswordForm() {
   const {
@@ -19,9 +18,14 @@ export default function ForgotPasswordForm() {
   } = useSignin();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" noValidate>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid gap-4"
+      noValidate
+      aria-describedby={serverError ? "forgot-password-server-error" : undefined}
+    >
       <fieldset className="space-y-4">
-        <legend className="sr-only">Sign-in credentials</legend>
+        <legend className="sr-only">Password reset</legend>
 
         {/* Email field */}
         <FormField
@@ -56,7 +60,7 @@ export default function ForgotPasswordForm() {
       </fieldset>
 
       {serverError && (
-        <p className="text-error" role="alert">
+        <p id="forgot-password-server-error" className="text-error" role="alert">
           {serverError}
         </p>
       )}
