@@ -14,22 +14,22 @@ type HomeGalleryWallProps = {
 
 const HOME_CAROUSEL_COUNT = 6;
 
+const EASE_MS = 560;
+
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const scrollSlideToCentre = (
-  scroller: HTMLElement,
-  slide: HTMLElement,
-  behavior: ScrollBehavior
-) => {
+const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+
+const centredScrollLeft = (scroller: HTMLElement, slide: HTMLElement) => {
   const scrollerRect = scroller.getBoundingClientRect();
   const slideRect = slide.getBoundingClientRect();
   const side = (scroller.clientWidth - slideRect.width) / 2;
-  const left =
-    scroller.scrollLeft + (slideRect.left - scrollerRect.left) - side;
-
-  scroller.scrollTo({ left, behavior });
+  const left = scroller.scrollLeft + (slideRect.left - scrollerRect.left) - side;
+  const maxLeft = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+  return Math.min(Math.max(0, left), maxLeft);
 };
 
 const closestSlideIndex = (scroller: HTMLElement, slides: (HTMLElement | null)[]) => {
@@ -60,7 +60,39 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLLIElement | null)[]>([]);
   const programmaticUntilRef = useRef(0);
+  const animationRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const easeScrollTo = useCallback((scroller: HTMLElement, left: number) => {
+    cancelAnimationFrame(animationRef.current);
+
+    if (prefersReducedMotion()) {
+      scroller.style.scrollSnapType = "";
+      scroller.scrollLeft = left;
+      return;
+    }
+
+    const start = scroller.scrollLeft;
+    const change = left - start;
+    if (Math.abs(change) < 1) return;
+
+    const started = performance.now();
+    programmaticUntilRef.current = started + EASE_MS + 48;
+    scroller.style.scrollSnapType = "none";
+
+    const step = (now: number) => {
+      const t = Math.min(1, (now - started) / EASE_MS);
+      scroller.scrollLeft = start + change * easeInOutCubic(t);
+      if (t < 1) {
+        animationRef.current = requestAnimationFrame(step);
+        return;
+      }
+      scroller.scrollLeft = left;
+      scroller.style.scrollSnapType = "";
+    };
+
+    animationRef.current = requestAnimationFrame(step);
+  }, []);
 
   const scrollToIndex = useCallback(
     (index: number) => {
@@ -69,12 +101,10 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
       const slide = slideRefs.current[next];
       if (!scroller || !slide) return;
 
-      const reduced = prefersReducedMotion();
-      programmaticUntilRef.current = performance.now() + (reduced ? 0 : 480);
-      scrollSlideToCentre(scroller, slide, reduced ? "auto" : "smooth");
+      easeScrollTo(scroller, centredScrollLeft(scroller, slide));
       setActiveIndex(next);
     },
-    [visible.length]
+    [easeScrollTo, visible.length]
   );
 
   const syncActiveFromScroll = useCallback(() => {
@@ -104,10 +134,15 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
       slideRect.width / 2 -
       (scrollerRect.left + scrollerRect.width / 2);
 
-    if (Math.abs(offset) > 1) {
-      scrollSlideToCentre(scroller, slide, "auto");
+    if (Math.abs(offset) <= 2) return;
+
+    if (prefersReducedMotion()) {
+      scroller.scrollLeft = centredScrollLeft(scroller, slide);
+      return;
     }
-  }, [syncActiveFromScroll]);
+
+    easeScrollTo(scroller, centredScrollLeft(scroller, slide));
+  }, [easeScrollTo, syncActiveFromScroll]);
 
   useEffect(() => {
     const scroller = scrollerRef.current;
@@ -132,6 +167,8 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
 
     return () => {
       cancelAnimationFrame(frame);
+      cancelAnimationFrame(animationRef.current);
+      scroller.style.scrollSnapType = "";
       window.clearTimeout(settleTimer);
       scroller.removeEventListener("scroll", onScroll);
       scroller.removeEventListener("scrollend", settleOnCentre);
