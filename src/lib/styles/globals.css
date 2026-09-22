@@ -384,15 +384,18 @@ input[type="number"] {
 
 /* Home wall carousel — full-bleed track, snap-to-centre, plaque on the active painting only.
    The scroller is the viewport width so side peeks run to the browser edges.
-   Slides snap to centre. There is no leading/trailing gutter, so the first and
-   last slides rest flush with the outer edge instead of sitting in an empty
-   porcelain void. Mid slides still centre, with a peek on both sides.
-   The title plaque is a twin of the art track, translated with scroll, so it
-   sits under the active piece and is not clipped by the horizontal scroller. */
+   Snap is start + scroll-padding, with matching track padding, so every real
+   slide including the first and last rests in the centre slot.
+   Decorative clones fill that outer slot with the other end of the set, so the
+   edge peeks stay full-bleed instead of an empty porcelain gutter.
+   The title plaque is a twin of the art track, translated with scroll, and sits
+   under the active piece outside the horizontal scroller. */
 .h-carousel-section {
   --h-carousel-gap: 12px;
   --h-carousel-slide: 85vw;
+  --h-carousel-side: max(0px, calc((100% - var(--h-carousel-slide)) / 2));
   --h-scroll: 0px;
+  --h-count: 1;
   width: 100%;
   max-width: 100%;
   padding: 2.5rem 0 4.5rem;
@@ -433,9 +436,10 @@ input[type="number"] {
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 0;
+  scroll-padding-inline: var(--h-carousel-side);
   scroll-behavior: auto;
   scrollbar-width: none;
+  container-type: inline-size;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -444,6 +448,7 @@ input[type="number"] {
 }
 
 .h-carousel-track {
+  position: relative;
   display: flex;
   align-items: flex-start;
   box-sizing: border-box;
@@ -451,7 +456,7 @@ input[type="number"] {
   max-width: none;
   margin: 0;
   padding-block: 1.35rem 2.75rem;
-  padding-inline: 0;
+  padding-inline: var(--h-carousel-side);
   list-style: none;
 }
 
@@ -462,14 +467,49 @@ input[type="number"] {
   flex: 0 0 var(--h-carousel-slide);
   width: var(--h-carousel-slide);
   min-width: var(--h-carousel-slide);
-  scroll-snap-align: center;
+  scroll-snap-align: start;
   scroll-snap-stop: normal;
   scroll-margin-inline: 0;
   background: #faf8f5;
 }
 
-.h-carousel-slide:not(:last-child) {
-  margin-inline-end: var(--h-carousel-gap);
+.h-carousel-slide + .h-carousel-slide {
+  margin-inline-start: var(--h-carousel-gap);
+}
+
+.h-carousel-clone {
+  position: absolute;
+  z-index: 0;
+  top: 1.35rem;
+  overflow: hidden;
+  pointer-events: none;
+  scroll-snap-align: none;
+}
+
+.h-carousel-clone-before,
+.h-carousel-clone-after {
+  width: max(0px, calc((100cqw - var(--h-carousel-slide)) / 2 - var(--h-carousel-gap)));
+}
+
+.h-carousel-clone-before {
+  left: 0;
+}
+
+.h-carousel-clone-after {
+  left: calc(
+    (100cqw - var(--h-carousel-slide)) / 2 +
+      var(--h-count) * var(--h-carousel-slide) +
+      var(--h-count) * var(--h-carousel-gap)
+  );
+}
+
+.h-carousel-clone .h-carousel-art {
+  width: var(--h-carousel-slide);
+  max-width: none;
+}
+
+.h-carousel-clone-before .h-carousel-art {
+  margin-left: calc(100% - var(--h-carousel-slide));
 }
 
 .h-carousel-slide.is-active {
@@ -531,7 +571,7 @@ input[type="number"] {
   align-items: flex-start;
   width: max-content;
   margin: 0;
-  padding: 0;
+  padding-inline: var(--h-carousel-side);
   list-style: none;
   transform: translateX(calc(-1 * var(--h-scroll)));
 }
@@ -622,16 +662,16 @@ input[type="number"] {
 }
 
 .h-carousel-nav:disabled {
-  opacity: 0;
+  opacity: 0.22;
   pointer-events: none;
 }
 
 .h-carousel-nav-prev {
-  left: 0.85rem;
+  left: calc(50% - (var(--h-carousel-slide) / 2) - 1.75rem - 2px);
 }
 
 .h-carousel-nav-next {
-  right: 0.85rem;
+  right: calc(50% - (var(--h-carousel-slide) / 2) - 1.75rem - 2px);
 }
 
 .h-carousel-dots {
