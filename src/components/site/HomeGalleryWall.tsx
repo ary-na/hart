@@ -29,14 +29,15 @@ const centredScrollLeft = (scroller: HTMLElement, slide: HTMLElement) => {
   const side = (scroller.clientWidth - slideRect.width) / 2;
   const left = scroller.scrollLeft + (slideRect.left - scrollerRect.left) - side;
   const maxLeft = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
-  // First and last slides cannot reach a geometric centre. Clamping parks
-  // them flush with the outer edge so the empty side is not a porcelain gutter.
   return Math.min(Math.max(0, left), maxLeft);
 };
 
 const publishScroll = (scroller: HTMLElement) => {
   scroller.parentElement?.style.setProperty("--h-scroll", `${scroller.scrollLeft}px`);
 };
+
+const imageSrc = (drawing: ShowcaseDrawing) =>
+  drawing.fileUrl || drawing.thumbnailUrl || "";
 
 const closestSlideIndex = (scroller: HTMLElement, slides: (HTMLElement | null)[]) => {
   const scrollerRect = scroller.getBoundingClientRect();
@@ -198,6 +199,7 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
   return (
     <section
       className="h-carousel-section"
+      style={{ ["--h-count" as string]: visible.length }}
       aria-labelledby={headingId}
       aria-roledescription="carousel"
     >
@@ -244,9 +246,24 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
           }}
         >
           <ul className="h-carousel-track">
+            {visible.length > 1 && imageSrc(visible[visible.length - 1]) ? (
+              <li className="h-carousel-clone h-carousel-clone-before" aria-hidden="true">
+                <div className="h-carousel-art">
+                  <Image
+                    src={imageSrc(visible[visible.length - 1])}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) min(60vw, 720px), (min-width: 768px) 70vw, 85vw"
+                    className="object-cover"
+                    priority
+                    unoptimized
+                  />
+                </div>
+              </li>
+            ) : null}
             {visible.map((drawing, index) => {
               const isActive = index === activeIndex;
-              const src = drawing.fileUrl || drawing.thumbnailUrl;
+              const src = imageSrc(drawing);
 
               return (
                 <li
@@ -293,6 +310,20 @@ const HomeGalleryWall = ({ drawings }: HomeGalleryWallProps) => {
                 </li>
               );
             })}
+            {visible.length > 1 && imageSrc(visible[0]) ? (
+              <li className="h-carousel-clone h-carousel-clone-after" aria-hidden="true">
+                <div className="h-carousel-art">
+                  <Image
+                    src={imageSrc(visible[0])}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) min(60vw, 720px), (min-width: 768px) 70vw, 85vw"
+                    className="object-cover"
+                    unoptimized
+                  />
+                </div>
+              </li>
+            ) : null}
           </ul>
         </div>
 
