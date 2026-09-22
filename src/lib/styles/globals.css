@@ -635,43 +635,46 @@ input[type="number"] {
   position: absolute;
   z-index: 3;
   top: calc(1.35rem + (var(--h-carousel-slide) * 5 / 8));
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 38px;
+  height: 38px;
   place-items: center;
   appearance: none;
   padding: 0;
-  border: 1px solid rgb(232 164 168 / 0.4);
+  border: 1px solid rgb(232 164 168 / 0.25);
   border-radius: 999px;
-  background: rgb(250 248 245 / 0.55);
-  color: #3d342c;
-  opacity: 0.45;
+  background: rgb(250 248 245 / 0.4);
+  color: rgb(232 164 168 / 0.55);
   transform: translateY(-50%);
   cursor: pointer;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .h-carousel-nav svg {
-  width: 0.7rem;
-  height: 0.7rem;
+  width: 0.8rem;
+  height: 0.8rem;
 }
 
 .h-carousel-nav:hover:not(:disabled),
 .h-carousel-nav:focus-visible:not(:disabled) {
-  opacity: 1;
-  background: rgb(250 248 245 / 0.92);
+  background: rgb(250 248 245 / 0.7);
+  color: #e8a4a8;
+  border-color: rgb(232 164 168 / 0.45);
 }
 
 .h-carousel-nav:disabled {
-  opacity: 0.22;
+  background: rgb(250 248 245 / 0.22);
+  color: rgb(232 164 168 / 0.35);
+  border-color: rgb(232 164 168 / 0.16);
   pointer-events: none;
+  cursor: default;
 }
 
 .h-carousel-nav-prev {
-  left: calc(50% - (var(--h-carousel-slide) / 2) - 1.75rem - 2px);
+  left: calc(50% - (var(--h-carousel-slide) / 2) - 38px - 2px);
 }
 
 .h-carousel-nav-next {
-  right: calc(50% - (var(--h-carousel-slide) / 2) - 1.75rem - 2px);
+  right: calc(50% - (var(--h-carousel-slide) / 2) - 38px - 2px);
 }
 
 .h-carousel-dots {
@@ -699,12 +702,14 @@ input[type="number"] {
 }
 
 @media (min-width: 768px) {
-  .h-carousel-nav {
-    display: grid;
-  }
-
   .h-carousel-dots {
     display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  .h-carousel-nav {
+    display: grid;
   }
 }
 
